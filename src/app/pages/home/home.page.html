@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    Current status: {{ connectionStatus }}<br />
+    Addresses: {{ addresses | json }}<br />
+    <ion-button (click)="askForPermissions()">Ask for permissions</ion-button><br />
+    <ion-button (click)="sign()">Sign something</ion-button><br />
+  </ion-card>
+</ion-content>

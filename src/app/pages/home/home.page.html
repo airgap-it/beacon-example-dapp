@@ -5,7 +5,7 @@
     </ion-buttons>
     <ion-title>
       beacon
-      <small>example dapp</small>
+      <small>example dApp</small>
     </ion-title>
     <ion-buttons slot="end">
       <ion-button>
@@ -19,13 +19,29 @@
 <ion-content class="ion-padding">
   <ion-row>
     <ion-col>
-      <h3></h3>
-      <p>
+      <p class="intro__container">
         This is an example dapp that implements the
         <a href="">beacon-sdk</a>
         with the message types defined in
         <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
-        .
+        which describes an interaction standard between a wallet and a dApp.
+      </p>
+      <p class="intro__container">
+        Where a dApp impelementing the
+        <a href="">beacon-sdk</a>
+        can build up a channel and send messages over a pee to peer communication layer to a wallet using the sdk. This
+        allows for a communication for example of a mobile wallet with a desktop application. The signing requests of
+        the dApp are send to the mobile wallet signed there and returned to the application.
+      </p>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <h1>Message Types</h1>
+      <p>
+        The following message types have been implemented from the
+        <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
+        standard.
       </p>
     </ion-col>
   </ion-row>

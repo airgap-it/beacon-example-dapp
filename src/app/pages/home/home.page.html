@@ -4,59 +4,127 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Home
+      beacon
+      <small>example dapp</small>
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <!--TODO: address of current active account-->
+        account
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
-    Current status: {{ connectionStatus }}
-    <br />
-    Addresses: {{ addresses | json }}
-    <br />
-    <ion-button (click)="askForPermissions()">Ask for permissions</ion-button>
-    <br />
-    <ion-button (click)="sign()">Sign something</ion-button>
-    <br />
-  </ion-card>
+<ion-content class="ion-padding">
+  <ion-row>
+    <ion-col>
+      <h3></h3>
+      <p>
+        This is an example dapp that implements the
+        <a href="">beacon-sdk</a>
+        with the message types defined in
+        <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
+        .
+      </p>
+    </ion-col>
+  </ion-row>
+  <ion-row class="ion-padding-bottom">
+    <ion-col>
+      <h3>
+        permissionRequest
+        <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+      </h3>
+      <p class="ion-padding-bottom">App requests permission to access account details from wallet.</p>
+      <ion-card class="ion-no-margin">
+        <ion-item lines="none">
+          <ion-label>Granted Permissions</ion-label>
+        </ion-item>
+        <ion-card-content>
+          <ng-container *ngIf="!addresses.length">
+            <p>No permissions yet. Request permissions from the wallet first.</p>
+          </ng-container>
+          <ng-container *ngIf="addresses.length > 0">
+            <p>{{ addresses | json }}</p>
+          </ng-container>
+        </ion-card-content>
+        <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 
-  <ion-card *ngIf="addresses.length > 0">
-    <ion-item>
-      <ion-label>Contract Address</ion-label>
-      <ion-input [(ngModel)]="contractAddress"></ion-input>
-    </ion-item>
-    <ion-button (click)="getBalanceOfContract()">Get Balance</ion-button>
+  <ion-row class="ion-padding-bottom">
+    <ion-col>
+      <h3>
+        operationRequest
+        <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+      </h3>
+      <p class="ion-padding-bottom">
+        App sends parameters like recipient and amount to the wallet and the wallet will prepare the transaction and
+        broadcast it.
+      </p>
+      <ion-card class="ion-no-margin">
+        <ion-item lines="none">
+          <ion-label>Contract Details</ion-label>
+        </ion-item>
+        <ion-card-content>
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label position="stacked">Contract Address</ion-label>
+            <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
+          </ion-item>
+          <p>FA Token balance: {{ contractBalance }}</p>
+          <ion-button (click)="getBalanceOfContract()">Get Balance</ion-button>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="ion-no-margin">
+        <ion-item lines="none">
+          <ion-label>Transfer</ion-label>
+        </ion-item>
 
-    <br />
+        <ion-card-content>
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label position="stacked">Amount</ion-label>
+            <ion-input [(ngModel)]="transferAmount" placeholder="15"></ion-input>
+          </ion-item>
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label position="stacked">Recipient</ion-label>
+            <ion-input [(ngModel)]="transferRecipient" placeholder="tz1.."></ion-input>
+          </ion-item>
+          <ion-button (click)="transfer()">Transfer</ion-button>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="ion-no-margin">
+        <ion-item lines="none">
+          <ion-label>Entrypoints</ion-label>
+        </ion-item>
 
-    FA Token balance: {{ contractBalance }}
+        <ion-card-content>
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label>Type</ion-label>
+            <ion-select placeholder="Type">
+              <ion-select-option value="f">Female</ion-select-option>
+              <ion-select-option value="m">Male</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-button (click)="delegate()">Generic operation</ion-button>
+        </ion-card-content>
+      </ion-card>
+      <p class="ion-padding-top"><b>More Examples</b></p>
+      <ion-card class="ion-no-margin">
+        <ion-card-content>
+          <ion-button (click)="delegate()">One Click Delegate</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 
-    <br />
-
-    <ion-item>
-      <ion-label>Transfer Amount</ion-label>
-      <ion-input [(ngModel)]="transferAmount"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Transfer Recipient</ion-label>
-      <ion-input [(ngModel)]="transferRecipient"></ion-input>
-    </ion-item>
-    <ion-button (click)="transfer()">Transfer</ion-button>
-  </ion-card>
-  <ion-card>
-    <ion-button (click)="delegate()">One Click Delegate</ion-button>
-  </ion-card>
-  <ion-card>
-    <ion-input></ion-input>
-    // Entrypoint
-    <ion-item>
-      <ion-label>Type</ion-label>
-      <ion-select placeholder="Type">
-        <ion-select-option value="f">Female</ion-select-option>
-        <ion-select-option value="m">Male</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-button (click)="delegate()">Generic operation</ion-button>
-  </ion-card>
+  <ion-row class="ion-padding-bottom">
+    <ion-col>
+      <h3>
+        broadcastRequest
+        <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+      </h3>
+      Current status: {{ connectionStatus }}
+    </ion-col>
+  </ion-row>
 </ion-content>

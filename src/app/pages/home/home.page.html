@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -11,10 +11,14 @@
 
 <ion-content>
   <ion-card>
-    Current status: {{ connectionStatus }}<br />
-    Addresses: {{ addresses | json }}<br />
-    <ion-button (click)="askForPermissions()">Ask for permissions</ion-button><br />
-    <ion-button (click)="sign()">Sign something</ion-button><br />
+    Current status: {{ connectionStatus }}
+    <br />
+    Addresses: {{ addresses | json }}
+    <br />
+    <ion-button (click)="askForPermissions()">Ask for permissions</ion-button>
+    <br />
+    <ion-button (click)="sign()">Sign something</ion-button>
+    <br />
   </ion-card>
 
   <ion-card *ngIf="addresses.length > 0">
@@ -26,9 +30,7 @@
 
     <br />
 
-    FA Token balance:
-
-    {{ contractBalance }}
+    FA Token balance: {{ contractBalance }}
 
     <br />
 
@@ -46,7 +48,8 @@
     <ion-button (click)="delegate()">One Click Delegate</ion-button>
   </ion-card>
   <ion-card>
-    <ion-input></ion-input> // Entrypoint
+    <ion-input></ion-input>
+    // Entrypoint
     <ion-item>
       <ion-label>Type</ion-label>
       <ion-select placeholder="Type">

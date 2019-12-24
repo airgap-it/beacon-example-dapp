@@ -47,36 +47,39 @@
     </ion-col>
   </ion-row>
   <ion-row class="ion-padding-bottom">
-    <ion-col>
+    <ion-col size-md="9">
       <h3>
         permissionRequest
         <ion-icon name="open" color="medium" mode="ios"></ion-icon>
       </h3>
       <p class="ion-padding-bottom">App requests permission to access account details from wallet.</p>
       <ion-card class="ion-no-margin">
-        <ion-item lines="none">
-          <ion-label>Granted Permissions</ion-label>
-        </ion-item>
         <ion-card-content>
+          <ion-card-subtitle>
+            Granted Permissions
+          </ion-card-subtitle>
           <ng-container *ngIf="!addresses.length">
             <p>No permissions yet. Request permissions from the wallet first.</p>
           </ng-container>
           <ng-container *ngIf="addresses.length > 0">
             <!--TODO: set disabled if permission not provided -->
             <ion-list lines="none">
-              <ion-item>
+              <ion-item class="ion-no-padding">
+                <ion-label>tz1ZV2dnQVNEMVXWDjsUELwUvZE9ynjWZaAG</ion-label>
+              </ion-item>
+              <ion-item class="ion-no-padding">
                 <ion-icon slot="start" name="eye"></ion-icon>
                 <ion-label>Read address</ion-label>
               </ion-item>
-              <ion-item>
+              <ion-item class="ion-no-padding">
                 <ion-icon slot="start" name="create"></ion-icon>
                 <ion-label>Sign transactions</ion-label>
               </ion-item>
-              <ion-item disabled>
+              <ion-item class="ion-no-padding" disabled>
                 <ion-icon slot="start" name="color-wand"></ion-icon>
                 <ion-label>Operations requests</ion-label>
               </ion-item>
-              <ion-item disabled>
+              <ion-item class="ion-no-padding" disabled>
                 <ion-icon slot="start" name="code-working"></ion-icon>
                 <ion-label>Threshold</ion-label>
               </ion-item>
@@ -90,7 +93,7 @@
   </ion-row>
 
   <ion-row class="ion-padding-bottom">
-    <ion-col>
+    <ion-col size-md="9">
       <h3>
         operationRequest
         <ion-icon name="open" color="medium" mode="ios"></ion-icon>
@@ -100,10 +103,10 @@
         broadcast it.
       </p>
       <ion-card class="ion-no-margin">
-        <ion-item lines="none">
-          <ion-label>Contract Details</ion-label>
-        </ion-item>
         <ion-card-content>
+          <ion-card-subtitle>
+            Contract Details
+          </ion-card-subtitle>
           <ion-item lines="none" class="ion-no-padding">
             <ion-label position="stacked">Contract Address</ion-label>
             <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
@@ -113,11 +116,10 @@
         </ion-card-content>
       </ion-card>
       <ion-card class="ion-no-margin">
-        <ion-item lines="none">
-          <ion-label>Transfer</ion-label>
-        </ion-item>
-
         <ion-card-content>
+          <ion-card-subtitle>
+            Transfer
+          </ion-card-subtitle>
           <ion-item lines="none" class="ion-no-padding">
             <ion-label position="stacked">Amount</ion-label>
             <ion-input [(ngModel)]="transferAmount" placeholder="15"></ion-input>
@@ -130,11 +132,10 @@
         </ion-card-content>
       </ion-card>
       <ion-card class="ion-no-margin">
-        <ion-item lines="none">
-          <ion-label>Entrypoints</ion-label>
-        </ion-item>
-
         <ion-card-content>
+          <ion-card-subtitle>
+            Entrypoints
+          </ion-card-subtitle>
           <ion-item lines="none" class="ion-no-padding">
             <ion-label>Type</ion-label>
             <ion-select placeholder="Type">
@@ -155,7 +156,7 @@
   </ion-row>
 
   <ion-row class="ion-padding-bottom">
-    <ion-col>
+    <ion-col size-md="9">
       <h3>
         broadcastRequest
         <ion-icon name="open" color="medium" mode="ios"></ion-icon>

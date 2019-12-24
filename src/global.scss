@@ -60,3 +60,22 @@ a {
   text-decoration: none;
   font-weight: 500;
 }
+ion-item {
+  .label-stacked.sc-ion-label-md-h {
+    width: max-content !important;
+    background-color: white;
+    z-index: 10;
+    margin: 0 8px !important;
+    padding: 8px 6px 0 !important;
+  }
+  .sc-ion-input-md-h {
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: 4px;
+    --padding-start: 12px !important;
+    --padding-top: 12px !important;
+    --padding-end: 12px !important;
+  }
+  .sc-ion-input-md-h.has-focus {
+    border-color: var(--ion-color-primary);
+  }
+}

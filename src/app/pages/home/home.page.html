@@ -3,24 +3,23 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      beacon
-      <small>example dApp</small>
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
-        <!--TODO: address of current active account-->
-        account
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content>
+  <ion-row class="hero--container ion-align-items-center">
+    <ion-col>
+      <h1>
+        beacon
+        <br />
+        Connect dApps with Wallets
+      </h1>
+    </ion-col>
+  </ion-row>
   <ion-row>
     <ion-col>
       <p class="intro__container">
-        This is an example dapp that implements the
+        This is an example dApp that implements the
         <a href="">beacon-sdk</a>
         with the message types defined in
         <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
@@ -41,7 +40,9 @@
       <p>
         The following message types have been implemented from the
         <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
-        standard.
+        standard in the
+        <a href="">beacon-sdk</a>
+        . Examples for each messaging type have been implemented below.
       </p>
     </ion-col>
   </ion-row>
@@ -61,6 +62,25 @@
             <p>No permissions yet. Request permissions from the wallet first.</p>
           </ng-container>
           <ng-container *ngIf="addresses.length > 0">
+            <!--TODO: set disabled if permission not provided -->
+            <ion-list lines="none">
+              <ion-item>
+                <ion-icon slot="start" name="eye"></ion-icon>
+                <ion-label>Read address</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon slot="start" name="create"></ion-icon>
+                <ion-label>Sign transactions</ion-label>
+              </ion-item>
+              <ion-item disabled>
+                <ion-icon slot="start" name="color-wand"></ion-icon>
+                <ion-label>Operations requests</ion-label>
+              </ion-item>
+              <ion-item disabled>
+                <ion-icon slot="start" name="code-working"></ion-icon>
+                <ion-label>Threshold</ion-label>
+              </ion-item>
+            </ion-list>
             <p>{{ addresses | json }}</p>
           </ng-container>
         </ion-card-content>

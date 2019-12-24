@@ -27,10 +27,9 @@
 
 ion-card {
   box-shadow: 0 10px 20px 0 rgba(49, 27, 88, 0.12);
-  border: 1px solid rgba(0, 232, 204, 0.08);
+  border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 0;
 }
-
 h1,
 h2,
 h3,
@@ -45,8 +44,18 @@ ion-list-header ion-label {
 
 ion-menu {
   width: 256px;
+  margin-top: 56px;
 }
-
+app-root {
+  @media only screen and (max-width: 767px) {
+    .header--menu {
+      left: 56px;
+    }
+    ion-header ion-buttons {
+      margin-right: 56px;
+    }
+  }
+}
 a {
   text-decoration: none;
   font-weight: 500;

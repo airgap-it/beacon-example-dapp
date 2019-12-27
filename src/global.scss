@@ -43,10 +43,27 @@ ion-list-header ion-label {
 ion-list-header ion-label {
   font-size: 22px;
 }
+h1 {
+  font-size: 2em;
+}
+h2 {
+  font-size: 24px;
+  padding-top: 2em;
+}
+h3 {
+  padding-top: 1em;
+}
 
 ion-menu {
   width: 256px;
   margin-top: 56px;
+  ion-item {
+    font-size: 14px;
+  }
+  ion-list-header {
+    font-size: 12px;
+    font-weight: 200;
+  }
 }
 app-root {
   @media only screen and (max-width: 767px) {
@@ -91,6 +108,13 @@ app-root {
     ion-app {
       .header-md:after {
         display: initial !important;
+      }
+    }
+  }
+  @media only screen and (min-width: 768px) {
+    ion-app {
+      .header-md:after {
+        display: none !important;
       }
     }
   }

@@ -66,7 +66,9 @@
         <ion-col size-md="9">
           <h3>
             permissionRequest
-            <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#1-permission" target="_blank">
+              <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            </a>
           </h3>
           <p class="ion-padding-bottom">App requests permission to access account details from wallet.</p>
           <ion-card class="ion-no-margin">
@@ -119,7 +121,12 @@
         <ion-col size-md="9">
           <h3>
             operationRequest
-            <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            <a
+              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#3-payment-request"
+              target="_blank"
+            >
+              <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            </a>
           </h3>
           <p class="ion-padding-bottom">
             App sends parameters like recipient and amount to the wallet and the wallet will prepare the transaction and
@@ -145,7 +152,7 @@
                     <ng-container *ngIf="!contractBalance">0</ng-container>
                     {{ contractBalance }}
                   </strong>
-                  FA Balance
+                  FA Token Balance
                 </ion-label>
               </ion-item>
               <ion-button (click)="getBalanceOfContract()" class="ion-margin-top">Get Balance</ion-button>
@@ -186,9 +193,27 @@
               <ion-button (click)="delegate()">Generic operation</ion-button>
             </ion-card-content>
           </ion-card>
-          <p class="ion-padding-top"><b>More Examples</b></p>
+          <h3 class="ion-padding-top">operationRequest Examples</h3>
+          <p class="ion-padding-bottom">
+            Additional reference implementations for the operationRequest message.
+          </p>
+          <p>
+            <strong>One Click Delegation</strong>
+          </p>
+          <p>
+            Prompts the wallet with a delegation operation for a specific baker. Bakers can use this on their websites
+            as an simple way to create a delegation operation for potential users.
+          </p>
           <ion-card class="ion-no-margin">
             <ion-card-content>
+              <ion-card-subtitle>
+                Baker Details
+              </ion-card-subtitle>
+              <!--TODO: enter baker address -->
+              <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
+                <ion-label position="stacked">Baker address</ion-label>
+                <ion-input placeholder="tz1.."></ion-input>
+              </ion-item>
               <ion-button (click)="delegate()">One Click Delegation</ion-button>
             </ion-card-content>
           </ion-card>
@@ -199,9 +224,25 @@
         <ion-col size-md="9">
           <h3>
             broadcastRequest
-            <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            <a
+              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#4-broadcast-transactions"
+              target="_blank"
+            ></a>
           </h3>
-          Current status: {{ connectionStatus }}
+          <p class="ion-padding-bottom">dApp requests a signed transaction to be broadcasted.</p>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Broadcast Transaction
+              </ion-card-subtitle>
+              <!--TODO: enter signed transaction -->
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label position="stacked">Signed Transaction</ion-label>
+                <ion-textarea></ion-textarea>
+              </ion-item>
+            </ion-card-content>
+            <ion-button class="ion-margin">Broadcast Transaction</ion-button>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-col>

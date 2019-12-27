@@ -88,17 +88,23 @@ ion-item {
     margin: 0 8px !important;
     padding: 8px 6px 0 !important;
   }
-  .sc-ion-input-md-h {
+  .sc-ion-input-md-h,
+  .sc-ion-textarea-md-h {
     border: 1px solid var(--ion-color-light-shade);
     border-radius: 4px;
     --padding-start: 12px !important;
     --padding-top: 12px !important;
     --padding-end: 12px !important;
   }
+  .sc-ion-textarea-md-h {
+    margin: 0;
+  }
+  &.item-has-focus .sc-ion-textarea-md-h,
   .sc-ion-input-md-h.has-focus {
     border-color: var(--ion-color-primary);
   }
 }
+
 app-root {
   /* Fixes header shadown on mobile */
   @media only screen and (max-width: 767px) {

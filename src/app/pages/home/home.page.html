@@ -16,6 +16,8 @@
             <br />
             Connect dApps with Wallets
           </h1>
+          <ion-button (click)="askForPermissions()">Connect beacon</ion-button>
+          <ion-button fill="outline">Download Extension</ion-button>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -33,6 +35,46 @@
             This allows for a communication for example of a mobile wallet with a desktop application. The signing
             requests of the dApp are send to the mobile wallet signed there and returned to the application.
           </p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding-bottom">
+        <ion-col>
+          <h2>Approach</h2>
+          <p class="ion-padding-bottom">
+            For the user there are two option to interact with dApps. Either a browser extension is installed that
+            communicates with the dApp and wallet and is paired once or each dApp is paired directly with the wallet.
+          </p>
+          <ion-row>
+            <ion-col>
+              <ion-card class="ion-no-margin">
+                <ion-card-header>
+                  <ion-icon name="code" size="large"></ion-icon>
+                  <ion-card-title>Browser Extension</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <p>The beacon browser extension is responsible for the communication with the dApp and the wallet.</p>
+                  <ion-button class="ion-margin-top">Download Extension</ion-button>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col>
+              <ion-card class="ion-no-margin">
+                <ion-card-header>
+                  <ion-icon name="expand" size="large"></ion-icon>
+                  <ion-card-title>
+                    dApp Integration
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  <p>
+                    With the implementation of the beacon-sdk, the dApp can also support direct connections. The user
+                    has to scan the pairing qr with his wallet for each dApp.
+                  </p>
+                  <ion-button class="ion-margin-top">Connect beacon</ion-button>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
         </ion-col>
       </ion-row>
       <ion-row class="ion-padding-bottom">
@@ -223,11 +265,41 @@
       <ion-row class="ion-padding-bottom">
         <ion-col size-md="9">
           <h3>
+            signPayloadRequest
+            <a
+              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#2-sign-payload"
+              target="_blank"
+            >
+              <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            </a>
+          </h3>
+          <p class="ion-padding-bottom">dApp requests that a payload is signed.</p>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Sign Transaction
+              </ion-card-subtitle>
+              <!--TODO: enter unsigned payload -->
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label position="stacked">Unsigned Transaction</ion-label>
+                <ion-textarea></ion-textarea>
+              </ion-item>
+            </ion-card-content>
+            <ion-button class="ion-margin">Sign Transaction</ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-bottom">
+        <ion-col size-md="9">
+          <h3>
             broadcastRequest
             <a
               href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#4-broadcast-transactions"
               target="_blank"
-            ></a>
+            >
+              <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+            </a>
           </h3>
           <p class="ion-padding-bottom">dApp requests a signed transaction to be broadcasted.</p>
           <ion-card class="ion-no-margin">

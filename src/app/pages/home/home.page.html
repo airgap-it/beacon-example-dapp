@@ -7,180 +7,185 @@
 </ion-header>
 
 <ion-content>
-  <ion-row class="hero--container ion-align-items-center">
-    <ion-col>
-      <h1>
-        beacon
-        <br />
-        Connect dApps with Wallets
-      </h1>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <p class="intro__container">
-        This is an example dApp that implements the
-        <a href="">beacon-sdk</a>
-        with the message types defined in
-        <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
-        which describes an interaction standard between a wallet and a dApp.
-      </p>
-      <p class="intro__container">
-        Where a dApp impelementing the
-        <a href="">beacon-sdk</a>
-        can build up a channel and send messages over a pee to peer communication layer to a wallet using the sdk. This
-        allows for a communication for example of a mobile wallet with a desktop application. The signing requests of
-        the dApp are send to the mobile wallet signed there and returned to the application.
-      </p>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <h1>Message Types</h1>
-      <p>
-        The following message types have been implemented from the
-        <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
-        standard in the
-        <a href="">beacon-sdk</a>
-        . Examples for each messaging type have been implemented below.
-      </p>
-    </ion-col>
-  </ion-row>
-  <ion-row class="ion-padding-bottom">
-    <ion-col size-md="9">
-      <h3>
-        permissionRequest
-        <ion-icon name="open" color="medium" mode="ios"></ion-icon>
-      </h3>
-      <p class="ion-padding-bottom">App requests permission to access account details from wallet.</p>
-      <ion-card class="ion-no-margin">
-        <ion-card-content>
-          <ion-card-subtitle>
-            Granted Permissions
-          </ion-card-subtitle>
-          <ng-container *ngIf="!addresses.length">
-            <p>No permissions yet. Request permissions from the wallet first.</p>
-          </ng-container>
-          <ng-container *ngIf="addresses.length > 0">
-            <!--TODO: set disabled if permission not provided -->
-            <ion-list lines="none">
-              <ng-container *ngFor="let permission of addresses">
-                <ion-item class="ion-no-padding">
-                  <ion-label>{{permission.address}}</ion-label>
-                </ion-item>
-                Network: {{ permission.networks }}
-                <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('read_address') >= 0)">
-                  <ion-icon slot="start" name="eye"></ion-icon>
-                  <ion-label>Read address</ion-label>
-                </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('sign') >= 0)">
-                  <ion-icon slot="start" name="create"></ion-icon>
-                  <ion-label>Sign transactions</ion-label>
-                </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('payment_request') >= 0)">
-                  <ion-icon slot="start" name="color-wand"></ion-icon>
-                  <ion-label>Operations requests</ion-label>
-                </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('threshold') >= 0)">
-                  <ion-icon slot="start" name="code-working"></ion-icon>
-                  <ion-label>Threshold</ion-label>
-                </ion-item>
+  <ion-row class="ion-justify-content-center">
+    <ion-col size-xl="6">
+      <ion-row class="hero--container ion-align-items-center">
+        <ion-col>
+          <h1>
+            beacon
+            <br />
+            Connect dApps with Wallets
+          </h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p class="intro__container">
+            This is an example dApp that implements the
+            <a href="">beacon-sdk</a>
+            with the message types defined in
+            <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
+            which describes an interaction standard between a wallet and a dApp.
+          </p>
+          <p class="intro__container">
+            Where a dApp impelementing the
+            <a href="">beacon-sdk</a>
+            can build up a channel and send messages over a pee to peer communication layer to a wallet using the sdk.
+            This allows for a communication for example of a mobile wallet with a desktop application. The signing
+            requests of the dApp are send to the mobile wallet signed there and returned to the application.
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h1>Message Types</h1>
+          <p>
+            The following message types have been implemented from the
+            <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
+            standard in the
+            <a href="">beacon-sdk</a>
+            . Examples for each messaging type have been implemented below.
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-padding-bottom">
+        <ion-col size-md="9">
+          <h3>
+            permissionRequest
+            <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+          </h3>
+          <p class="ion-padding-bottom">App requests permission to access account details from wallet.</p>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Granted Permissions
+              </ion-card-subtitle>
+              <ng-container *ngIf="!addresses.length">
+                <p>No permissions yet. Request permissions from the wallet first.</p>
               </ng-container>
-            </ion-list>
-          </ng-container>
-        </ion-card-content>
-        <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+              <ng-container *ngIf="addresses.length > 0">
+                <ion-list lines="none">
+                  <ng-container *ngFor="let permission of addresses">
+                    <ion-item class="ion-no-padding">
+                      <ion-label>{{permission.address}}</ion-label>
+                    </ion-item>
+                    Network: {{ permission.networks }}
+                    <ion-item class="ion-no-padding"
+                      [disabled]="!(permission.permissions.indexOf('read_address') >= 0)">
+                      <ion-icon slot="start" name="eye"></ion-icon>
+                      <ion-label>Read address</ion-label>
+                    </ion-item>
+                    <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('sign') >= 0)">
+                      <ion-icon slot="start" name="create"></ion-icon>
+                      <ion-label>Sign transactions</ion-label>
+                    </ion-item>
+                    <ion-item class="ion-no-padding"
+                      [disabled]="!(permission.permissions.indexOf('payment_request') >= 0)">
+                      <ion-icon slot="start" name="color-wand"></ion-icon>
+                      <ion-label>Operations requests</ion-label>
+                    </ion-item>
+                    <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('threshold') >= 0)">
+                      <ion-icon slot="start" name="code-working"></ion-icon>
+                      <ion-label>Threshold</ion-label>
+                    </ion-item>
+                  </ng-container>
+                </ion-list>
+              </ng-container>
+            </ion-card-content>
+            <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
 
-  <ion-row class="ion-padding-bottom">
-    <ion-col size-md="9">
-      <h3>
-        operationRequest
-        <ion-icon name="open" color="medium" mode="ios"></ion-icon>
-      </h3>
-      <p class="ion-padding-bottom">
-        App sends parameters like recipient and amount to the wallet and the wallet will prepare the transaction and
-        broadcast it.
-      </p>
-      <ion-card class="ion-no-margin">
-        <ion-card-content>
-          <ion-card-subtitle>
-            Contract Details
-          </ion-card-subtitle>
-          <ion-item lines="none" class="ion-no-padding">
-            <ion-label position="stacked">Contract Address</ion-label>
-            <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
-          </ion-item>
-          <ion-item lines="none" class="ion-no-padding">
-            <!--TODO: address -->
-            <ion-label>tz1ZV2dnQVNEMVXWDjsUELwUvZE9ynjWZaAG</ion-label>
-          </ion-item>
-          <ion-item lines="none" class="ion-no-padding">
-            <ion-icon name="wallet" slot="start"></ion-icon>
-            <ion-label>
-              <strong>
-                <ng-container *ngIf="!contractBalance">0</ng-container>
-                {{ contractBalance }}
-              </strong>
-              FA Balance
-            </ion-label>
-          </ion-item>
-          <ion-button (click)="getBalanceOfContract()" class="ion-margin-top">Get Balance</ion-button>
-        </ion-card-content>
-      </ion-card>
-      <ion-card class="ion-no-margin">
-        <ion-card-content>
-          <ion-card-subtitle>
-            Transfer
-          </ion-card-subtitle>
-          <ion-item lines="none" class="ion-no-padding">
-            <ion-label position="stacked">Amount</ion-label>
-            <ion-input [(ngModel)]="transferAmount" placeholder="15"></ion-input>
-          </ion-item>
-          <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
-            <ion-label position="stacked">Recipient</ion-label>
-            <ion-input [(ngModel)]="transferRecipient" placeholder="tz1.."></ion-input>
-          </ion-item>
-          <ion-button (click)="transfer()">Transfer</ion-button>
-        </ion-card-content>
-      </ion-card>
-      <ion-card class="ion-no-margin">
-        <ion-card-content>
-          <ion-card-subtitle>
-            Entrypoints
-          </ion-card-subtitle>
-          <ion-row class="ion-padding-bottom">
-            <ion-col size-md="6" class="ion-no-padding">
+      <ion-row class="ion-padding-bottom">
+        <ion-col size-md="9">
+          <h3>
+            operationRequest
+            <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+          </h3>
+          <p class="ion-padding-bottom">
+            App sends parameters like recipient and amount to the wallet and the wallet will prepare the transaction and
+            broadcast it.
+          </p>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Contract Details
+              </ion-card-subtitle>
               <ion-item lines="none" class="ion-no-padding">
-                <ion-label>Type</ion-label>
-                <ion-select placeholder="Type">
-                  <ion-select-option value="f">Female</ion-select-option>
-                  <ion-select-option value="m">Male</ion-select-option>
-                </ion-select>
+                <ion-label position="stacked">Contract Address</ion-label>
+                <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
               </ion-item>
-            </ion-col>
-          </ion-row>
-          <ion-button (click)="delegate()">Generic operation</ion-button>
-        </ion-card-content>
-      </ion-card>
-      <p class="ion-padding-top"><b>More Examples</b></p>
-      <ion-card class="ion-no-margin">
-        <ion-card-content>
-          <ion-button (click)="delegate()">One Click Delegation</ion-button>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
+              <ion-item lines="none" class="ion-no-padding">
+                <!--TODO: address -->
+                <ion-label>tz1ZV2dnQVNEMVXWDjsUELwUvZE9ynjWZaAG</ion-label>
+              </ion-item>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-icon name="wallet" slot="start"></ion-icon>
+                <ion-label>
+                  <strong>
+                    <ng-container *ngIf="!contractBalance">0</ng-container>
+                    {{ contractBalance }}
+                  </strong>
+                  FA Balance
+                </ion-label>
+              </ion-item>
+              <ion-button (click)="getBalanceOfContract()" class="ion-margin-top">Get Balance</ion-button>
+            </ion-card-content>
+          </ion-card>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Transfer
+              </ion-card-subtitle>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label position="stacked">Amount</ion-label>
+                <ion-input [(ngModel)]="transferAmount" placeholder="15"></ion-input>
+              </ion-item>
+              <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
+                <ion-label position="stacked">Recipient</ion-label>
+                <ion-input [(ngModel)]="transferRecipient" placeholder="tz1.."></ion-input>
+              </ion-item>
+              <ion-button (click)="transfer()">Transfer</ion-button>
+            </ion-card-content>
+          </ion-card>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Entrypoints
+              </ion-card-subtitle>
+              <ion-row class="ion-padding-bottom">
+                <ion-col size-md="6" class="ion-no-padding">
+                  <ion-item lines="none" class="ion-no-padding">
+                    <ion-label>Type</ion-label>
+                    <ion-select placeholder="Type">
+                      <ion-select-option value="f">Female</ion-select-option>
+                      <ion-select-option value="m">Male</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-button (click)="delegate()">Generic operation</ion-button>
+            </ion-card-content>
+          </ion-card>
+          <p class="ion-padding-top"><b>More Examples</b></p>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-button (click)="delegate()">One Click Delegation</ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
 
-  <ion-row class="ion-padding-bottom">
-    <ion-col size-md="9">
-      <h3>
-        broadcastRequest
-        <ion-icon name="open" color="medium" mode="ios"></ion-icon>
-      </h3>
-      Current status: {{ connectionStatus }}
+      <ion-row class="ion-padding-bottom">
+        <ion-col size-md="9">
+          <h3>
+            broadcastRequest
+            <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+          </h3>
+          Current status: {{ connectionStatus }}
+        </ion-col>
+      </ion-row>
     </ion-col>
   </ion-row>
 </ion-content>

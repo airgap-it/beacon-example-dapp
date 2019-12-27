@@ -25,11 +25,13 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+/* sets shadows for cards */
 ion-card {
   box-shadow: 0 10px 20px 0 rgba(49, 27, 88, 0.12);
   border: 1px solid rgba(46, 91, 255, 0.08);
   border-radius: 0;
 }
+/* typography */
 h1,
 h2,
 h3,
@@ -60,6 +62,7 @@ a {
   text-decoration: none;
   font-weight: 500;
 }
+/* styling of input fields optimized for desktop */
 ion-item {
   .label-stacked.sc-ion-label-md-h {
     width: max-content !important;
@@ -77,5 +80,18 @@ ion-item {
   }
   .sc-ion-input-md-h.has-focus {
     border-color: var(--ion-color-primary);
+  }
+}
+app-root {
+  /* Fixes header shadown on mobile */
+  @media only screen and (max-width: 767px) {
+    .header-md:after {
+      display: none !important;
+    }
+    ion-app {
+      .header-md:after {
+        display: initial !important;
+      }
+    }
   }
 }

@@ -3,8 +3,7 @@ import { AlertController } from '@ionic/angular'
 import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
 import { PermissionResponse } from '@airgap/beacon-sdk/dist/client/Messages'
 import { Storage } from '@ionic/storage'
-
-declare const window
+import { DAppClient } from '@airgap/beacon-sdk/dist/client/clients/DappClient'
 
 @Component({
   selector: 'app-home',
@@ -13,28 +12,18 @@ declare const window
 })
 export class HomePage {
   public connectionStatus: string = 'not connected'
-  public addresses: PermissionResponse = []
+  public addresses: PermissionResponse[] = []
   public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
   public contractBalance: string = ''
 
+  public client: DAppClient = new DAppClient('DApp')
+
   constructor(private readonly alertController: AlertController, private readonly storage: Storage) {
     window.addEventListener('message', async ({ data }) => {
-      if (data && data.method && data.data) {
-        if (data.method === 'toPage') {
-          console.log('received event', event)
-          const alert = await this.alertController.create({
-            header: 'Permissions granted!',
-            message: 'The wallet has granded you permissions to use the address',
-            buttons: ['OK']
-          })
+      console.log('PAGE', data)
 
-          this.addresses = [data.data]
-          this.storage.set('addresses', [data.data])
-
-          await alert.present()
-        }
-      }
     })
+
     this.storage.get('addresses').then(res => {
       if (res) {
         this.addresses = res
@@ -45,7 +34,19 @@ export class HomePage {
   public async initConnection() { }
 
   public async askForPermissions() {
-    window.postMessage({ method: 'toExtension', data: 'permission_request' })
+    this.client.requestPermissions().then(async response => {
+      console.log('PERMISSION RESULT', response)
+      const alert = await this.alertController.create({
+        header: 'Permissions granted!',
+        message: 'The wallet has granded you permissions to use the address',
+        buttons: ['OK']
+      })
+
+      this.addresses = [response]
+      this.storage.set('addresses', [response])
+
+      await alert.present()
+    }).catch(err => { console.log('PERMISSION ERROR', err) })
   }
 
   public async sign() { }
@@ -63,7 +64,9 @@ export class HomePage {
       baseApiNetwork: 'babylonnet'
     })
 
-    protocol.getBalance(this.addresses[0].address).then(balance => {
+    const address = await protocol.getAddressFromPublicKey(this.addresses[0].permissions.pubkey)
+
+    protocol.getBalance(address).then(balance => {
       this.contractBalance = balance
       console.log('tzbtc balance', balance)
     })

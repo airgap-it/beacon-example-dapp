@@ -123,30 +123,27 @@
               </ng-container>
               <ng-container *ngIf="addresses.length > 0">
                 <ion-list lines="none">
-                  <ng-container *ngFor="let permission of addresses">
+                  <ng-container *ngFor="let address of addresses">
                     <ion-item class="ion-no-padding">
-                      <ion-label>{{permission.address}}</ion-label>
-                      <p>Network: {{ permission.networks }}</p>
+                      <ion-label>{{address.permissions.pubkey}}</ion-label>
+                      <p>Network: {{ address.permissions.networks }}</p>
                     </ion-item>
-                    <ion-item
-                      class="ion-no-padding"
-                      [disabled]="!(permission.permissions.indexOf('read_address') >= 0)"
-                    >
+                    <ion-item class="ion-no-padding"
+                      [disabled]="!(address.permissions.scopes.indexOf('read_address') >= 0)">
                       <ion-icon slot="start" name="eye"></ion-icon>
                       <ion-label>Read address</ion-label>
                     </ion-item>
-                    <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('sign') >= 0)">
+                    <ion-item class="ion-no-padding" [disabled]="!(address.permissions.scopes.indexOf('sign') >= 0)">
                       <ion-icon slot="start" name="create"></ion-icon>
                       <ion-label>Sign transactions</ion-label>
                     </ion-item>
-                    <ion-item
-                      class="ion-no-padding"
-                      [disabled]="!(permission.permissions.indexOf('payment_request') >= 0)"
-                    >
+                    <ion-item class="ion-no-padding"
+                      [disabled]="!(address.permissions.scopes.indexOf('payment_request') >= 0)">
                       <ion-icon slot="start" name="color-wand"></ion-icon>
                       <ion-label>Operations requests</ion-label>
                     </ion-item>
-                    <ion-item class="ion-no-padding" [disabled]="!(permission.permissions.indexOf('threshold') >= 0)">
+                    <ion-item class="ion-no-padding"
+                      [disabled]="!(address.permissions.scopes.indexOf('threshold') >= 0)">
                       <ion-icon slot="start" name="code-working"></ion-icon>
                       <ion-label>Threshold</ion-label>
                     </ion-item>
@@ -163,10 +160,8 @@
         <ion-col size-md="9">
           <h3>
             operationRequest
-            <a
-              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#3-payment-request"
-              target="_blank"
-            >
+            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#3-payment-request"
+              target="_blank">
               <ion-icon name="open" color="medium" mode="ios"></ion-icon>
             </a>
           </h3>
@@ -266,10 +261,8 @@
         <ion-col size-md="9">
           <h3>
             signPayloadRequest
-            <a
-              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#2-sign-payload"
-              target="_blank"
-            >
+            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#2-sign-payload"
+              target="_blank">
               <ion-icon name="open" color="medium" mode="ios"></ion-icon>
             </a>
           </h3>
@@ -294,10 +287,8 @@
         <ion-col size-md="9">
           <h3>
             broadcastRequest
-            <a
-              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#4-broadcast-transactions"
-              target="_blank"
-            >
+            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#4-broadcast-transactions"
+              target="_blank">
               <ion-icon name="open" color="medium" mode="ios"></ion-icon>
             </a>
           </h3>

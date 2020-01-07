@@ -8,7 +8,7 @@
 
 <ion-content>
   <ion-row class="ion-justify-content-center">
-    <ion-col size-md="9" size-xl="6">
+    <ion-col size-md="9" class="content--container">
       <ion-row class="hero--container ion-align-items-center">
         <ion-col>
           <h1>
@@ -44,8 +44,8 @@
             For the user there are two option to interact with dApps. Either a browser extension is installed that
             communicates with the dApp and wallet and is paired once or each dApp is paired directly with the wallet.
           </p>
-          <ion-row>
-            <ion-col>
+          <ion-row class="selection--container">
+            <ion-col size="12" size-md="6">
               <ion-card class="ion-no-margin">
                 <ion-card-header>
                   <ion-icon name="code" size="large"></ion-icon>
@@ -53,11 +53,11 @@
                 </ion-card-header>
                 <ion-card-content>
                   <p>The beacon browser extension is responsible for the communication with the dApp and the wallet.</p>
-                  <ion-button class="ion-margin-top">Download Extension</ion-button>
                 </ion-card-content>
+                <ion-button class="ion-margin">Download Extension</ion-button>
               </ion-card>
             </ion-col>
-            <ion-col>
+            <ion-col size="12" size-md="6">
               <ion-card class="ion-no-margin">
                 <ion-card-header>
                   <ion-icon name="expand" size="large"></ion-icon>
@@ -70,8 +70,8 @@
                     With the implementation of the beacon-sdk, the dApp can also support direct connections. The user
                     has to scan the pairing qr with his wallet for each dApp.
                   </p>
-                  <ion-button class="ion-margin-top">Connect beacon</ion-button>
                 </ion-card-content>
+                <ion-button class="ion-margin">Connect beacon</ion-button>
               </ion-card>
             </ion-col>
           </ion-row>

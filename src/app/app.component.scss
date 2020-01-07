@@ -3,3 +3,8 @@
   border-left-color: var(--ion-color-primary);
   border-left-style: solid;
 }
+@media only screen and (max-width: 767px) {
+  ion-title {
+    padding: 0;
+  }
+}

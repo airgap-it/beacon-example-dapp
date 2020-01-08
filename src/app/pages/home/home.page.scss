@@ -7,3 +7,19 @@
 .hero--container {
   height: 25vh;
 }
+.selection--container {
+  ion-card {
+    height: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    ion-card-content {
+      flex: 1;
+    }
+    @media only screen and (min-width: 768px) {
+      ion-button {
+        width: fit-content;
+      }
+    }
+  }
+}

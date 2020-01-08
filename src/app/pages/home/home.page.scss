@@ -5,7 +5,7 @@
   font-weight: 200;
 }
 .hero--container {
-  height: 25vh;
+  height: 50vh;
 }
 .selection--container {
   ion-card {
@@ -15,6 +15,10 @@
     flex-direction: column;
     ion-card-content {
       flex: 1;
+    }
+    img {
+      width: 64px;
+      height: auto;
     }
     @media only screen and (min-width: 768px) {
       ion-button {

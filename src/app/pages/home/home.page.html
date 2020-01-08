@@ -12,18 +12,21 @@
       <ion-row class="hero--container ion-align-items-center">
         <ion-col>
           <h1>
-            beacon
+            Beacon
             <br />
             Connect dApps with Wallets
           </h1>
-          <ion-button (click)="askForPermissions()">Connect beacon</ion-button>
+          <ion-button (click)="askForPermissions()">Connect Beacon</ion-button>
           <ion-button fill="outline">Download Extension</ion-button>
+        </ion-col>
+        <ion-col>
+          <img src="/assets/img/beacon_illu_hero.svg" />
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col>
           <p class="intro__container">
-            <strong>beacon</strong>
+            <strong>Beacon</strong>
             is the implementation of
             <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
             which describes an interaction standard between a wallet and a dApp.
@@ -48,11 +51,11 @@
             <ion-col size="12" size-md="6">
               <ion-card class="ion-no-margin">
                 <ion-card-header>
-                  <ion-icon name="code" size="large"></ion-icon>
+                  <img src="/assets/img/beacon_logo.svg" />
                   <ion-card-title>Browser Extension</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                  <p>The beacon browser extension is responsible for the communication with the dApp and the wallet.</p>
+                  <p>The Beacon browser extension is responsible for the communication with the dApp and the wallet.</p>
                 </ion-card-content>
                 <ion-button class="ion-margin">Download Extension</ion-button>
               </ion-card>
@@ -60,7 +63,7 @@
             <ion-col size="12" size-md="6">
               <ion-card class="ion-no-margin">
                 <ion-card-header>
-                  <ion-icon name="expand" size="large"></ion-icon>
+                  <img src="/assets/img/beacon_logo.svg" />
                   <ion-card-title>
                     dApp Integration
                   </ion-card-title>
@@ -71,7 +74,7 @@
                     has to scan the pairing qr with his wallet for each dApp.
                   </p>
                 </ion-card-content>
-                <ion-button class="ion-margin">Connect beacon</ion-button>
+                <ion-button class="ion-margin">Connect Beacon</ion-button>
               </ion-card>
             </ion-col>
           </ion-row>
@@ -83,7 +86,7 @@
           <p>
             As specified in
             <a href="https://gitlab.com/tzip/tzip/tree/master/Proposals/TZIP-0010" target="_blank">TZIP-0010</a>
-            beacon utilizes a peer to peer network built with the
+            Beacon utilizes a peer to peer network built with the
             <a href="https://matrix.org/" target="_blank">matrix protocol</a>
             to transport messages from the dApps to the Wallets thus leveraging a decentralized approach.
           </p>

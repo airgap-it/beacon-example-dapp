@@ -80,6 +80,31 @@
           </ion-row>
         </ion-col>
       </ion-row>
+      <ion-row class="ion-padding-bottom integration--container">
+        <ion-col>
+          <h2>Wallets & dApps</h2>
+          <p class="ion-padding-bottom">
+            The wallets and dApps that are making use of the
+            <a href="">beacon-sdk</a>
+            to support a simple interaction for their users. More Wallets and dApps will follow in the near future,
+            please reach out to us to be listed.
+          </p>
+          <ion-row class="ion-padding-top">
+            <ion-col size="12" size-md="6" class="ion-no-padding">
+              <strong>Wallets</strong>
+              <ion-row class="ion-padding-top">
+                <a href="https://airgap.it" target="_blank"><img src="/assets/img/Airgap_Logo_sideways_color.svg" /></a>
+              </ion-row>
+            </ion-col>
+            <ion-col size="12" size-md="6" class="ion-no-padding">
+              <strong class="ion-padding-bottom">dApps</strong>
+              <ion-row class="ion-padding-top">
+                <a href="#message-types"><img src="/assets/img/beacon_logoy_type_hor_padding.svg" /></a>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
       <ion-row class="ion-padding-bottom">
         <ion-col>
           <h2>Transport Layer</h2>
@@ -131,8 +156,10 @@
                       <ion-label>{{address.permissions.pubkey}}</ion-label>
                       <p>Network: {{ address.permissions.networks }}</p>
                     </ion-item>
-                    <ion-item class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('read_address') >= 0)">
+                    <ion-item
+                      class="ion-no-padding"
+                      [disabled]="!(address.permissions.scopes.indexOf('read_address') >= 0)"
+                    >
                       <ion-icon slot="start" name="eye"></ion-icon>
                       <ion-label>Read address</ion-label>
                     </ion-item>
@@ -140,13 +167,17 @@
                       <ion-icon slot="start" name="create"></ion-icon>
                       <ion-label>Sign transactions</ion-label>
                     </ion-item>
-                    <ion-item class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('operation_request') >= 0)">
+                    <ion-item
+                      class="ion-no-padding"
+                      [disabled]="!(address.permissions.scopes.indexOf('operation_request') >= 0)"
+                    >
                       <ion-icon slot="start" name="color-wand"></ion-icon>
                       <ion-label>Operations requests</ion-label>
                     </ion-item>
-                    <ion-item class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('threshold') >= 0)">
+                    <ion-item
+                      class="ion-no-padding"
+                      [disabled]="!(address.permissions.scopes.indexOf('threshold') >= 0)"
+                    >
                       <ion-icon slot="start" name="code-working"></ion-icon>
                       <ion-label>Threshold</ion-label>
                     </ion-item>
@@ -163,8 +194,10 @@
         <ion-col size-md="9">
           <h3>
             operationRequest
-            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#3-payment-request"
-              target="_blank">
+            <a
+              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#3-payment-request"
+              target="_blank"
+            >
               <ion-icon name="open" color="medium" mode="ios"></ion-icon>
             </a>
           </h3>
@@ -245,8 +278,10 @@
         <ion-col size-md="9">
           <h3>
             signPayloadRequest
-            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#2-sign-payload"
-              target="_blank">
+            <a
+              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#2-sign-payload"
+              target="_blank"
+            >
               <ion-icon name="open" color="medium" mode="ios"></ion-icon>
             </a>
           </h3>
@@ -270,8 +305,10 @@
         <ion-col size-md="9">
           <h3>
             broadcastRequest
-            <a href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#4-broadcast-transactions"
-              target="_blank">
+            <a
+              href="https://gitlab.com/tzip/tzip/blob/master/Proposals/TZIP-0010/LA1.md#4-broadcast-transactions"
+              target="_blank"
+            >
               <ion-icon name="open" color="medium" mode="ios"></ion-icon>
             </a>
           </h3>

@@ -152,8 +152,11 @@
               <ng-container *ngIf="addresses.length > 0">
                 <ion-list lines="none">
                   <ng-container *ngFor="let address of addresses">
+                    <ion-item>
+                      <ion-label>{{connectionStatus}}</ion-label>
+                    </ion-item>
                     <ion-item class="ion-no-padding">
-                      <ion-label>{{address.permissions.pubkey}}</ion-label>
+                      <ion-label>{{address.permissions.pubKey}}</ion-label>
                       <p>Network: {{ address.permissions.networks }}</p>
                     </ion-item>
                     <ion-item

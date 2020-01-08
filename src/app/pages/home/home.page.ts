@@ -3,8 +3,8 @@ import { AlertController } from '@ionic/angular'
 import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
 import { PermissionResponse } from '@airgap/beacon-sdk/dist/client/Messages'
 import { Storage } from '@ionic/storage'
-import { DAppClient } from '@airgap/beacon-sdk/dist/client/clients/DappClient'
 import { TezosOperationType } from '@airgap/beacon-sdk/dist/client/operations/OperationTypes'
+import { BeaconService } from 'src/app/services/beacon/beacon.service'
 
 @Component({
   selector: 'app-home',
@@ -12,13 +12,10 @@ import { TezosOperationType } from '@airgap/beacon-sdk/dist/client/operations/Op
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-  public connectionStatus: string = 'not connected'
   public addresses: PermissionResponse[] = []
   public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
   public contractBalance: string = ''
   public address: string = ''
-
-  public client: DAppClient = new DAppClient('DApp')
 
   public unsignedTransaction: string = ''
   public broadcastTransaction: string = ''
@@ -39,7 +36,7 @@ export class HomePage {
   })
 
 
-  constructor(private readonly alertController: AlertController, private readonly storage: Storage) {
+  constructor(private readonly alertController: AlertController, private readonly storage: Storage, private readonly beaconService: BeaconService) {
     this.storage.get('addresses').then(res => {
       if (res) {
         this.addresses = res
@@ -48,10 +45,8 @@ export class HomePage {
     })
   }
 
-  public async initConnection() { }
-
   public async askForPermissions() {
-    this.client.requestPermissions().then(async response => {
+    this.beaconService.client.requestPermissions().then(async response => {
       this.permissionGrantedAlert(response)
     }).catch(err => { console.log('PERMISSION ERROR', err) })
   }
@@ -72,7 +67,6 @@ export class HomePage {
   }
 
   public async getBalanceOfContract() {
-
     this.protocol.getBalance(this.address).then(balance => {
       this.contractBalance = balance
       console.log('tzbtc balance', balance)
@@ -80,7 +74,7 @@ export class HomePage {
   }
 
   public async delegate() {
-    this.client.requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } }).then(async response => {
+    this.beaconService.client.requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } }).then(async response => {
       console.log(response)
       const alert = await this.alertController.create({
         header: 'delegate',
@@ -93,7 +87,7 @@ export class HomePage {
   }
 
   public async operationRequest() {
-    this.client.requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } }).then(async response => {
+    this.beaconService.client.requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } }).then(async response => {
       console.log(response)
       const alert = await this.alertController.create({
         header: 'operationRequest',
@@ -106,7 +100,7 @@ export class HomePage {
   }
 
   public async sign() {
-    this.client.signPayloads({ payload: [Buffer.from('')], sourceAddress: '' }).then(async response => {
+    this.beaconService.client.signPayloads({ payload: [Buffer.from('')], sourceAddress: '' }).then(async response => {
       console.log(response)
       const alert = await this.alertController.create({
         header: 'sign',
@@ -119,7 +113,7 @@ export class HomePage {
   }
 
   public async broadcast() {
-    this.client.requestBroadcast({ network: 'mainnet', signedTransaction: [Buffer.from(this.broadcastTransaction)] }).then(async response => {
+    this.beaconService.client.requestBroadcast({ network: 'mainnet', signedTransaction: [Buffer.from(this.broadcastTransaction)] }).then(async response => {
       console.log(response)
       const alert = await this.alertController.create({
         header: 'broadcast',

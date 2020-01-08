@@ -6,7 +6,7 @@
     <ion-buttons slot="end">
       <ion-button>
         <!--TODO: address of current active account-->
-        Not connected
+        {{connectionStatus | async}}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

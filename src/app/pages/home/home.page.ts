@@ -23,6 +23,9 @@ export class HomePage {
   public unsignedTransaction: string = ''
   public broadcastTransaction: string = ''
 
+  public transferAmount: string = ''
+  public transferRecipient: string = ''
+
   public protocol = new TezosFAProtocol({
     symbol: 'TZBTC',
     name: 'Tezos BTC',

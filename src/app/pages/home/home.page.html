@@ -138,7 +138,7 @@
                       <ion-label>Sign transactions</ion-label>
                     </ion-item>
                     <ion-item class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('payment_request') >= 0)">
+                      [disabled]="!(address.permissions.scopes.indexOf('operation_request') >= 0)">
                       <ion-icon slot="start" name="color-wand"></ion-icon>
                       <ion-label>Operations requests</ion-label>
                     </ion-item>
@@ -179,8 +179,7 @@
                 <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
               </ion-item>
               <ion-item lines="none" class="ion-no-padding">
-                <!--TODO: address -->
-                <ion-label>tz1ZV2dnQVNEMVXWDjsUELwUvZE9ynjWZaAG</ion-label>
+                <ion-label>{{ address }}</ion-label>
               </ion-item>
               <ion-item lines="none" class="ion-no-padding">
                 <ion-icon name="wallet" slot="start"></ion-icon>
@@ -208,28 +207,10 @@
                 <ion-label position="stacked">Recipient</ion-label>
                 <ion-input [(ngModel)]="transferRecipient" placeholder="tz1.."></ion-input>
               </ion-item>
-              <ion-button (click)="transfer()">Transfer</ion-button>
+              <ion-button (click)="operationRequest()">Transfer</ion-button>
             </ion-card-content>
           </ion-card>
-          <ion-card class="ion-no-margin">
-            <ion-card-content>
-              <ion-card-subtitle>
-                Entrypoints
-              </ion-card-subtitle>
-              <ion-row class="ion-padding-bottom">
-                <ion-col size-md="6" class="ion-no-padding">
-                  <ion-item lines="none" class="ion-no-padding">
-                    <ion-label>Type</ion-label>
-                    <ion-select placeholder="Type">
-                      <ion-select-option value="f">Female</ion-select-option>
-                      <ion-select-option value="m">Male</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-              <ion-button (click)="delegate()">Generic operation</ion-button>
-            </ion-card-content>
-          </ion-card>
+
           <h3 class="ion-padding-top">operationRequest Examples</h3>
           <p class="ion-padding-bottom">
             Additional reference implementations for the operationRequest message.
@@ -272,13 +253,12 @@
               <ion-card-subtitle>
                 Sign Transaction
               </ion-card-subtitle>
-              <!--TODO: enter unsigned payload -->
               <ion-item lines="none" class="ion-no-padding">
                 <ion-label position="stacked">Unsigned Transaction</ion-label>
-                <ion-textarea></ion-textarea>
+                <ion-textarea [(ngModel)]="unsignedTransaction"></ion-textarea>
               </ion-item>
             </ion-card-content>
-            <ion-button class="ion-margin">Sign Transaction</ion-button>
+            <ion-button (click)="sign()" class="ion-margin">Sign Transaction</ion-button>
           </ion-card>
         </ion-col>
       </ion-row>
@@ -298,13 +278,12 @@
               <ion-card-subtitle>
                 Broadcast Transaction
               </ion-card-subtitle>
-              <!--TODO: enter signed transaction -->
               <ion-item lines="none" class="ion-no-padding">
                 <ion-label position="stacked">Signed Transaction</ion-label>
-                <ion-textarea></ion-textarea>
+                <ion-textarea [(ngModel)]="broadcastTransaction"></ion-textarea>
               </ion-item>
             </ion-card-content>
-            <ion-button class="ion-margin">Broadcast Transaction</ion-button>
+            <ion-button (click)="broadcast()" class="ion-margin">Broadcast Transaction</ion-button>
           </ion-card>
         </ion-col>
       </ion-row>

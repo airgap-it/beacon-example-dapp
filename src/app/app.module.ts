@@ -18,4 +18,4 @@ import { IonicStorageModule } from '@ionic/storage'
   providers: [StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

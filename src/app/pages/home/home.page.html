@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content :scrollEvents="true">
   <ion-row class="ion-justify-content-center">
     <ion-col size-md="9" class="content--container">
       <ion-row class="hero--container ion-align-items-center">
@@ -40,7 +40,7 @@
           </p>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-bottom">
+      <ion-row class="ion-padding-bottom" id="approach">
         <ion-col>
           <h2>Approach</h2>
           <p class="ion-padding-bottom">
@@ -80,7 +80,7 @@
           </ion-row>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-bottom integration--container">
+      <ion-row class="ion-padding-bottom integration--container" id="wallets_dapps">
         <ion-col>
           <h2>Wallets & dApps</h2>
           <p class="ion-padding-bottom">
@@ -105,7 +105,7 @@
           </ion-row>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-bottom">
+      <ion-row class="ion-padding-bottom" id="transport_layer">
         <ion-col>
           <h2>Transport Layer</h2>
           <p class="ion-padding-bottom">
@@ -120,7 +120,7 @@
           </ion-row>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row id="message_types">
         <ion-col>
           <h2>Message Types</h2>
           <p>
@@ -132,7 +132,7 @@
           </p>
         </ion-col>
       </ion-row>
-      <ion-row class="ion-padding-bottom">
+      <ion-row class="ion-padding-bottom" id="permissionRequest">
         <ion-col size-md="9">
           <h3>
             permissionRequest
@@ -190,7 +190,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="ion-padding-bottom">
+      <ion-row class="ion-padding-bottom" id="operationRequest">
         <ion-col size-md="9">
           <h3>
             operationRequest
@@ -275,7 +275,7 @@
       </ion-row>
 
       <ion-row class="ion-padding-bottom">
-        <ion-col size-md="9">
+        <ion-col size-md="9" id="signPayloadRequest">
           <h3>
             signPayloadRequest
             <a
@@ -301,7 +301,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row class="ion-padding-bottom">
+      <ion-row class="ion-padding-bottom" id="broadcastRequest">
         <ion-col size-md="9">
           <h3>
             broadcastRequest

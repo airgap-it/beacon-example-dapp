@@ -18,7 +18,14 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      preloadingStrategy: PreloadAllModules,
+      scrollPositionRestoration: 'enabled', // or 'top'
+      anchorScrolling: 'enabled',
+      scrollOffset: [0, 64]
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

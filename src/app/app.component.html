@@ -6,7 +6,7 @@
     <ion-buttons slot="end">
       <ion-button>
         <!--TODO: address of current active account-->
-        {{connectionStatus | async}}
+        {{ connectionStatus | async }}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -18,41 +18,73 @@
         <ion-list lines="none">
           <ion-menu-toggle auto-hide="false">
             <!--TODO: handle generic -->
-            <ion-item>
-              <ion-label>
+            <ion-item
+              [class]="selectedTab === 'approach' ? 'item--active' : ''"
+              (click)="scrollTo('approach')"
+              (click)="select('approach')"
+            >
+              <ion-label [color]="selectedTab === 'approach' ? 'primary' : 'black'">
                 Approach
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
+            <ion-item
+              [class]="selectedTab === 'wallets_dapps' ? 'item--active' : ''"
+              (click)="scrollTo('wallets_dapps')"
+              (click)="select('wallets_dapps')"
+            >
+              <ion-label [color]="selectedTab === 'wallets_dapps' ? 'primary' : 'black'">
                 Wallets & dApps
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
+            <ion-item
+              [class]="selectedTab === 'transport_layer' ? 'item--active' : ''"
+              (click)="scrollTo('transport_layer')"
+              (click)="select('transport_layer')"
+            >
+              <ion-label [color]="selectedTab === 'transport_layer' ? 'primary' : 'black'">
                 Transport Layer
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>Message Types</ion-label>
+            <ion-item
+              [class]="selectedTab === 'message_types' ? 'item--active' : ''"
+              (click)="scrollTo('message_types')"
+              (click)="select('message_types')"
+            >
+              <ion-label [color]="selectedTab === 'message_types' ? 'primary' : 'black'">Message Types</ion-label>
             </ion-item>
-            <ion-item class="item--active">
-              <ion-label color="primary">
+            <ion-item
+              [class]="selectedTab === 'permissionRequest' ? 'item--active' : ''"
+              (click)="scrollTo('permissionRequest')"
+              (click)="select('permissionRequest')"
+            >
+              <ion-label [color]="selectedTab === 'permissionRequest' ? 'primary' : 'black'">
                 permissionRequest
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
+            <ion-item
+              [class]="selectedTab === 'operationRequest' ? 'item--active' : ''"
+              (click)="scrollTo('operationRequest')"
+              (click)="select('operationRequest')"
+            >
+              <ion-label [color]="selectedTab === 'operationRequest' ? 'primary' : 'black'">
                 operationRequest
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
+            <ion-item
+              [class]="selectedTab === 'signPayloadRequest' ? 'item--active' : ''"
+              (click)="scrollTo('signPayloadRequest')"
+              (click)="select('signPayloadRequest')"
+            >
+              <ion-label [color]="selectedTab === 'signPayloadRequest' ? 'primary' : 'black'">
                 signPayloadRequest
               </ion-label>
             </ion-item>
-            <ion-item>
-              <ion-label>
+            <ion-item
+              [class]="selectedTab === 'broadcastRequest' ? 'item--active' : ''"
+              (click)="scrollTo('broadcastRequest')"
+              (click)="select('broadcastRequest')"
+            >
+              <ion-label [color]="selectedTab === 'broadcastRequest' ? 'primary' : 'black'">
                 broadcastRequest
               </ion-label>
             </ion-item>

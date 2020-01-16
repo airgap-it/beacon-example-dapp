@@ -1,5 +1,6 @@
-import { Component } from '@angular/core'
-
+import { ScrollService } from './services/scroll/scroll.service'
+import { HomePage } from './pages/home/home.page'
+import { Component, ViewChild } from '@angular/core'
 import { Platform } from '@ionic/angular'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
@@ -12,6 +13,9 @@ import { Observable } from 'rxjs'
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  @ViewChild(HomePage, { read: HomePage }) myContent!: HomePage
+
+  public selectedTab: string = 'approach'
   public connectionStatus: Observable<string>
   public appPages = [
     {
@@ -26,9 +30,18 @@ export class AppComponent {
     }
   ]
 
-  constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar, private readonly beaconService: BeaconService) {
+  constructor(
+    private platform: Platform,
+    private splashScreen: SplashScreen,
+    private statusBar: StatusBar,
+    private readonly beaconService: BeaconService,
+    private scrollService: ScrollService
+  ) {
     this.initializeApp()
     this.connectionStatus = this.beaconService.connectionStatus.asObservable()
+    this.scrollService.currentSelectedTab$.subscribe(currentTab => {
+      this.selectedTab = currentTab
+    })
   }
 
   initializeApp() {
@@ -38,5 +51,14 @@ export class AppComponent {
         this.splashScreen.hide()
       })
     }
+  }
+
+  public scrollTo(element: string) {
+    this.scrollService.scrollTo(element)
+  }
+
+  public select(element: string) {
+    this.selectedTab = element
+    this.scrollService.setCurrentSelectedTab(element)
   }
 }

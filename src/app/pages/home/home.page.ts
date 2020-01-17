@@ -120,7 +120,7 @@ export class HomePage {
     this.addresses = [response]
     this.storage.set('addresses', [response])
     this.address = await this.protocol.getAddressFromPublicKey(this.addresses[0].permissions.pubkey)
-
+    this.beaconService.setActiveAccount(this.address)
     await alert.present()
   }
 

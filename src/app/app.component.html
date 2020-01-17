@@ -5,8 +5,8 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button>
-        <!--TODO: address of current active account-->
         {{ connectionStatus | async }}
+        connected to {{ activeAccount | async }}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

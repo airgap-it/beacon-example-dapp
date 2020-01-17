@@ -17,6 +17,8 @@ export class AppComponent {
 
   public selectedTab: string = 'approach'
   public connectionStatus: Observable<string>
+  public activeAccount: Observable<string>
+
   public appPages = [
     {
       title: 'Home',
@@ -39,6 +41,7 @@ export class AppComponent {
   ) {
     this.initializeApp()
     this.connectionStatus = this.beaconService.connectionStatus.asObservable()
+    this.activeAccount = this.beaconService.activeAccount.asObservable()
     this.scrollService.currentSelectedTab$.subscribe(currentTab => {
       this.selectedTab = currentTab
     })

@@ -33,3 +33,9 @@
     height: auto;
   }
 }
+.footer--container {
+  background: var(--ion-color-light);
+  ul {
+    list-style: none;
+  }
+}

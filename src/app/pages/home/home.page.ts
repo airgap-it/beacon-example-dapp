@@ -8,9 +8,8 @@ import { TezosOperationType } from '@airgap/beacon-sdk/dist/client/operations/Op
 import { BeaconService } from 'src/app/services/beacon/beacon.service'
 import { ActivatedRoute } from '@angular/router'
 import { ViewChild } from '@angular/core'
-// import { distinctUntilChanged, switchMap } from 'rxjs/operators'
-import { throttleTime, switchMap } from 'rxjs/operators'
-import { asyncScheduler } from 'rxjs'
+import { throttleTime, switchMap, take } from 'rxjs/operators'
+import { asyncScheduler, Observable } from 'rxjs'
 
 @Component({
   selector: 'app-home',
@@ -23,7 +22,7 @@ export class HomePage {
   public addresses: PermissionResponse[] = []
   public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
   public contractBalance: string = ''
-  public address: string = ''
+  public activeAddress: Observable<string> = this.beaconService.activeAccount.asObservable()
 
   public unsignedTransaction: string = ''
   public broadcastTransaction: string = ''
@@ -54,8 +53,9 @@ export class HomePage {
       if (res) {
         this.addresses = res
         this.protocol
-          .getAddressFromPublicKey(this.addresses[0].permissions.pubkey)
-          .then(address => (this.address = address))
+          .getAddressFromPublicKey(this.addresses[0].permissions.pubkey).then(address => {
+            this.beaconService.setActiveAccount(address)
+          })
       }
     })
     this.route.fragment.subscribe(f => {
@@ -119,15 +119,17 @@ export class HomePage {
 
     this.addresses = [response]
     this.storage.set('addresses', [response])
-    this.address = await this.protocol.getAddressFromPublicKey(this.addresses[0].permissions.pubkey)
-    this.beaconService.setActiveAccount(this.address)
+    const address = await this.protocol.getAddressFromPublicKey(this.addresses[0].permissions.pubkey)
+    this.beaconService.setActiveAccount(address)
     await alert.present()
   }
 
   public async getBalanceOfContract() {
-    this.protocol.getBalance(this.address).then(balance => {
-      this.contractBalance = balance
-      console.log('tzbtc balance', balance)
+    this.activeAddress.pipe(take(1)).subscribe(address => {
+      this.protocol.getBalance(address).then(balance => {
+        this.contractBalance = balance
+        console.log('tzbtc balance', balance)
+      })
     })
   }
 

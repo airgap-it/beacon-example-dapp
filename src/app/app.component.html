@@ -12,9 +12,11 @@
       </div>
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="reset()">
         {{ connectionStatus | async }}
-        connected to {{ activeAccount | async }}
+        <ng-container *ngIf="activeAccount | async">
+          connected to {{ activeAccount | async }}
+        </ng-container>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

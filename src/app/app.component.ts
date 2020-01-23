@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
 import { BeaconService } from './services/beacon/beacon.service'
 import { Observable } from 'rxjs'
+import { StorageService, SettingsKey } from './services/storage/storage.service'
 
 @Component({
   selector: 'app-root',
@@ -33,11 +34,12 @@ export class AppComponent {
   ]
 
   constructor(
-    private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
+    private readonly platform: Platform,
+    private readonly splashScreen: SplashScreen,
+    private readonly statusBar: StatusBar,
     private readonly beaconService: BeaconService,
-    private scrollService: ScrollService
+    private readonly scrollService: ScrollService,
+    private readonly storageService: StorageService
   ) {
     this.initializeApp()
     this.connectionStatus = this.beaconService.connectionStatus.asObservable()
@@ -63,5 +65,11 @@ export class AppComponent {
   public select(element: string) {
     this.selectedTab = element
     this.scrollService.setCurrentSelectedTab(element)
+  }
+
+  public async reset() {
+    await this.beaconService.client.removeAllPeers()
+    await this.storageService.delete(SettingsKey.ACTIVE_ACCOUNT)
+    location.reload()
   }
 }

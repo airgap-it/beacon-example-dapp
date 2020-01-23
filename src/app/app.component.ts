@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
 import { BeaconService } from './services/beacon/beacon.service'
 import { Observable } from 'rxjs'
-import { StorageService, SettingsKey } from './services/storage/storage.service'
+import { Storage } from '@ionic/storage'
 
 @Component({
   selector: 'app-root',
@@ -39,7 +39,7 @@ export class AppComponent {
     private readonly statusBar: StatusBar,
     private readonly beaconService: BeaconService,
     private readonly scrollService: ScrollService,
-    private readonly storageService: StorageService
+    private readonly storage: Storage
   ) {
     this.initializeApp()
     this.connectionStatus = this.beaconService.connectionStatus.asObservable()
@@ -69,7 +69,7 @@ export class AppComponent {
 
   public async reset() {
     await this.beaconService.client.removeAllPeers()
-    await this.storageService.delete(SettingsKey.ACTIVE_ACCOUNT)
+    await this.storage.clear()
     location.reload()
   }
 }

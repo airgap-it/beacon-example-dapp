@@ -4,7 +4,7 @@
 
 [Beacon](https://walletbeacon.io) is the implementation of the wallet interaction standard [tzip-10](https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md) which describes the connnection of a dApp with a wallet.
 
-## Description
+## Intro
 
 The Beacon Example dApp is the reference implementation of a dApp that uses the [beacon-sdk](https://github.com/airgap-it/beacon-sdk) with various examples of the different message types, it also acts as the landing page for beacon.
 

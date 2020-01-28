@@ -20,19 +20,6 @@ export class AppComponent {
   public connectionStatus: Observable<string>
   public activeAccount: Observable<string>
 
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
-  ]
-
   constructor(
     private readonly platform: Platform,
     private readonly splashScreen: SplashScreen,

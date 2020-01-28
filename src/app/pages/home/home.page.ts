@@ -135,7 +135,7 @@ export class HomePage {
 
   public async delegate() {
     this.beaconService.client
-      .requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } })
+      .requestOperation({ network: 'mainnet', operationDetails: [{ kind: TezosOperationType.DELEGATION }] })
       .then(async response => {
         console.log(response)
         const alert = await this.alertController.create({
@@ -153,7 +153,7 @@ export class HomePage {
 
   public async operationRequest() {
     this.beaconService.client
-      .requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } })
+      .requestOperation({ network: 'mainnet', operationDetails: [{ kind: TezosOperationType.DELEGATION }] })
       .then(async response => {
         console.log(response)
         const alert = await this.alertController.create({
@@ -189,7 +189,7 @@ export class HomePage {
 
   public async broadcast() {
     this.beaconService.client
-      .requestBroadcast({ network: 'mainnet', signedTransaction: [Buffer.from(this.broadcastTransaction)] })
+      .requestBroadcast({ network: 'mainnet', signedTransactions: [Buffer.from(this.broadcastTransaction)] })
       .then(async response => {
         console.log(response)
         const alert = await this.alertController.create({

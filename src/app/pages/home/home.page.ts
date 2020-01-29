@@ -2,7 +2,7 @@ import { ScrollService } from './../../services/scroll/scroll.service'
 import { Component } from '@angular/core'
 import { AlertController, IonContent } from '@ionic/angular'
 import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
-import { PermissionResponse } from '@airgap/beacon-sdk/dist/client/Messages'
+import { PermissionResponse } from '@airgap/beacon-sdk/dist/messages/Messages'
 import { Storage } from '@ionic/storage'
 import { TezosOperationType } from '@airgap/beacon-sdk/dist/client/operations/OperationTypes'
 import { BeaconService } from 'src/app/services/beacon/beacon.service'
@@ -135,7 +135,7 @@ export class HomePage {
 
   public async delegate() {
     this.beaconService.client
-      .requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } })
+      .requestOperation({ network: 'mainnet', operationDetails: [{ kind: TezosOperationType.DELEGATION }] })
       .then(async response => {
         console.log(response)
         const alert = await this.alertController.create({
@@ -153,7 +153,7 @@ export class HomePage {
 
   public async operationRequest() {
     this.beaconService.client
-      .requestOperation({ network: 'mainnet', operationDetails: { kind: TezosOperationType.DELEGATION } })
+      .requestOperation({ network: 'mainnet', operationDetails: [{ kind: TezosOperationType.DELEGATION }] })
       .then(async response => {
         console.log(response)
         const alert = await this.alertController.create({
@@ -189,7 +189,7 @@ export class HomePage {
 
   public async broadcast() {
     this.beaconService.client
-      .requestBroadcast({ network: 'mainnet', signedTransaction: [Buffer.from(this.broadcastTransaction)] })
+      .requestBroadcast({ network: 'mainnet', signedTransactions: [Buffer.from(this.broadcastTransaction)] })
       .then(async response => {
         console.log(response)
         const alert = await this.alertController.create({

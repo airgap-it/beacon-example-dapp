@@ -29,19 +29,29 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <p class="intro__container">
-            <strong>Beacon</strong>
-            is the implementation of
-            <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank">TZIP-0010</a>
-            which describes an interaction standard between a wallet and a dApp.
-          </p>
-          <p class="intro__container">
-            Where a dApp impelementing the
-            <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
-            can build up a channel and send messages over a peer to peer communication layer to a wallet using the sdk.
-            This allows for a communication for example of a mobile wallet with a desktop application. The signing
-            requests of the dApp are send to the mobile wallet signed there and returned to the application.
-          </p>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="12" size-md="7">
+              <p class="intro__container">
+                <strong>Beacon</strong>
+                is the implementation of
+                <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank">TZIP-0010</a>
+                which describes an interaction standard between a wallet and a dApp.
+              </p>
+              <p class="intro__container">
+                Where a dApp impelementing the
+                <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
+                can build up a channel and send messages over a peer to peer communication layer to a wallet using the
+                sdk. This allows for a communication for example of a mobile wallet with a desktop application. The
+                requests of the dApp are sent to tge wallet, signed and returned to the application.
+              </p>
+            </ion-col>
+            <ion-col size="12" offset-md="1" size-md="4">
+              <a href="https://youtu.be/nTKotIAgWOk" target="_blank">
+                <img src="assets/img/beacon_video_preview.png" />
+                <ion-button expand="block">Play Video</ion-button>
+              </a>
+            </ion-col>
+          </ion-row>
         </ion-col>
       </ion-row>
       <ion-row class="ion-padding-bottom" id="approach">
@@ -61,11 +71,18 @@
                 <ion-card-content>
                   <p>The Beacon browser extension is responsible for the communication with the dApp and the wallet.</p>
                 </ion-card-content>
-                <a href="https://github.com/airgap-it/beacon-extension/releases" target="_blank">
-                  <ion-button class="ion-margin">
-                    Download Extension
-                  </ion-button>
-                </a>
+                <div class="ion-margin">
+                  <a href="https://youtu.be/nTKotIAgWOk" target="_blank">
+                    <ion-button>
+                      Download Extension
+                    </ion-button>
+                  </a>
+                  <a href="https://youtu.be/924IyI9jV5s" target="_blank">
+                    <ion-button fill="outline">
+                      Video
+                    </ion-button>
+                  </a>
+                </div>
               </ion-card>
             </ion-col>
             <ion-col size="12" size-md="6">
@@ -82,7 +99,14 @@
                     has to scan the pairing qr with his wallet for each dApp.
                   </p>
                 </ion-card-content>
-                <ion-button class="ion-margin">Connect Beacon</ion-button>
+                <div class="ion-margin">
+                  <ion-button>Connect Beacon</ion-button>
+                  <a href="https://youtu.be/nTKotIAgWOk" target="_blank">
+                    <ion-button fill="outline" (click)="askForPermissions()">
+                      Video
+                    </ion-button>
+                  </a>
+                </div>
               </ion-card>
             </ion-col>
           </ion-row>

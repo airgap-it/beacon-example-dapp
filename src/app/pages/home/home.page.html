@@ -281,6 +281,30 @@
               <ion-button (click)="operationRequest()">Transfer</ion-button>
             </ion-card-content>
           </ion-card>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Tip
+              </ion-card-subtitle>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label position="stacked">Amount</ion-label>
+                <ion-input [(ngModel)]="tippingAmount" placeholder="1"></ion-input>
+              </ion-item>
+              <ion-button (click)="tip()">Tip us!</ion-button>
+            </ion-card-content>
+          </ion-card>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Tezos Operation
+              </ion-card-subtitle>
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label position="stacked">Operation Requests (Array)</ion-label>
+                <ion-textarea rows="10" [(ngModel)]="rawOperationRequest"></ion-textarea>
+              </ion-item>
+              <ion-button (click)="operationRequest()">Custom Tezos Operation</ion-button>
+            </ion-card-content>
+          </ion-card>
 
           <h3 class="ion-padding-top">operationRequest Examples</h3>
           <p class="ion-padding-bottom">
@@ -301,7 +325,7 @@
               <!--TODO: enter baker address -->
               <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
                 <ion-label position="stacked">Baker address</ion-label>
-                <ion-input placeholder="tz1.."></ion-input>
+                <ion-input placeholder="tz1.." [(ngModel)]="delegationAddress"></ion-input>
               </ion-item>
               <ion-button (click)="delegate()">One Click Delegation</ion-button>
             </ion-card-content>

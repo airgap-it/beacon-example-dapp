@@ -14,9 +14,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="reset()">
         {{ connectionStatus | async }}
-        <ng-container *ngIf="activeAccount | async">
-          connected to {{ activeAccount | async }}
-        </ng-container>
+        <ng-container *ngIf="activeAccount | async">connected to {{ activeAccount | async }}</ng-container>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -96,6 +94,15 @@
             >
               <ion-label [color]="selectedTab === 'broadcastRequest' ? 'primary' : 'black'">
                 broadcastRequest
+              </ion-label>
+            </ion-item>
+            <ion-item
+              [class]="selectedTab === 'components' ? 'item--active' : ''"
+              (click)="scrollTo('components')"
+              (click)="select('components')"
+            >
+              <ion-label [color]="selectedTab === 'components' ? 'primary' : 'black'">
+                Components
               </ion-label>
             </ion-item>
           </ion-menu-toggle>

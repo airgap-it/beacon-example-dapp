@@ -284,21 +284,9 @@
           <ion-card class="ion-no-margin">
             <ion-card-content>
               <ion-card-subtitle>
-                Tip
+                Custom Tezos Operation
               </ion-card-subtitle>
-              <ion-item lines="none" class="ion-no-padding">
-                <ion-label position="stacked">Amount</ion-label>
-                <ion-input [(ngModel)]="tippingAmount" placeholder="1"></ion-input>
-              </ion-item>
-              <ion-button (click)="tip()">Tip us!</ion-button>
-            </ion-card-content>
-          </ion-card>
-          <ion-card class="ion-no-margin">
-            <ion-card-content>
-              <ion-card-subtitle>
-                Tezos Operation
-              </ion-card-subtitle>
-              <ion-item lines="none" class="ion-no-padding">
+              <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
                 <ion-label position="stacked">Operation Requests (Array)</ion-label>
                 <ion-textarea rows="10" [(ngModel)]="rawOperationRequest"></ion-textarea>
               </ion-item>
@@ -317,7 +305,7 @@
             Prompts the wallet with a delegation operation for a specific baker. Bakers can use this on their websites
             as an simple way to create a delegation operation for potential users.
           </p>
-          <ion-card class="ion-no-margin">
+          <ion-card class="ion-no-margin ion-padding-bottom">
             <ion-card-content>
               <ion-card-subtitle>
                 Baker Details
@@ -328,6 +316,24 @@
                 <ion-input placeholder="tz1.." [(ngModel)]="delegationAddress"></ion-input>
               </ion-item>
               <ion-button (click)="delegate()">One Click Delegation</ion-button>
+            </ion-card-content>
+          </ion-card>
+          <p class="ion-padding-top">
+            <strong>Tipping</strong>
+          </p>
+          <p>
+            Prompts the wallet with a spend operation to a pre-defined addres, in this case an address owned by AirGap.
+          </p>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-card-subtitle>
+                Tippinng Details
+              </ion-card-subtitle>
+              <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
+                <ion-label position="stacked">Amount in XTZ</ion-label>
+                <ion-input [(ngModel)]="tippingAmount" placeholder="1"></ion-input>
+              </ion-item>
+              <ion-button (click)="tip()">Tip us</ion-button>
             </ion-card-content>
           </ion-card>
         </ion-col>

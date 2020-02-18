@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
-import { DAppClient } from '@airgap/beacon-sdk/dist/client/clients/DappClient'
-import { TransportType } from '@airgap/beacon-sdk/dist/client/transports/Transport'
+import { DAppClient } from '@airgap/beacon-sdk/dist/clients/DappClient'
+import { TransportType } from '@airgap/beacon-sdk/dist/transports/Transport'
 import { ReplaySubject } from 'rxjs'
 import { StorageService, SettingsKey } from '../storage/storage.service'
 

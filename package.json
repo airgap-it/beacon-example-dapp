@@ -1,8 +1,8 @@
 {
-  "name": "tezos-poc-dapp",
+  "name": "beacon-example-dapp",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Papers GmbH <contact@papers.ch> (https://papers.ch)",
+  "homepage": "https://walletbeacon.io",
   "scripts": {
     "postinstall": "node scripts/patch-crypto.js && npm run prepare-prod-build",
     "ng": "ng",
@@ -20,7 +20,7 @@
   },
   "private": true,
   "dependencies": {
-    "@airgap/beacon-sdk": "0.0.1",
+    "@airgap/beacon-sdk": "0.0.2-beta.0",
     "@angular/common": "^9.0.0",
     "@angular/core": "^9.0.0",
     "@angular/forms": "^9.0.0",

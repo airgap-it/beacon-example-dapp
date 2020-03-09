@@ -203,7 +203,7 @@
                   <ng-container *ngFor="let address of addresses">
                     <ion-item class="ion-no-padding">
                       <ion-label>{{ activeAddress | async }}</ion-label>
-                      <p>Network: {{ address.permissions.networks }}</p>
+                      <p>Network: {{ address.permissions.network.type }}</p>
                     </ion-item>
                     <ion-item
                       class="ion-no-padding"
@@ -234,7 +234,25 @@
                 </ion-list>
               </ng-container>
             </ion-card-content>
-            <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
+          </ion-card>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-item>
+                <ion-label>Network</ion-label>
+                <ion-select [(ngModel)]="selectedNetwork" placeholder="Select one">
+                  <ion-select-option value="mainnet">Mainnet</ion-select-option>
+                  <ion-select-option value="babylonnet">Babylonnet</ion-select-option>
+                  <ion-select-option value="carthagenet">Carthagenet</ion-select-option>
+                  <ion-select-option value="custom">Custom</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
+            </ion-card-content>
+          </ion-card>
+          <ion-card class="ion-no-margin">
+            <ion-card-content>
+              <ion-button (click)="showConnectedAccounts()" class="ion-margin">Log connected accounts</ion-button>
+            </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>

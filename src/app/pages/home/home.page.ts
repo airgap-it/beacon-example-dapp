@@ -24,6 +24,8 @@ export class HomePage {
   public contractBalance: string = ''
   public activeAddress: Observable<string> = this.beaconService.activeAccount.asObservable()
 
+  public selectedNetwork = 'mainnet'
+
   public delegationAddress: string = 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
 
   public tippingAmount: string = '1'
@@ -82,13 +84,17 @@ export class HomePage {
 
   public async askForPermissions() {
     this.beaconService.client
-      .requestPermissions()
+      .requestPermissions({ type: this.selectedNetwork as any })
       .then(async response => {
         this.permissionGrantedAlert(response)
       })
       .catch(err => {
         console.log('PERMISSION ERROR', err)
       })
+  }
+
+  public async showConnectedAccounts() {
+    console.log(await this.beaconService.client.getAccounts())
   }
 
   public ionViewDidEnter() {

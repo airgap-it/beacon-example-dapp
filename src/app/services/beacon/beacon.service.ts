@@ -3,7 +3,7 @@ import { DAppClient } from '@airgap/beacon-sdk/dist/clients/DappClient'
 import { TransportType } from '@airgap/beacon-sdk/dist/transports/Transport'
 import { ReplaySubject, Observable } from 'rxjs'
 import { StorageService, SettingsKey } from '../storage/storage.service'
-import { filter, mergeMap, tap } from 'rxjs/operators'
+import { filter, mergeMap } from 'rxjs/operators'
 import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
 
 @Injectable({

@@ -24,7 +24,7 @@ export class BeaconService {
     ) as Observable<AccountInfo> // TODO: Fix typings
 
     // TODO: Remove this once we use accountInfo. If this is deleted, the pipe above is not executed.
-    this.accountInfo.subscribe(test => console.log('test', test))
+    this.accountInfo.subscribe(accountInfo => console.log('accountInfo', accountInfo))
 
     this.initConnection()
     this.loadActiveAccount()

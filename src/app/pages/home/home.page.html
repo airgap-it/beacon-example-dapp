@@ -239,6 +239,16 @@
                   <ion-select-option value="custom">Custom</ion-select-option>
                 </ion-select>
               </ion-item>
+              <ng-container *ngIf="selectedNetwork === 'custom'">
+                <ion-item>
+                  <ion-label>Name (optional)</ion-label>
+                  <ion-input [(ngModel)]="networkName"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label>RPC Url</ion-label>
+                  <ion-input [(ngModel)]="networkRpcUrl"></ion-input>
+                </ion-item>
+              </ng-container>
               <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
             </ion-card-content>
           </ion-card>

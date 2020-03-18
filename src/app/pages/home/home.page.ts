@@ -27,6 +27,8 @@ export class HomePage {
   public activeAddress: Observable<string>
 
   public selectedNetwork = 'mainnet'
+  public networkName: string | undefined
+  public networkRpcUrl: string | undefined
 
   public delegationAddress: string = 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
 
@@ -92,7 +94,8 @@ export class HomePage {
     this.beaconService.client
       .requestPermissions({
         type: this.selectedNetwork as any,
-        rpcUrl: this.selectedNetwork === 'custom' ? 'http://myCustomNode.com' : undefined // TODO: make custom node url configurable
+        name: this.networkName,
+        rpcUrl: this.networkRpcUrl
       })
       .then(async response => {
         this.permissionGrantedAlert(response)

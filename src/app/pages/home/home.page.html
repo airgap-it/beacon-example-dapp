@@ -195,42 +195,35 @@
               <ion-card-subtitle>
                 Granted Permissions
               </ion-card-subtitle>
-              <ng-container *ngIf="!addresses.length">
+              <ng-container *ngIf="!(activeAccount | async)">
                 <p>No permissions yet. Request permissions from the wallet first.</p>
               </ng-container>
-              <ng-container *ngIf="addresses.length > 0">
+              <ng-container *ngIf="(activeAccount | async) as activeAccount1">
                 <ion-list lines="none">
-                  <ng-container *ngFor="let address of addresses">
-                    <ion-item class="ion-no-padding">
-                      <ion-label>{{ activeAddress | async }}</ion-label>
-                      <p>Network: {{ address.permissions.network.type }}</p>
-                    </ion-item>
-                    <ion-item
-                      class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('read_address') >= 0)"
-                    >
-                      <ion-icon slot="start" name="eye"></ion-icon>
-                      <ion-label>Read address</ion-label>
-                    </ion-item>
-                    <ion-item class="ion-no-padding" [disabled]="!(address.permissions.scopes.indexOf('sign') >= 0)">
-                      <ion-icon slot="start" name="create"></ion-icon>
-                      <ion-label>Sign transactions</ion-label>
-                    </ion-item>
-                    <ion-item
-                      class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('operation_request') >= 0)"
-                    >
-                      <ion-icon slot="start" name="color-wand"></ion-icon>
-                      <ion-label>Operations requests</ion-label>
-                    </ion-item>
-                    <ion-item
-                      class="ion-no-padding"
-                      [disabled]="!(address.permissions.scopes.indexOf('threshold') >= 0)"
-                    >
-                      <ion-icon slot="start" name="code-working"></ion-icon>
-                      <ion-label>Threshold</ion-label>
-                    </ion-item>
-                  </ng-container>
+                  <ion-item class="ion-no-padding">
+                    <ion-label>{{ activeAddress | async }}</ion-label>
+                    <p *ngIf="activeAccount1.network">Network: {{ activeAccount1.network.type }}</p>
+                    <p *ngIf="activeAccount1.network.rpcUrl">URL: {{ activeAccount1.network.rpcUrl }}</p>
+                  </ion-item>
+                  <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('read_address') >= 0)">
+                    <ion-icon slot="start" name="eye"></ion-icon>
+                    <ion-label>Read address</ion-label>
+                  </ion-item>
+                  <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('sign') >= 0)">
+                    <ion-icon slot="start" name="create"></ion-icon>
+                    <ion-label>Sign transactions</ion-label>
+                  </ion-item>
+                  <ion-item
+                    class="ion-no-padding"
+                    [disabled]="!(activeAccount1.scopes.indexOf('operation_request') >= 0)"
+                  >
+                    <ion-icon slot="start" name="color-wand"></ion-icon>
+                    <ion-label>Operations requests</ion-label>
+                  </ion-item>
+                  <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('threshold') >= 0)">
+                    <ion-icon slot="start" name="code-working"></ion-icon>
+                    <ion-label>Threshold</ion-label>
+                  </ion-item>
                 </ion-list>
               </ng-container>
             </ion-card-content>
@@ -251,7 +244,13 @@
           </ion-card>
           <ion-card class="ion-no-margin">
             <ion-card-content>
-              <ion-button (click)="showConnectedAccounts()" class="ion-margin">Log connected accounts</ion-button>
+              <ion-button (click)="showConnectedAccounts()" class="ion-margin">Show connected accounts</ion-button>
+              <ion-item
+                *ngFor="let connectedAccount of connectedAccounts"
+                (click)="disconnectAccount(connectedAccount.accountIdentifier)"
+              >
+                {{connectedAccount | json}}
+              </ion-item>
             </ion-card-content>
           </ion-card>
         </ion-col>

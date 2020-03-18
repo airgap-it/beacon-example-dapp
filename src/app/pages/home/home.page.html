@@ -201,9 +201,13 @@
               <ng-container *ngIf="(activeAccount | async) as activeAccount1">
                 <ion-list lines="none">
                   <ion-item class="ion-no-padding">
-                    <ion-label>{{ activeAddress | async }}</ion-label>
-                    <p *ngIf="activeAccount1.network">Network: {{ activeAccount1.network.type }}</p>
-                    <p *ngIf="activeAccount1.network.rpcUrl">URL: {{ activeAccount1.network.rpcUrl }}</p>
+                    <ion-label>
+                      {{ activeAddress | async }}
+                      <p *ngIf="activeAccount1.network.rpcUrl">{{ activeAccount1.network.rpcUrl }}</p>
+                    </ion-label>
+                    <ion-badge color="primary" slot="end" *ngIf="activeAccount1.network">
+                      {{ activeAccount1.network.type }}
+                    </ion-badge>
                   </ion-item>
                   <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('read_address') >= 0)">
                     <ion-icon slot="start" name="eye"></ion-icon>
@@ -230,31 +234,39 @@
           </ion-card>
           <ion-card class="ion-no-margin">
             <ion-card-content>
-              <ion-item>
-                <ion-label>Network</ion-label>
-                <ion-select [(ngModel)]="selectedNetwork" placeholder="Select one">
-                  <ion-select-option value="mainnet">Mainnet</ion-select-option>
-                  <ion-select-option value="babylonnet">Babylonnet</ion-select-option>
-                  <ion-select-option value="carthagenet">Carthagenet</ion-select-option>
-                  <ion-select-option value="custom">Custom</ion-select-option>
-                </ion-select>
-              </ion-item>
-              <ng-container *ngIf="selectedNetwork === 'custom'">
+              <ion-card-subtitle>
+                Connected Networks
+              </ion-card-subtitle>
+              <ion-list lines="none">
                 <ion-item>
-                  <ion-label>Name (optional)</ion-label>
-                  <ion-input [(ngModel)]="networkName"></ion-input>
+                  <ion-label>Network</ion-label>
+                  <ion-select [(ngModel)]="selectedNetwork" placeholder="Select one">
+                    <ion-select-option value="mainnet">Mainnet</ion-select-option>
+                    <ion-select-option value="babylonnet">Babylonnet</ion-select-option>
+                    <ion-select-option value="carthagenet">Carthagenet</ion-select-option>
+                    <ion-select-option value="custom">Custom</ion-select-option>
+                  </ion-select>
                 </ion-item>
-                <ion-item>
-                  <ion-label>RPC Url</ion-label>
-                  <ion-input [(ngModel)]="networkRpcUrl"></ion-input>
-                </ion-item>
-              </ng-container>
+                <ng-container *ngIf="selectedNetwork === 'custom'">
+                  <ion-item>
+                    <ion-label>Name (optional)</ion-label>
+                    <ion-input [(ngModel)]="networkName"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label>RPC Url</ion-label>
+                    <ion-input [(ngModel)]="networkRpcUrl"></ion-input>
+                  </ion-item>
+                </ng-container>
+              </ion-list>
               <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
             </ion-card-content>
           </ion-card>
           <ion-card class="ion-no-margin">
             <ion-card-content>
-              <ion-button (click)="showConnectedAccounts()" class="ion-margin">Show connected accounts</ion-button>
+              <ion-card-subtitle>
+                Connected Accounts
+              </ion-card-subtitle>
+              <ion-button (click)="showConnectedAccounts()" class="ion-margin">Load Accounts</ion-button>
               <ion-item
                 *ngFor="let connectedAccount of connectedAccounts"
                 (click)="disconnectAccount(connectedAccount.accountIdentifier)"

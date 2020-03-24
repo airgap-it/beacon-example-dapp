@@ -93,9 +93,11 @@ export class HomePage {
   public async askForPermissions() {
     this.beaconService.client
       .requestPermissions({
-        type: this.selectedNetwork as any,
-        name: this.networkName,
-        rpcUrl: this.networkRpcUrl
+        network: {
+          type: this.selectedNetwork as any,
+          name: this.networkName,
+          rpcUrl: this.networkRpcUrl
+        }
       })
       .then(async response => {
         this.permissionGrantedAlert(response)
@@ -171,7 +173,7 @@ export class HomePage {
     this.beaconService.accountInfo.subscribe(accountInfo => {
       this.beaconService.client
         .requestOperation({
-          network: (accountInfo.network as any) as string, // TODO: Fix type
+          network: accountInfo.network,
           operationDetails: [
             {
               kind: TezosOperationType.TRANSACTION,
@@ -207,7 +209,7 @@ export class HomePage {
     this.beaconService.accountInfo.subscribe(accountInfo => {
       this.beaconService.client
         .requestOperation({
-          network: (accountInfo.network as any) as string, // TODO: Fix type
+          network: accountInfo.network,
           operationDetails: [{ kind: TezosOperationType.DELEGATION, delegate: this.delegationAddress } as any]
         })
         .then(async response => {
@@ -237,7 +239,7 @@ export class HomePage {
     this.beaconService.accountInfo.subscribe(accountInfo => {
       this.beaconService.client
         .requestOperation({
-          network: (accountInfo.network as any) as string, // TODO: Fix type
+          network: accountInfo.network,
           operationDetails: JSON.parse(this.rawOperationRequest)
         })
         .then(async response => {
@@ -267,7 +269,7 @@ export class HomePage {
     this.beaconService.accountInfo.subscribe(async accountInfo => {
       this.beaconService.client
         .signPayloads({
-          payload: [this.unsignedTransaction as any],
+          payload: [this.unsignedTransaction],
           sourceAddress: await new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey)
         })
         .then(async response => {
@@ -290,8 +292,8 @@ export class HomePage {
     this.beaconService.accountInfo.subscribe(accountInfo => {
       this.beaconService.client
         .requestBroadcast({
-          network: (accountInfo.network as any) as string, // TODO: Fix type
-          signedTransactions: [this.broadcastTransaction as any]
+          network: accountInfo.network,
+          signedTransactions: [this.broadcastTransaction]
         })
         .then(async response => {
           console.log(response)

@@ -7,6 +7,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx'
 import { BeaconService } from './services/beacon/beacon.service'
 import { Observable } from 'rxjs'
 import { Storage } from '@ionic/storage'
+import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
+import { switchMap } from 'rxjs/operators'
+import { TezosProtocol } from 'airgap-coin-lib'
 
 @Component({
   selector: 'app-root',
@@ -18,7 +21,8 @@ export class AppComponent {
 
   public selectedTab: string = 'approach'
   public connectionStatus: Observable<string>
-  public activeAccount: Observable<string>
+  public activeAccount: Observable<AccountInfo>
+  public activeAddress: Observable<string>
 
   constructor(
     private readonly platform: Platform,
@@ -31,6 +35,9 @@ export class AppComponent {
     this.initializeApp()
     this.connectionStatus = this.beaconService.connectionStatus.asObservable()
     this.activeAccount = this.beaconService.activeAccount.asObservable()
+    this.activeAddress = this.activeAccount.pipe(
+      switchMap(accountInfo => new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey))
+    )
     this.scrollService.currentSelectedTab$.subscribe(currentTab => {
       this.selectedTab = currentTab
     })

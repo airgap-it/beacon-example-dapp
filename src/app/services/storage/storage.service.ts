@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core'
 import { Storage } from '@ionic/storage'
+import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
 
 export enum SettingsKey {
   ACTIVE_ACCOUNT = 'activeAccount'
 }
 
 interface SettingsKeyReturnType {
-  [SettingsKey.ACTIVE_ACCOUNT]: string
+  [SettingsKey.ACTIVE_ACCOUNT]: AccountInfo
 }
 
 @Injectable({

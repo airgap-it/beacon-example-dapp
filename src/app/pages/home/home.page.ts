@@ -10,6 +10,8 @@ import { ActivatedRoute } from '@angular/router'
 import { ViewChild } from '@angular/core'
 import { throttleTime, switchMap, take } from 'rxjs/operators'
 import { asyncScheduler, Observable } from 'rxjs'
+import { TezosProtocol } from 'airgap-coin-lib'
+import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
 
 @Component({
   selector: 'app-home',
@@ -19,10 +21,14 @@ import { asyncScheduler, Observable } from 'rxjs'
 export class HomePage {
   @ViewChild(IonContent, { read: IonContent }) myContent!: IonContent
 
-  public addresses: PermissionResponse[] = []
   public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
   public contractBalance: string = ''
-  public activeAddress: Observable<string> = this.beaconService.activeAccount.asObservable()
+  public activeAccount: Observable<AccountInfo>
+  public activeAddress: Observable<string>
+
+  public selectedNetwork = 'mainnet'
+  public networkName: string | undefined
+  public networkRpcUrl: string | undefined
 
   public delegationAddress: string = 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
 
@@ -44,6 +50,8 @@ export class HomePage {
   public transferAmount: string = ''
   public transferRecipient: string = ''
 
+  public connectedAccounts: AccountInfo[] = []
+
   public protocol = new TezosFAProtocol({
     symbol: 'TZBTC',
     name: 'Tezos BTC',
@@ -63,12 +71,14 @@ export class HomePage {
     private route: ActivatedRoute,
     private scrollService: ScrollService
   ) {
-    this.storage.get('addresses').then(res => {
-      if (res) {
-        this.addresses = res
-        this.protocol.getAddressFromPublicKey(this.addresses[0].permissions.pubkey).then(address => {
-          this.beaconService.setActiveAccount(address)
-        })
+    this.activeAccount = this.beaconService.activeAccount.asObservable()
+    this.activeAddress = this.beaconService.activeAccount
+      .asObservable()
+      .pipe(switchMap(accountInfo => new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey)))
+
+    this.storage.get('accountInfo').then(accountInfo => {
+      if (accountInfo) {
+        this.beaconService.setActiveAccount(accountInfo)
       }
     })
     this.route.fragment.subscribe(f => {
@@ -82,13 +92,28 @@ export class HomePage {
 
   public async askForPermissions() {
     this.beaconService.client
-      .requestPermissions()
+      .requestPermissions({
+        network: {
+          type: this.selectedNetwork as any,
+          name: this.networkName,
+          rpcUrl: this.networkRpcUrl
+        }
+      })
       .then(async response => {
         this.permissionGrantedAlert(response)
       })
       .catch(err => {
         console.log('PERMISSION ERROR', err)
       })
+  }
+
+  public async showConnectedAccounts() {
+    this.connectedAccounts = await this.beaconService.client.getAccounts()
+  }
+
+  public async disconnectAccount(accountIdentifier: string) {
+    await this.beaconService.client.removeAccount(accountIdentifier)
+    this.showConnectedAccounts()
   }
 
   public ionViewDidEnter() {
@@ -130,10 +155,8 @@ export class HomePage {
       buttons: ['OK']
     })
 
-    this.addresses = [response]
-    this.storage.set('addresses', [response])
-    const address = await this.protocol.getAddressFromPublicKey(this.addresses[0].permissions.pubkey)
-    this.beaconService.setActiveAccount(address)
+    this.storage.set('accountInfo', response.permissions)
+    this.beaconService.setActiveAccount(response.permissions as any)
     await alert.present()
   }
 
@@ -147,126 +170,145 @@ export class HomePage {
   }
 
   public async tip() {
-    this.beaconService.client
-      .requestOperation({
-        network: 'mainnet',
-        operationDetails: [
-          {
-            kind: TezosOperationType.TRANSACTION,
-            amount: (parseInt(this.tippingAmount) * 1000000).toString(),
-            destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
-          } as any
-        ]
-      })
-      .then(async response => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'delegate',
-          message: 'Done!',
-          buttons: ['OK']
+    this.beaconService.accountInfo.subscribe(accountInfo => {
+      this.beaconService.client
+        .requestOperation({
+          network: accountInfo.network,
+          operationDetails: [
+            {
+              kind: TezosOperationType.TRANSACTION,
+              amount: (parseInt(this.tippingAmount) * 1000000).toString(),
+              destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
+            } as any
+          ]
         })
+        .then(async response => {
+          console.log(response)
+          const alert = await this.alertController.create({
+            header: 'delegate',
+            message: 'Done!',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-      })
-      .catch(async err => {
-        const alert = await this.alertController.create({
-          header: 'Broadcast failed!',
-          message: 'The message could not be broadcast. Please check if you have enough balance.',
-          buttons: ['OK']
+          await alert.present()
         })
+        .catch(async err => {
+          const alert = await this.alertController.create({
+            header: 'Broadcast failed!',
+            message: 'The message could not be broadcast. Please check if you have enough balance.',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-        console.log('TIP ERROR', err)
-      })
+          await alert.present()
+          console.log('TIP ERROR', err)
+        })
+    })
   }
 
   public async delegate() {
-    this.beaconService.client
-      .requestOperation({
-        network: 'mainnet',
-        operationDetails: [{ kind: TezosOperationType.DELEGATION, delegate: this.delegationAddress } as any]
-      })
-      .then(async response => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'delegate',
-          message: 'Done!',
-          buttons: ['OK']
+    this.beaconService.accountInfo.subscribe(accountInfo => {
+      this.beaconService.client
+        .requestOperation({
+          network: accountInfo.network,
+          operationDetails: [{ kind: TezosOperationType.DELEGATION, delegate: this.delegationAddress } as any]
         })
+        .then(async response => {
+          console.log(response)
+          const alert = await this.alertController.create({
+            header: 'delegate',
+            message: 'Done!',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-      })
-      .catch(async err => {
-        const alert = await this.alertController.create({
-          header: 'Broadcast failed!',
-          message: 'The message could not be broadcast. Please check if you have enough balance.',
-          buttons: ['OK']
+          await alert.present()
         })
+        .catch(async err => {
+          const alert = await this.alertController.create({
+            header: 'Broadcast failed!',
+            message: 'The message could not be broadcast. Please check if you have enough balance.',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-        console.log('DELEGATE ERROR', err)
-      })
+          await alert.present()
+          console.log('DELEGATE ERROR', err)
+        })
+    })
   }
 
   public async operationRequest() {
-    this.beaconService.client
-      .requestOperation({ network: 'mainnet', operationDetails: JSON.parse(this.rawOperationRequest) })
-      .then(async response => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'operationRequest',
-          message: 'Done!',
-          buttons: ['OK']
+    this.beaconService.accountInfo.subscribe(accountInfo => {
+      this.beaconService.client
+        .requestOperation({
+          network: accountInfo.network,
+          operationDetails: JSON.parse(this.rawOperationRequest)
         })
+        .then(async response => {
+          console.log(response)
+          const alert = await this.alertController.create({
+            header: 'operationRequest',
+            message: 'Done!',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-      })
-      .catch(async err => {
-        const alert = await this.alertController.create({
-          header: 'Broadcast failed!',
-          message: 'The message could not be broadcast. Please check if you have enough balance.',
-          buttons: ['OK']
+          await alert.present()
         })
+        .catch(async err => {
+          const alert = await this.alertController.create({
+            header: 'Broadcast failed!',
+            message: 'The message could not be broadcast. Please check if you have enough balance.',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-        console.log('OPERATION ERROR', err)
-      })
+          await alert.present()
+          console.log('OPERATION ERROR', err)
+        })
+    })
   }
 
   public async sign() {
-    this.beaconService.client
-      .signPayloads({ payload: [this.unsignedTransaction as any], sourceAddress: '' })
-      .then(async response => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'sign',
-          message: 'Done!',
-          buttons: ['OK']
+    this.beaconService.accountInfo.subscribe(async accountInfo => {
+      this.beaconService.client
+        .signPayloads({
+          payload: [this.unsignedTransaction],
+          sourceAddress: await new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey)
         })
+        .then(async response => {
+          console.log(response)
+          const alert = await this.alertController.create({
+            header: 'sign',
+            message: 'Done!',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-      })
-      .catch(err => {
-        console.log('SIGN ERROR', err)
-      })
+          await alert.present()
+        })
+        .catch(err => {
+          console.log('SIGN ERROR', err)
+        })
+    })
   }
 
   public async broadcast() {
-    this.beaconService.client
-      .requestBroadcast({ network: 'mainnet', signedTransactions: [this.broadcastTransaction as any] })
-      .then(async response => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'broadcast',
-          message: 'Done!',
-          buttons: ['OK']
+    this.beaconService.accountInfo.subscribe(accountInfo => {
+      this.beaconService.client
+        .requestBroadcast({
+          network: accountInfo.network,
+          signedTransactions: [this.broadcastTransaction]
         })
+        .then(async response => {
+          console.log(response)
+          const alert = await this.alertController.create({
+            header: 'broadcast',
+            message: 'Done!',
+            buttons: ['OK']
+          })
 
-        await alert.present()
-      })
-      .catch(err => {
-        console.log('BROADCAST ERROR', err)
-      })
+          await alert.present()
+        })
+        .catch(err => {
+          console.log('BROADCAST ERROR', err)
+        })
+    })
   }
 
   scrollTo(element: string) {

@@ -1,17 +1,17 @@
-import { ScrollService } from './../../services/scroll/scroll.service'
-import { Component } from '@angular/core'
-import { AlertController, IonContent } from '@ionic/angular'
-import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
-import { PermissionResponse } from '@airgap/beacon-sdk/dist/messages/Messages'
-import { Storage } from '@ionic/storage'
-import { TezosOperationType } from '@airgap/beacon-sdk/dist/operations/OperationTypes'
-import { BeaconService } from 'src/app/services/beacon/beacon.service'
-import { ActivatedRoute } from '@angular/router'
-import { ViewChild } from '@angular/core'
-import { throttleTime, switchMap, take } from 'rxjs/operators'
-import { asyncScheduler, Observable } from 'rxjs'
-import { TezosProtocol } from 'airgap-coin-lib'
 import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
+import { TezosOperationType } from '@airgap/beacon-sdk/dist/operations/OperationTypes'
+import { PermissionResponse } from '@airgap/beacon-sdk/dist/types/Messages'
+import { Component, ViewChild } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { AlertController, IonContent } from '@ionic/angular'
+import { Storage } from '@ionic/storage'
+import { TezosProtocol } from 'airgap-coin-lib'
+import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
+import { asyncScheduler, Observable } from 'rxjs'
+import { switchMap, take, throttleTime } from 'rxjs/operators'
+import { BeaconService } from 'src/app/services/beacon/beacon.service'
+
+import { ScrollService } from './../../services/scroll/scroll.service'
 
 @Component({
   selector: 'app-home',
@@ -19,14 +19,14 @@ import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
   styleUrls: ['home.page.scss']
 })
 export class HomePage {
-  @ViewChild(IonContent, { read: IonContent }) myContent!: IonContent
+  @ViewChild(IonContent, { read: IonContent }) public myContent!: IonContent
 
   public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
   public contractBalance: string = ''
   public activeAccount: Observable<AccountInfo>
   public activeAddress: Observable<string>
 
-  public selectedNetwork = 'mainnet'
+  public selectedNetwork: string = 'mainnet'
   public networkName: string | undefined
   public networkRpcUrl: string | undefined
 
@@ -68,8 +68,8 @@ export class HomePage {
     private readonly alertController: AlertController,
     private readonly storage: Storage,
     private readonly beaconService: BeaconService,
-    private route: ActivatedRoute,
-    private scrollService: ScrollService
+    private readonly route: ActivatedRoute,
+    private readonly scrollService: ScrollService
   ) {
     this.activeAccount = this.beaconService.activeAccount.asObservable()
     this.activeAddress = this.beaconService.activeAccount
@@ -83,7 +83,9 @@ export class HomePage {
     })
     this.route.fragment.subscribe(f => {
       const element = document.querySelector('#' + f)
-      if (element) element.scrollIntoView()
+      if (element) {
+        element.scrollIntoView()
+      }
     })
     this.scrollService.scroll$.subscribe((element: string) => {
       this.scrollTo(element)
@@ -123,6 +125,7 @@ export class HomePage {
       .pipe(
         switchMap((currentTab: string) => {
           htmlElement = document.getElementById(currentTab)
+
           return this.myContent.ionScroll.pipe(throttleTime(100, asyncScheduler, { leading: true, trailing: true }))
         })
       )
@@ -311,7 +314,7 @@ export class HomePage {
     })
   }
 
-  scrollTo(element: string) {
+  public scrollTo(element: string) {
     if (document.getElementById(element) != null) {
       const yOffset = document.getElementById(element)
       if (yOffset && yOffset.offsetTop) {

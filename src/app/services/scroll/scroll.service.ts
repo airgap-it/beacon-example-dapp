@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Subject, BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, Subject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +8,10 @@ export class ScrollService {
   constructor() {}
 
   private currentTab: string = 'approach'
-  private scrollSource = new Subject<any>()
-  private selectedTabSource = new BehaviorSubject<string>('approach')
+  private readonly scrollSource = new Subject<any>()
+  private readonly selectedTabSource = new BehaviorSubject<string>('approach')
 
-  private tabsInOrder = [
+  private readonly tabsInOrder = [
     'approach',
     'wallets_dapps',
     'transport_layer',

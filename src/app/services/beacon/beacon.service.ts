@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core'
+import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
 import { DAppClient } from '@airgap/beacon-sdk/dist/clients/DappClient'
 import { TransportType } from '@airgap/beacon-sdk/dist/transports/Transport'
-import { ReplaySubject, Observable } from 'rxjs'
-import { StorageService, SettingsKey } from '../storage/storage.service'
+import { Injectable } from '@angular/core'
+import { Observable, ReplaySubject } from 'rxjs'
 import { filter, mergeMap } from 'rxjs/operators'
-import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
+
+import { SettingsKey, StorageService } from '../storage/storage.service'
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class BeaconService {
 
   constructor(private readonly storageService: StorageService) {
     this.accountInfo = this.activeAccount.pipe(
-      mergeMap(async activeAccount => await this.client.getAccount(activeAccount.accountIdentifier)),
+      mergeMap(async activeAccount => this.client.getAccount(activeAccount.accountIdentifier)),
       filter(accountInfo => accountInfo !== undefined)
     ) as Observable<AccountInfo> // TODO: Fix typings
 

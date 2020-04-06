@@ -271,7 +271,7 @@
                 *ngFor="let connectedAccount of connectedAccounts"
                 (click)="disconnectAccount(connectedAccount.accountIdentifier)"
               >
-                {{connectedAccount | json}}
+                {{ connectedAccount | json }}
               </ion-item>
             </ion-card-content>
           </ion-card>

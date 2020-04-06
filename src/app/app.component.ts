@@ -1,15 +1,16 @@
-import { ScrollService } from './services/scroll/scroll.service'
-import { HomePage } from './pages/home/home.page'
+import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
 import { Component, ViewChild } from '@angular/core'
-import { Platform } from '@ionic/angular'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
-import { BeaconService } from './services/beacon/beacon.service'
-import { Observable } from 'rxjs'
+import { Platform } from '@ionic/angular'
 import { Storage } from '@ionic/storage'
-import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
-import { switchMap } from 'rxjs/operators'
 import { TezosProtocol } from 'airgap-coin-lib'
+import { Observable } from 'rxjs'
+import { switchMap } from 'rxjs/operators'
+
+import { HomePage } from './pages/home/home.page'
+import { BeaconService } from './services/beacon/beacon.service'
+import { ScrollService } from './services/scroll/scroll.service'
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,7 @@ import { TezosProtocol } from 'airgap-coin-lib'
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  @ViewChild(HomePage, { read: HomePage }) myContent!: HomePage
+  @ViewChild(HomePage, { read: HomePage }) public myContent!: HomePage
 
   public selectedTab: string = 'approach'
   public connectionStatus: Observable<string>
@@ -43,7 +44,7 @@ export class AppComponent {
     })
   }
 
-  initializeApp() {
+  public initializeApp() {
     if (this.platform.is('cordova')) {
       this.platform.ready().then(() => {
         this.statusBar.styleDefault()

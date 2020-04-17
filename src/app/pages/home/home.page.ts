@@ -1,6 +1,4 @@
-import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
-import { TezosOperationType } from '@airgap/beacon-sdk/dist/operations/OperationTypes'
-import { PermissionResponse } from '@airgap/beacon-sdk/dist/types/Messages'
+import { AccountInfo, PermissionResponse, TezosOperationType, Origin } from '@airgap/beacon-sdk'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
@@ -74,7 +72,11 @@ export class HomePage {
     this.activeAccount = this.beaconService.activeAccount.asObservable()
     this.activeAddress = this.beaconService.activeAccount
       .asObservable()
-      .pipe(switchMap(accountInfo => new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey)))
+      .pipe(
+        switchMap((accountInfo: AccountInfo) =>
+          accountInfo.pubkey ? new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey) : ''
+        )
+      )
 
     this.storage.get('accountInfo').then(accountInfo => {
       if (accountInfo) {
@@ -158,8 +160,20 @@ export class HomePage {
       buttons: ['OK']
     })
 
-    this.storage.set('accountInfo', response.permissions)
-    this.beaconService.setActiveAccount(response.permissions as any)
+    this.storage.set('accountInfo', response)
+    const accountInfo: AccountInfo = {
+      accountIdentifier: response.accountIdentifier,
+      beaconId: response.beaconId,
+      origin: {
+        type: Origin.EXTENSION, // TODO: Do this in SDK?
+        id: ''
+      },
+      pubkey: response.pubkey,
+      network: response.network,
+      scopes: response.scopes,
+      connectedAt: new Date()
+    }
+    this.beaconService.setActiveAccount(accountInfo)
     await alert.present()
   }
 
@@ -180,7 +194,7 @@ export class HomePage {
           operationDetails: [
             {
               kind: TezosOperationType.TRANSACTION,
-              amount: (parseInt(this.tippingAmount) * 1000000).toString(),
+              amount: (parseInt(this.tippingAmount, 10) * 1000000).toString(),
               destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
             } as any
           ]
@@ -271,9 +285,11 @@ export class HomePage {
   public async sign() {
     this.beaconService.accountInfo.subscribe(async accountInfo => {
       this.beaconService.client
-        .signPayloads({
-          payload: [this.unsignedTransaction],
-          sourceAddress: await new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey)
+        .requestSignPayload({
+          payload: this.unsignedTransaction,
+          sourceAddress: accountInfo.pubkey
+            ? await new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey)
+            : undefined
         })
         .then(async response => {
           console.log(response)
@@ -296,7 +312,7 @@ export class HomePage {
       this.beaconService.client
         .requestBroadcast({
           network: accountInfo.network,
-          signedTransactions: [this.broadcastTransaction]
+          signedTransaction: this.broadcastTransaction
         })
         .then(async response => {
           console.log(response)

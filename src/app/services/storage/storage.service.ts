@@ -1,4 +1,4 @@
-import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
+import { AccountInfo } from '@airgap/beacon-sdk'
 import { Injectable } from '@angular/core'
 import { Storage } from '@ionic/storage'
 

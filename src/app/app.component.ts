@@ -1,4 +1,4 @@
-import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
+import { AccountInfo } from '@airgap/beacon-sdk'
 import { Component, ViewChild } from '@angular/core'
 import { SplashScreen } from '@ionic-native/splash-screen/ngx'
 import { StatusBar } from '@ionic-native/status-bar/ngx'
@@ -37,32 +37,37 @@ export class AppComponent {
     this.connectionStatus = this.beaconService.connectionStatus.asObservable()
     this.activeAccount = this.beaconService.activeAccount.asObservable()
     this.activeAddress = this.activeAccount.pipe(
-      switchMap(accountInfo => new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey))
+      switchMap((accountInfo: AccountInfo) =>
+        accountInfo.pubkey ? new TezosProtocol().getAddressFromPublicKey(accountInfo.pubkey) : ''
+      )
     )
-    this.scrollService.currentSelectedTab$.subscribe(currentTab => {
+    this.scrollService.currentSelectedTab$.subscribe((currentTab: string) => {
       this.selectedTab = currentTab
     })
   }
 
   public initializeApp() {
     if (this.platform.is('cordova')) {
-      this.platform.ready().then(() => {
-        this.statusBar.styleDefault()
-        this.splashScreen.hide()
-      })
+      this.platform
+        .ready()
+        .then(() => {
+          this.statusBar.styleDefault()
+          this.splashScreen.hide()
+        })
+        .catch((platformReadyError: Error) => console.error('platformReadyError', platformReadyError))
     }
   }
 
-  public scrollTo(element: string) {
+  public scrollTo(element: string): void {
     this.scrollService.scrollTo(element)
   }
 
-  public select(element: string) {
+  public select(element: string): void {
     this.selectedTab = element
     this.scrollService.setCurrentSelectedTab(element)
   }
 
-  public async reset() {
+  public async reset(): Promise<void> {
     await this.beaconService.client.removeAllPeers()
     await this.storage.clear()
     location.reload()

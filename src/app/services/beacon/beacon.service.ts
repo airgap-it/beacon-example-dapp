@@ -1,6 +1,4 @@
-import { AccountInfo } from '@airgap/beacon-sdk/dist/clients/Client'
-import { DAppClient } from '@airgap/beacon-sdk/dist/clients/DappClient'
-import { TransportType } from '@airgap/beacon-sdk/dist/transports/Transport'
+import { AccountInfo, DAppClient, TransportType } from '@airgap/beacon-sdk'
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
 import { filter, mergeMap } from 'rxjs/operators'

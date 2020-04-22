@@ -2,6 +2,7 @@ import { AccountInfo, DAppClient, TransportType } from '@airgap/beacon-sdk'
 import { InternalEvent } from '@airgap/beacon-sdk/dist/events'
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
+import { distinctUntilChanged } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,12 @@ export class BeaconService {
 
   private readonly _connectionStatus$: ReplaySubject<string> = new ReplaySubject(1)
   public get connectionStatus$(): Observable<string> {
-    return this._connectionStatus$.asObservable()
+    return this._connectionStatus$.pipe(distinctUntilChanged())
   }
 
   private readonly _activeAccount$: ReplaySubject<AccountInfo> = new ReplaySubject(1)
   public get activeAccount$(): Observable<AccountInfo> {
-    return this._activeAccount$.asObservable()
+    return this._activeAccount$.pipe(distinctUntilChanged())
   }
 
   public balance: Observable<string> = new ReplaySubject(1)

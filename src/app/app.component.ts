@@ -16,16 +16,16 @@ export class AppComponent {
   @ViewChild(HomePage, { read: HomePage }) public myContent!: HomePage
 
   public selectedTab: string = 'approach'
-  public connectionStatus: Observable<string>
-  public activeAccount: Observable<AccountInfo>
+  public connectionStatus$: Observable<string>
+  public activeAccount$: Observable<AccountInfo>
 
   constructor(
     private readonly beaconService: BeaconService,
     private readonly scrollService: ScrollService,
     private readonly storage: Storage
   ) {
-    this.connectionStatus = this.beaconService.connectionStatus
-    this.activeAccount = this.beaconService.activeAccount
+    this.connectionStatus$ = this.beaconService.connectionStatus$
+    this.activeAccount$ = this.beaconService.activeAccount$
     this.scrollService.currentSelectedTab$.subscribe((currentTab: string) => {
       this.selectedTab = currentTab
     })

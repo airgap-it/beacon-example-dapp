@@ -27,7 +27,7 @@ export class HomePage {
 
   public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
   public contractBalance: string = ''
-  public activeAccount: Observable<AccountInfo>
+  public activeAccount$: Observable<AccountInfo>
 
   public selectedNetwork: string = 'mainnet'
   public networkName: string | undefined
@@ -73,7 +73,7 @@ export class HomePage {
     private readonly route: ActivatedRoute,
     private readonly scrollService: ScrollService
   ) {
-    this.activeAccount = this.beaconService.activeAccount
+    this.activeAccount$ = this.beaconService.activeAccount$
 
     this.route.fragment.subscribe((f: string) => {
       const element: Element | null = document.querySelector(`#${f}`)
@@ -156,7 +156,7 @@ export class HomePage {
   }
 
   public async getBalanceOfContract(): Promise<void> {
-    this.activeAccount.pipe(first()).subscribe((activeAccount: AccountInfo) => {
+    this.activeAccount$.pipe(first()).subscribe((activeAccount: AccountInfo) => {
       if (activeAccount.address) {
         this.protocol
           .getBalance(activeAccount.address)
@@ -172,7 +172,7 @@ export class HomePage {
   }
 
   public async tip(): Promise<void> {
-    this.activeAccount.pipe(first()).subscribe((accountInfo: AccountInfo) => {
+    this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
       this.beaconService.client
         .requestOperation({
           network: accountInfo.network,
@@ -208,7 +208,7 @@ export class HomePage {
   }
 
   public async delegate(): Promise<void> {
-    this.activeAccount.pipe(first()).subscribe((accountInfo: AccountInfo) => {
+    this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
       this.beaconService.client
         .requestOperation({
           network: accountInfo.network,
@@ -238,7 +238,7 @@ export class HomePage {
   }
 
   public async operationRequest(): Promise<void> {
-    this.activeAccount.pipe(first()).subscribe((accountInfo: AccountInfo) => {
+    this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
       this.beaconService.client
         .requestOperation({
           network: accountInfo.network,
@@ -268,7 +268,7 @@ export class HomePage {
   }
 
   public async sign(): Promise<void> {
-    this.beaconService.activeAccount.subscribe(async (accountInfo: AccountInfo) => {
+    this.beaconService.activeAccount$.subscribe(async (accountInfo: AccountInfo) => {
       this.beaconService.client
         .requestSignPayload({
           payload: this.unsignedTransaction,
@@ -293,7 +293,7 @@ export class HomePage {
   }
 
   public async broadcast(): Promise<void> {
-    this.beaconService.activeAccount.subscribe((accountInfo: AccountInfo) => {
+    this.beaconService.activeAccount$.subscribe((accountInfo: AccountInfo) => {
       this.beaconService.client
         .requestBroadcast({
           network: accountInfo.network,

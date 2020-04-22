@@ -9,14 +9,14 @@ import { Observable, ReplaySubject } from 'rxjs'
 export class BeaconService {
   public client: DAppClient = new DAppClient({ name: 'Beacon Example Dapp' })
 
-  private readonly _connectionStatus: ReplaySubject<string> = new ReplaySubject(1)
-  public get connectionStatus(): Observable<string> {
-    return this._connectionStatus.asObservable()
+  private readonly _connectionStatus$: ReplaySubject<string> = new ReplaySubject(1)
+  public get connectionStatus$(): Observable<string> {
+    return this._connectionStatus$.asObservable()
   }
 
-  private readonly _activeAccount: ReplaySubject<AccountInfo> = new ReplaySubject(1)
-  public get activeAccount(): Observable<AccountInfo> {
-    return this._activeAccount.asObservable()
+  private readonly _activeAccount$: ReplaySubject<AccountInfo> = new ReplaySubject(1)
+  public get activeAccount$(): Observable<AccountInfo> {
+    return this._activeAccount$.asObservable()
   }
 
   public balance: Observable<string> = new ReplaySubject(1)
@@ -24,7 +24,7 @@ export class BeaconService {
   constructor() {
     this.client
       .subscribeToEvent(InternalEvent.ACTIVE_ACCOUNT_SET, (data: unknown) => {
-        this._activeAccount.next(data as any)
+        this._activeAccount$.next(data as any)
       })
       .catch(console.error)
     this.initConnection().catch(console.error)
@@ -33,11 +33,11 @@ export class BeaconService {
   public async initConnection(): Promise<void> {
     const result: TransportType = await this.client.init()
     if (result === TransportType.POST_MESSAGE) {
-      this._connectionStatus.next('Chrome Extension')
+      this._connectionStatus$.next('Chrome Extension')
     } else if (result === TransportType.P2P) {
-      this._connectionStatus.next('Beacon Connect')
+      this._connectionStatus$.next('Beacon Connect')
     } else {
-      this._connectionStatus.next('Not connected')
+      this._connectionStatus$.next('Not connected')
     }
   }
 }

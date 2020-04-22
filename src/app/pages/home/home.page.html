@@ -191,36 +191,33 @@
             <ion-card-subtitle>
               Granted Permissions
             </ion-card-subtitle>
-            <ng-container *ngIf="!(activeAccount | async)">
+            <ng-container *ngIf="!(activeAccount$ | async)">
               <p>No permissions yet. Request permissions from the wallet first.</p>
             </ng-container>
-            <ng-container *ngIf="(activeAccount | async) as activeAccount1">
+            <ng-container *ngIf="(activeAccount$ | async) as activeAccount">
               <ion-list lines="none">
                 <ion-item class="ion-no-padding">
                   <ion-label>
-                    {{ activeAccount1.address }}
-                    <p *ngIf="activeAccount1.network.rpcUrl">{{ activeAccount1.network.rpcUrl }}</p>
+                    {{ activeAccount.address }}
+                    <p *ngIf="activeAccount.network.rpcUrl">{{ activeAccount.network.rpcUrl }}</p>
                   </ion-label>
-                  <ion-badge color="primary" slot="end" *ngIf="activeAccount1.network">
-                    {{ activeAccount1.network.type }}
+                  <ion-badge color="primary" slot="end" *ngIf="activeAccount.network">
+                    {{ activeAccount.network.type }}
                   </ion-badge>
                 </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('read_address') >= 0)">
+                <ion-item class="ion-no-padding" [disabled]="!(activeAccount.scopes.indexOf('read_address') >= 0)">
                   <ion-icon slot="start" name="eye"></ion-icon>
                   <ion-label>Read address</ion-label>
                 </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('sign') >= 0)">
+                <ion-item class="ion-no-padding" [disabled]="!(activeAccount.scopes.indexOf('sign') >= 0)">
                   <ion-icon slot="start" name="create"></ion-icon>
                   <ion-label>Sign transactions</ion-label>
                 </ion-item>
-                <ion-item
-                  class="ion-no-padding"
-                  [disabled]="!(activeAccount1.scopes.indexOf('operation_request') >= 0)"
-                >
+                <ion-item class="ion-no-padding" [disabled]="!(activeAccount.scopes.indexOf('operation_request') >= 0)">
                   <ion-icon slot="start" name="color-wand"></ion-icon>
                   <ion-label>Operations requests</ion-label>
                 </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(activeAccount1.scopes.indexOf('threshold') >= 0)">
+                <ion-item class="ion-no-padding" [disabled]="!(activeAccount.scopes.indexOf('threshold') >= 0)">
                   <ion-icon slot="start" name="code-working"></ion-icon>
                   <ion-label>Threshold</ion-label>
                 </ion-item>
@@ -299,7 +296,7 @@
               <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
             </ion-item>
             <ion-item lines="none" class="ion-no-padding">
-              <ion-label *ngIf="activeAccount | async">{{ (activeAccount | async).address }}</ion-label>
+              <ion-label *ngIf="activeAccount$ | async">{{ (activeAccount$ | async).address }}</ion-label>
             </ion-item>
             <ion-item lines="none" class="ion-no-padding">
               <ion-icon name="wallet" slot="start"></ion-icon>

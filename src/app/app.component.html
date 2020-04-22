@@ -13,8 +13,8 @@
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="reset()">
-        {{ connectionStatus | async }}
-        <ng-container *ngIf="activeAccount | async">connected to {{ (activeAccount | async).address }}</ng-container>
+        {{ connectionStatus$ | async }}
+        <ng-container *ngIf="activeAccount$ | async">connected to {{ (activeAccount$ | async).address }}</ng-container>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

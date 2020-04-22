@@ -198,7 +198,7 @@
               <ion-list lines="none">
                 <ion-item class="ion-no-padding">
                   <ion-label>
-                    {{ activeAddress | async }}
+                    {{ activeAccount1.address }}
                     <p *ngIf="activeAccount1.network.rpcUrl">{{ activeAccount1.network.rpcUrl }}</p>
                   </ion-label>
                   <ion-badge color="primary" slot="end" *ngIf="activeAccount1.network">
@@ -299,7 +299,7 @@
               <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
             </ion-item>
             <ion-item lines="none" class="ion-no-padding">
-              <ion-label>{{ activeAddress | async }}</ion-label>
+              <ion-label *ngIf="activeAccount | async">{{ (activeAccount | async).address }}</ion-label>
             </ion-item>
             <ion-item lines="none" class="ion-no-padding">
               <ion-icon name="wallet" slot="start"></ion-icon>

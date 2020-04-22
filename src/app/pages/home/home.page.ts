@@ -111,6 +111,10 @@ export class HomePage {
     this.connectedAccounts = await this.beaconService.client.getAccounts()
   }
 
+  public async activateAccount(accountInfo: AccountInfo): Promise<void> {
+    await (this.beaconService.client as any).setActiveAccount(accountInfo)
+  }
+
   public async disconnectAccount(accountIdentifier: string): Promise<void> {
     await this.beaconService.client.removeAccount(accountIdentifier)
     await this.showConnectedAccounts()

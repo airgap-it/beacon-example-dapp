@@ -260,11 +260,23 @@
               Connected Accounts
             </ion-card-subtitle>
             <ion-button (click)="showConnectedAccounts()" class="ion-margin">Load Accounts</ion-button>
-            <ion-item
-              *ngFor="let connectedAccount of connectedAccounts"
-              (click)="disconnectAccount(connectedAccount.accountIdentifier)"
-            >
-              {{ connectedAccount | json }}
+            <ion-item *ngFor="let connectedAccount of connectedAccounts">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>
+                    {{connectedAccount.address}}
+                    <span *ngIf="connectedAccount.accountIdentifier === activeAccount.accountIdentifier">(Active Account)</span>
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                  Network: {{ connectedAccount.network.type }}
+                  <br />
+                  Scopes: {{ connectedAccount.scopes }}
+                  <br />
+                  <ion-button (click)="activateAccount(connectedAccount)">Activate</ion-button>
+                  <ion-button (click)="disconnectAccount(connectedAccount.accountIdentifier)">Delete</ion-button>
+                </ion-card-content>
+              </ion-card>
             </ion-item>
           </ion-card-content>
         </ion-card>

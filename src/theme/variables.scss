@@ -79,4 +79,8 @@
     --box-shadow: none;
     text-transform: initial;
   }
+  ion-split-pane {
+    --side-max-width: 15vw;
+    --side-min-width: 10vw;
+  }
 }

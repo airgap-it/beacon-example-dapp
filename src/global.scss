@@ -57,7 +57,6 @@ ion-button {
   font-weight: 400;
 }
 ion-menu {
-  width: 256px;
   margin-top: 56px;
   ion-item {
     font-size: 14px;
@@ -124,13 +123,6 @@ app-root {
       .header-md:after {
         display: none !important;
       }
-    }
-  }
-  @media only screen and (min-width: 1400px) {
-    ion-app .content--container {
-      flex: 0 0 calc(calc(6 / var(--ion-grid-columns, 12)) * 100%) !important;
-      width: calc(calc(6 / var(--ion-grid-columns, 12)) * 100%) !important;
-      max-width: calc(calc(6 / var(--ion-grid-columns, 12)) * 100%) !important;
     }
   }
 }

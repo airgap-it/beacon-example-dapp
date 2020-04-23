@@ -231,7 +231,7 @@
               Connected Networks
             </ion-card-subtitle>
             <ion-list lines="none">
-              <ion-item>
+              <ion-item class="ion-no-padding">
                 <ion-label>Network</ion-label>
                 <ion-select [(ngModel)]="selectedNetwork" placeholder="Select one">
                   <ion-select-option value="mainnet">Mainnet</ion-select-option>
@@ -251,7 +251,7 @@
                 </ion-item>
               </ng-container>
             </ion-list>
-            <ion-button (click)="askForPermissions()" class="ion-margin">Request Permissions</ion-button>
+            <ion-button class="ion-margin-top" (click)="askForPermissions()">Request Permissions</ion-button>
           </ion-card-content>
         </ion-card>
         <ion-card class="ion-no-margin">
@@ -259,25 +259,30 @@
             <ion-card-subtitle>
               Connected Accounts
             </ion-card-subtitle>
-            <ion-button (click)="showConnectedAccounts()" class="ion-margin">Load Accounts</ion-button>
-            <ion-item *ngFor="let connectedAccount of connectedAccounts">
-              <ion-card>
-                <ion-card-header>
-                  <ion-card-title>
-                    {{connectedAccount.address}}
-                    <span *ngIf="connectedAccount.accountIdentifier === activeAccount.accountIdentifier">(Active Account)</span>
-                  </ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  Network: {{ connectedAccount.network.type }}
-                  <br />
-                  Scopes: {{ connectedAccount.scopes }}
-                  <br />
-                  <ion-button (click)="activateAccount(connectedAccount)">Activate</ion-button>
-                  <ion-button (click)="disconnectAccount(connectedAccount.accountIdentifier)">Delete</ion-button>
-                </ion-card-content>
-              </ion-card>
-            </ion-item>
+            <div *ngFor="let connectedAccount of connectedAccounts">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-label slot="start">
+                  <h3>{{connectedAccount.address}}</h3>
+                  <p>{{ connectedAccount.scopes }}</p>
+                  <ion-badge
+                    color="dark"
+                    *ngIf="connectedAccount.accountIdentifier === activeAccount.accountIdentifier"
+                  >
+                    Active Account
+                  </ion-badge>
+                </ion-label>
+                <ion-badge color="primary" slot="end">
+                  {{ connectedAccount.network.type }}
+                </ion-badge>
+              </ion-item>
+              <ion-button size="small" (click)="activateAccount(connectedAccount)">
+                Activate
+              </ion-button>
+              <ion-button size="small" fill="outline" (click)="disconnectAccount(connectedAccount.accountIdentifier)">
+                Remove
+              </ion-button>
+            </div>
+            <ion-button class="ion-margin-top" (click)="showConnectedAccounts()">Load Accounts</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

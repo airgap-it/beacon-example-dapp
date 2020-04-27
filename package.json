@@ -12,7 +12,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "lint-fix": "ng lint --fix",
+    "lint:fix": "ng lint --fix",
     "prettier": "prettier --write 'src/**/*'",
     "prepare-prod-build": "npm run disable-pure-getters && npm run configure-mangle",
     "disable-pure-getters": "replace 'pure_getters: buildOptions.buildOptimizer' 'pure_getters: false' ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/common.js ",

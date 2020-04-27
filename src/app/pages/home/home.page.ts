@@ -25,7 +25,7 @@ import { ScrollService } from './../../services/scroll/scroll.service'
 export class HomePage {
   @ViewChild(IonContent, { read: IonContent }) public myContent!: IonContent
 
-  public contractAddress: string = 'KT1LH2o12xVRwTpJMZ6QJG74Fox8gE9QieFd'
+  public contractAddress: string = 'KT1PWx2mnDueood7fEmfbBDKx1D9BAnnXitn'
   public contractBalance: string = ''
   public activeAccount$: Observable<AccountInfo>
   public activeAccount: AccountInfo | undefined
@@ -62,10 +62,10 @@ export class HomePage {
     marketSymbol: 'btc',
     identifier: 'xtz-btc',
     contractAddress: this.contractAddress,
-    jsonRPCAPI: 'https://tezos-babylonnet-node-1.kubernetes.papers.tech',
-    baseApiUrl: 'https://tezos-babylonnet-conseil-1.kubernetes.papers.tech',
+    jsonRPCAPI: 'https://tezos-node.prod.gke.papers.tech',
+    baseApiUrl: 'https://tezos-mainnet-conseil-1.kubernetes.papers.tech',
     baseApiKey: 'airgap00391',
-    baseApiNetwork: 'babylonnet'
+    baseApiNetwork: 'mainnet'
   })
 
   constructor(

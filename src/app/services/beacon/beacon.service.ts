@@ -1,5 +1,5 @@
 import { AccountInfo, DAppClient, TransportType } from '@airgap/beacon-sdk'
-import { InternalEvent } from '@airgap/beacon-sdk/dist/events'
+import { BeaconEvent } from '@airgap/beacon-sdk/dist/events'
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
@@ -8,7 +8,9 @@ import { distinctUntilChanged } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class BeaconService {
-  public client: DAppClient = new DAppClient({ name: 'Beacon Example Dapp' })
+  public client: DAppClient = new DAppClient({
+    name: 'Beacon Example Dapp'
+  })
 
   private readonly _connectionStatus$: ReplaySubject<string> = new ReplaySubject(1)
   public get connectionStatus$(): Observable<string> {
@@ -24,8 +26,8 @@ export class BeaconService {
 
   constructor() {
     this.client
-      .subscribeToEvent(InternalEvent.ACTIVE_ACCOUNT_SET, (data: unknown) => {
-        this._activeAccount$.next(data as any)
+      .subscribeToEvent(BeaconEvent.ACTIVE_ACCOUNT_SET, async (data: AccountInfo) => {
+        this._activeAccount$.next(data)
       })
       .catch(console.error)
     this.initConnection().catch(console.error)

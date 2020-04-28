@@ -131,7 +131,7 @@ export class HomePage {
           return this.myContent.ionScroll.pipe(throttleTime(100, asyncScheduler, { leading: true, trailing: true }))
         })
       )
-      .subscribe((scrollDetailEvent: CustomEvent<any>) => {
+      .subscribe((scrollDetailEvent: CustomEvent) => {
         if (scrollDetailEvent.detail.velocityY > 0) {
           // scrolling down
           if (htmlElement && htmlElement.offsetTop && scrollDetailEvent.detail.scrollTop > htmlElement.offsetTop) {

@@ -262,7 +262,7 @@
             <div *ngFor="let connectedAccount of connectedAccounts">
               <ion-item lines="none" class="ion-no-padding">
                 <ion-label slot="start">
-                  <h3>{{connectedAccount.address}}</h3>
+                  <h3>{{ connectedAccount.address }}</h3>
                   <p>{{ connectedAccount.scopes }}</p>
                   <ng-container *ngIf="(activeAccount$ | async) let activeAccount">
                     <ion-badge

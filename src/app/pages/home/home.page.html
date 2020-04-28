@@ -194,7 +194,7 @@
             <ng-container *ngIf="!(activeAccount$ | async)">
               <p>No permissions yet. Request permissions from the wallet first.</p>
             </ng-container>
-            <ng-container *ngIf="(activeAccount$ | async) as activeAccount">
+            <ng-container *ngIf="(activeAccount$ | async); let activeAccount">
               <ion-list lines="none">
                 <ion-item class="ion-no-padding">
                   <ion-label>
@@ -264,12 +264,14 @@
                 <ion-label slot="start">
                   <h3>{{connectedAccount.address}}</h3>
                   <p>{{ connectedAccount.scopes }}</p>
-                  <ion-badge
-                    color="dark"
-                    *ngIf="connectedAccount.accountIdentifier === activeAccount.accountIdentifier"
-                  >
-                    Active Account
-                  </ion-badge>
+                  <ng-container *ngIf="(activeAccount$ | async) let activeAccount">
+                    <ion-badge
+                      color="dark"
+                      *ngIf="connectedAccount.accountIdentifier === activeAccount.accountIdentifier"
+                    >
+                      Active Account
+                    </ion-badge>
+                  </ng-container>
                 </ion-label>
                 <ion-badge color="primary" slot="end">
                   {{ connectedAccount.network.type }}
@@ -313,7 +315,7 @@
               <ion-input [(ngModel)]="contractAddress" placeholder="KT1..."></ion-input>
             </ion-item>
             <ion-item lines="none" class="ion-no-padding">
-              <ion-label *ngIf="activeAccount$ | async">{{ (activeAccount$ | async).address }}</ion-label>
+              <ion-label *ngIf="activeAccount$ | async; let activeAccount">{{ activeAccount.address }}</ion-label>
             </ion-item>
             <ion-item lines="none" class="ion-no-padding">
               <ion-icon name="wallet" slot="start"></ion-icon>

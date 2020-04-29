@@ -1,4 +1,4 @@
-import { AccountInfo, DAppClient, TransportType } from '@airgap/beacon-sdk'
+import { AccountInfo, DAppClient, Transport, TransportType } from '@airgap/beacon-sdk'
 import { BeaconEvent } from '@airgap/beacon-sdk/dist/events'
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
@@ -30,17 +30,23 @@ export class BeaconService {
         this._activeAccount$.next(data)
       })
       .catch(console.error)
+
+    this.client
+      .subscribeToEvent(BeaconEvent.ACTIVE_TRANSPORT_SET, async (data: Transport) => {
+        if (data.type === TransportType.POST_MESSAGE) {
+          this._connectionStatus$.next('Chrome Extension')
+        } else if (data.type === TransportType.P2P) {
+          this._connectionStatus$.next('Beacon Connect')
+        } else {
+          this._connectionStatus$.next('Not connected')
+        }
+      })
+      .catch(console.error)
+
     this.initConnection().catch(console.error)
   }
 
   public async initConnection(): Promise<void> {
-    const result: TransportType = await this.client.init()
-    if (result === TransportType.POST_MESSAGE) {
-      this._connectionStatus$.next('Chrome Extension')
-    } else if (result === TransportType.P2P) {
-      this._connectionStatus$.next('Beacon Connect')
-    } else {
-      this._connectionStatus$.next('Not connected')
-    }
+    await this.client.init()
   }
 }

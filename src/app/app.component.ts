@@ -1,4 +1,5 @@
 import { AccountInfo } from '@airgap/beacon-sdk'
+import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
 import { Component, ViewChild } from '@angular/core'
 import { Storage } from '@ionic/storage'
 import { Observable } from 'rxjs'
@@ -18,6 +19,7 @@ export class AppComponent {
   public selectedTab: string = 'approach'
   public connectionStatus$: Observable<string>
   public activeAccount$: Observable<AccountInfo>
+  public version: string = SDK_VERSION
 
   constructor(
     private readonly beaconService: BeaconService,

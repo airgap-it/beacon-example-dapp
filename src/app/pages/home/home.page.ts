@@ -102,7 +102,7 @@ export class HomePage {
       .then(async (response: PermissionResponseOutput) => {
         return this.permissionGrantedAlert(response)
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('PERMISSION ERROR', err)
       })
   }
@@ -210,7 +210,7 @@ export class HomePage {
 
         await alert.present()
       })
-      .catch(async err => {
+      .catch(async (err) => {
         const alert: HTMLIonAlertElement = await this.alertController.create({
           header: 'Broadcast failed!',
           message: 'The message could not be broadcast. Please check if you have enough balance.',
@@ -249,7 +249,7 @@ export class HomePage {
 
         await alert.present()
       })
-      .catch(async err => {
+      .catch(async (err) => {
         const alert: HTMLIonAlertElement = await this.alertController.create({
           header: 'Broadcast failed!',
           message: 'The message could not be broadcast. Please check if you have enough balance.',
@@ -286,7 +286,7 @@ export class HomePage {
 
           await alert.present()
         })
-        .catch(async err => {
+        .catch(async (err) => {
           const alert = await this.alertController.create({
             header: 'Broadcast failed!',
             message: 'The message could not be broadcast. Please check if you have enough balance.',
@@ -320,7 +320,7 @@ export class HomePage {
 
         await alert.present()
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('SIGN ERROR', err)
       })
   }
@@ -353,7 +353,7 @@ export class HomePage {
 
         await alert.present()
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('BROADCAST ERROR', err)
       })
   }

@@ -205,10 +205,6 @@
                     {{ activeAccount.network.type }}
                   </ion-badge>
                 </ion-item>
-                <ion-item class="ion-no-padding" [disabled]="!(activeAccount.scopes.indexOf('read_address') >= 0)">
-                  <ion-icon slot="start" name="eye"></ion-icon>
-                  <ion-label>Read address</ion-label>
-                </ion-item>
                 <ion-item class="ion-no-padding" [disabled]="!(activeAccount.scopes.indexOf('sign') >= 0)">
                   <ion-icon slot="start" name="create"></ion-icon>
                   <ion-label>Sign transactions</ion-label>

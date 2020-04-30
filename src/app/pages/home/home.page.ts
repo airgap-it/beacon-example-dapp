@@ -179,8 +179,8 @@ export class HomePage {
 
   public async permissionGrantedAlert(response: PermissionResponseOutput): Promise<void> {
     const alert: HTMLIonAlertElement = await this.alertController.create({
-      header: 'Permissions granted!',
-      message: `The wallet has granded you permissions to use the address ${response.address}`,
+      header: 'Permissions granted',
+      message: `The wallet has granted you permissions to use the address ${response.address}`,
       buttons: ['OK']
     })
 
@@ -227,20 +227,20 @@ export class HomePage {
           destination: this.transferRecipient
         }
       ],
-      'The operation has been broadcast to the network.'
+      'The operation has been broadcasted to the network.'
     )
   }
 
   public async operationRequest(): Promise<void> {
     return this.requestOperationWithAlert(
       JSON.parse(this.rawOperationRequest),
-      'The operation has been broadcast to the network.'
+      'The operation has been broadcasted to the network.'
     )
   }
 
   public async sign(): Promise<void> {
     if (!this.activeAccount) {
-      throw new Error('No active account set!')
+      throw new Error('No active account set')
     }
 
     const response: SignPayloadResponseOutput = await this.beaconService.client.requestSignPayload({
@@ -271,7 +271,7 @@ export class HomePage {
 
     return this.showAlertWithBlockExplorerLink(
       'Broadcast Successful',
-      'Your operation has been broadcast to the network.',
+      'Your operation has been broadcasted to the network.',
       response.transactionHash
     )
   }
@@ -325,8 +325,8 @@ export class HomePage {
       return this.showAlertWithBlockExplorerLink('Operation Successful', successMessage, response.transactionHash)
     } catch (e) {
       const alert: HTMLIonAlertElement = await this.alertController.create({
-        header: 'Broadcast failed!',
-        message: 'The message could not be broadcast. Please check if you have enough balance.',
+        header: 'Broadcast failed',
+        message: 'The message could not be broadcasted. Please check the account balance.',
         buttons: ['OK']
       })
 

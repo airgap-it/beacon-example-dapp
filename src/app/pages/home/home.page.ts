@@ -6,6 +6,7 @@ import {
   SignPayloadResponseOutput,
   TezosOperationType
 } from '@airgap/beacon-sdk'
+import { getAddressFromPublicKey } from '@airgap/beacon-sdk/dist/utils/crypto'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
@@ -261,6 +262,50 @@ export class HomePage {
       })
   }
 
+  public async transfer(): Promise<void> {
+    this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
+      this.beaconService.client
+        .requestOperation({
+          network: accountInfo.network,
+          operationDetails: [
+            {
+              kind: TezosOperationType.TRANSACTION,
+              amount: this.transferAmount,
+              destination: this.transferRecipient
+            }
+          ]
+        })
+        .then(async (response: OperationResponseOutput) => {
+          console.log(response)
+          const alert = await this.alertController.create({
+            header: 'Operation Successful',
+            message: 'The operation has been broadcast to the network.',
+            buttons: [
+              {
+                text: 'Open Blockexplorer',
+                handler: (): void => {
+                  window.open(new TezosProtocol().getBlockExplorerLinkForTxId(response.transactionHash), '_blank')
+                }
+              },
+              'OK'
+            ]
+          })
+
+          await alert.present()
+        })
+        .catch(async (err) => {
+          const alert = await this.alertController.create({
+            header: 'Broadcast failed!',
+            message: 'The message could not be broadcast. Please check if you have enough balance.',
+            buttons: ['OK']
+          })
+
+          await alert.present()
+          console.log('OPERATION ERROR', err)
+        })
+    })
+  }
+
   public async operationRequest(): Promise<void> {
     this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
       this.beaconService.client
@@ -307,7 +352,7 @@ export class HomePage {
       .requestSignPayload({
         payload: this.unsignedTransaction,
         sourceAddress: this.activeAccount.pubkey
-          ? await new TezosProtocol().getAddressFromPublicKey(this.activeAccount.pubkey)
+          ? await new getAddressFromPublicKey(this.activeAccount.pubkey)
           : undefined
       })
       .then(async (response: SignPayloadResponseOutput) => {

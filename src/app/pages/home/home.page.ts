@@ -5,18 +5,18 @@ import {
   OperationResponseOutput,
   PermissionResponseOutput,
   SignPayloadResponseOutput,
+  TezosOperations,
   TezosOperationType
 } from '@airgap/beacon-sdk'
-import { getAddressFromPublicKey } from '@airgap/beacon-sdk/dist/utils/crypto'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
 import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
 import { asyncScheduler, Observable } from 'rxjs'
-import { first, switchMap, throttleTime } from 'rxjs/operators'
-import { BeaconService } from 'src/app/services/beacon/beacon.service'
+import { switchMap, throttleTime } from 'rxjs/operators'
 
-import { ScrollService } from './../../services/scroll/scroll.service'
+import { BeaconService } from '../../services/beacon/beacon.service'
+import { ScrollService } from '../../services/scroll/scroll.service'
 
 export const getTezblockLinkForAddress: (
   accountInfo: AccountInfo | undefined,
@@ -120,20 +120,16 @@ export class HomePage {
   }
 
   public async askForPermissions(): Promise<void> {
-    this.beaconService.client
-      .requestPermissions({
-        network: {
-          type: this.selectedNetwork as any,
-          name: this.networkName,
-          rpcUrl: this.networkRpcUrl
-        }
-      })
-      .then(async (response: PermissionResponseOutput) => {
-        return this.permissionGrantedAlert(response)
-      })
-      .catch((err) => {
-        console.error('PERMISSION ERROR', err)
-      })
+    const response: PermissionResponseOutput = await this.beaconService.client.requestPermissions({
+      network: {
+        type: this.selectedNetwork as any,
+        name: this.networkName,
+        rpcUrl: this.networkRpcUrl
+      }
+    })
+    console.log('response')
+
+    return this.permissionGrantedAlert(response)
   }
 
   public async showConnectedAccounts(): Promise<void> {
@@ -141,7 +137,7 @@ export class HomePage {
   }
 
   public async activateAccount(accountInfo: AccountInfo): Promise<void> {
-    await (this.beaconService.client as any).setActiveAccount(accountInfo)
+    await this.beaconService.client.setActiveAccount(accountInfo)
   }
 
   public async disconnectAccount(accountIdentifier: string): Promise<void> {
@@ -182,7 +178,6 @@ export class HomePage {
   }
 
   public async permissionGrantedAlert(response: PermissionResponseOutput): Promise<void> {
-    console.log('PERMISSION RESULT', response)
     const alert: HTMLIonAlertElement = await this.alertController.create({
       header: 'Permissions granted!',
       message: `The wallet has granded you permissions to use the address ${response.address}`,
@@ -194,206 +189,73 @@ export class HomePage {
 
   public async getBalanceOfContract(): Promise<void> {
     if (this.activeAccount && this.activeAccount.address) {
-      this.protocol
-        .getBalance(this.activeAccount.address)
-        .then((balance: string) => {
-          this.contractBalance = balance
-          console.log('tzbtc balance', balance)
-        })
-        .catch(console.error)
+      const balance: string = await this.protocol.getBalance(this.activeAccount.address)
+      this.contractBalance = balance
+
+      console.log('tzbtc balance', balance)
     } else {
       this.contractBalance = '0'
     }
   }
 
   public async tip(): Promise<void> {
-    if (!this.activeAccount) {
-      throw new Error('No active account set!')
-    }
-    this.beaconService.client
-      .requestOperation({
-        network: this.activeAccount.network,
-        operationDetails: [
-          {
-            kind: TezosOperationType.TRANSACTION,
-            amount: (parseInt(this.tippingAmount, 10) * 1000000).toString(),
-            destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
-          } as any
-        ]
-      })
-      .then(async (response: OperationResponseOutput) => {
-        console.log(response)
-        const alert: HTMLIonAlertElement = await this.alertController.create({
-          header: 'Operation Successful',
-          message: 'Thanks for your tip!',
-          buttons: [
-            {
-              text: 'Open Blockexplorer',
-              handler: async (): Promise<void> => {
-                window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
-              }
-            },
-            'OK'
-          ]
-        })
-
-        await alert.present()
-      })
-      .catch(async (err) => {
-        const alert: HTMLIonAlertElement = await this.alertController.create({
-          header: 'Broadcast failed!',
-          message: 'The message could not be broadcast. Please check if you have enough balance.',
-          buttons: ['OK']
-        })
-
-        await alert.present()
-        console.log('TIP ERROR', err)
-      })
+    return this.requestOperationWithAlert(
+      [
+        {
+          kind: TezosOperationType.TRANSACTION,
+          amount: (parseInt(this.tippingAmount, 10) * 1000000).toString(),
+          destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
+        }
+      ],
+      'Thanks for your tip!'
+    )
   }
 
   public async delegate(): Promise<void> {
-    if (!this.activeAccount) {
-      throw new Error('No active account set!')
-    }
-    this.beaconService.client
-      .requestOperation({
-        network: this.activeAccount.network,
-        operationDetails: [{ kind: TezosOperationType.DELEGATION, delegate: this.delegationAddress } as any]
-      })
-      .then(async (response: OperationResponseOutput) => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'Operation Successful',
-          message: 'Thanks for your delegation!',
-          buttons: [
-            {
-              text: 'Open Blockexplorer',
-              handler: async (): Promise<void> => {
-                window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
-              }
-            },
-            'OK'
-          ]
-        })
-
-        await alert.present()
-      })
-      .catch(async (err) => {
-        const alert: HTMLIonAlertElement = await this.alertController.create({
-          header: 'Broadcast failed!',
-          message: 'The message could not be broadcast. Please check if you have enough balance.',
-          buttons: ['OK']
-        })
-
-        await alert.present()
-        console.log('DELEGATE ERROR', err)
-      })
+    return this.requestOperationWithAlert(
+      [{ kind: TezosOperationType.DELEGATION, delegate: this.delegationAddress }],
+      'Thanks for your delegation!'
+    )
   }
 
   public async transfer(): Promise<void> {
-    this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
-      this.beaconService.client
-        .requestOperation({
-          network: accountInfo.network,
-          operationDetails: [
-            {
-              kind: TezosOperationType.TRANSACTION,
-              amount: this.transferAmount,
-              destination: this.transferRecipient
-            }
-          ]
-        })
-        .then(async (response: OperationResponseOutput) => {
-          console.log(response)
-          const alert = await this.alertController.create({
-            header: 'Operation Successful',
-            message: 'The operation has been broadcast to the network.',
-            buttons: [
-              {
-                text: 'Open Blockexplorer',
-                handler: async (): Promise<void> => {
-                  window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
-                }
-              },
-              'OK'
-            ]
-          })
-
-          await alert.present()
-        })
-        .catch(async (err) => {
-          const alert = await this.alertController.create({
-            header: 'Broadcast failed!',
-            message: 'The message could not be broadcast. Please check if you have enough balance.',
-            buttons: ['OK']
-          })
-
-          await alert.present()
-          console.log('OPERATION ERROR', err)
-        })
-    })
+    return this.requestOperationWithAlert(
+      [
+        {
+          kind: TezosOperationType.TRANSACTION,
+          amount: this.transferAmount,
+          destination: this.transferRecipient
+        }
+      ],
+      'The operation has been broadcast to the network.'
+    )
   }
 
   public async operationRequest(): Promise<void> {
-    this.activeAccount$.pipe(first()).subscribe((accountInfo: AccountInfo) => {
-      this.beaconService.client
-        .requestOperation({
-          network: accountInfo.network,
-          operationDetails: JSON.parse(this.rawOperationRequest)
-        })
-        .then(async (response: OperationResponseOutput) => {
-          console.log(response)
-          const alert = await this.alertController.create({
-            header: 'Operation Successful',
-            message: 'The operation has been broadcast to the network.',
-            buttons: [
-              {
-                text: 'Open Blockexplorer',
-                handler: async (): Promise<void> => {
-                  window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
-                }
-              },
-              'OK'
-            ]
-          })
-
-          await alert.present()
-        })
-        .catch(async (err) => {
-          const alert = await this.alertController.create({
-            header: 'Broadcast failed!',
-            message: 'The message could not be broadcast. Please check if you have enough balance.',
-            buttons: ['OK']
-          })
-
-          await alert.present()
-          console.log('OPERATION ERROR', err)
-        })
-    })
+    return this.requestOperationWithAlert(
+      JSON.parse(this.rawOperationRequest),
+      'The operation has been broadcast to the network.'
+    )
   }
 
   public async sign(): Promise<void> {
     if (!this.activeAccount) {
       throw new Error('No active account set!')
     }
-    this.beaconService.client
-      .requestSignPayload({
-        payload: this.unsignedTransaction,
-        sourceAddress: this.activeAccount.pubkey ? await getAddressFromPublicKey(this.activeAccount.pubkey) : undefined
-      })
-      .then(async (response: SignPayloadResponseOutput) => {
-        console.log(response)
-        const alert = await this.alertController.create({
-          header: 'Signing Successful',
-          message: `The signature for your message is: ${response.signature}`,
-          buttons: ['OK']
-        })
 
-        await alert.present()
-      })
-      .catch((err) => {
-        console.log('SIGN ERROR', err)
-      })
+    const response: SignPayloadResponseOutput = await this.beaconService.client.requestSignPayload({
+      payload: this.unsignedTransaction,
+      sourceAddress: this.activeAccount.address
+    })
+    console.log(response)
+
+    const alert = await this.alertController.create({
+      header: 'Signing Successful',
+      message: `The signature for your message is: ${response.signature}`,
+      buttons: ['OK']
+    })
+
+    await alert.present()
   }
 
   public async broadcast(): Promise<void> {
@@ -401,32 +263,17 @@ export class HomePage {
       throw new Error('No active account set!')
     }
 
-    this.beaconService.client
-      .requestBroadcast({
-        network: this.activeAccount.network,
-        signedTransaction: this.broadcastTransaction
-      })
-      .then(async (response: BroadcastResponseOutput) => {
-        console.log(response)
-        const alert: HTMLIonAlertElement = await this.alertController.create({
-          header: 'Broadcast Successful',
-          message: 'Your operation has been broadcast to the network.',
-          buttons: [
-            {
-              text: 'Open Blockexplorer',
-              handler: async (): Promise<void> => {
-                window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
-              }
-            },
-            'OK'
-          ]
-        })
+    const response: BroadcastResponseOutput = await this.beaconService.client.requestBroadcast({
+      network: this.activeAccount.network,
+      signedTransaction: this.broadcastTransaction
+    })
+    console.log(response)
 
-        await alert.present()
-      })
-      .catch((err) => {
-        console.log('BROADCAST ERROR', err)
-      })
+    return this.showAlertWithBlockExplorerLink(
+      'Broadcast Successful',
+      'Your operation has been broadcast to the network.',
+      response.transactionHash
+    )
   }
 
   public async scrollTo(element: string): Promise<void> {
@@ -435,6 +282,55 @@ export class HomePage {
       if (yOffset && yOffset.offsetTop) {
         await this.myContent.scrollToPoint(0, yOffset.offsetTop, 500)
       }
+    }
+  }
+
+  private async showAlertWithBlockExplorerLink(
+    header: string,
+    message: string,
+    transactionHash: string
+  ): Promise<void> {
+    const alert: HTMLIonAlertElement = await this.alertController.create({
+      header,
+      message,
+      buttons: [
+        {
+          text: 'Open Blockexplorer',
+          handler: async (): Promise<void> => {
+            window.open(await getTezblockLinkForTxHash(this.activeAccount, transactionHash), '_blank')
+          }
+        },
+        'OK'
+      ]
+    })
+
+    await alert.present()
+  }
+
+  private async requestOperationWithAlert(
+    operations: Partial<TezosOperations>[],
+    successMessage: string
+  ): Promise<void> {
+    if (!this.activeAccount) {
+      throw new Error('No active account set!')
+    }
+
+    try {
+      const response: OperationResponseOutput = await this.beaconService.client.requestOperation({
+        network: this.activeAccount.network,
+        operationDetails: operations
+      })
+      console.log(response)
+
+      return this.showAlertWithBlockExplorerLink('Operation Successful', successMessage, response.transactionHash)
+    } catch (e) {
+      const alert: HTMLIonAlertElement = await this.alertController.create({
+        header: 'Broadcast failed!',
+        message: 'The message could not be broadcast. Please check if you have enough balance.',
+        buttons: ['OK']
+      })
+
+      await alert.present()
     }
   }
 }

@@ -1,6 +1,7 @@
 import {
   AccountInfo,
   BroadcastResponseOutput,
+  NetworkType,
   OperationResponseOutput,
   PermissionResponseOutput,
   SignPayloadResponseOutput,
@@ -10,13 +11,40 @@ import { getAddressFromPublicKey } from '@airgap/beacon-sdk/dist/utils/crypto'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
-import { TezosProtocol } from 'airgap-coin-lib'
 import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
 import { asyncScheduler, Observable } from 'rxjs'
 import { first, switchMap, throttleTime } from 'rxjs/operators'
 import { BeaconService } from 'src/app/services/beacon/beacon.service'
 
 import { ScrollService } from './../../services/scroll/scroll.service'
+
+export const getTezblockLinkForAddress: (
+  accountInfo: AccountInfo | undefined,
+  address: string
+) => Promise<string> = async (accountInfo: AccountInfo | undefined, address: string): Promise<string> => {
+  const urls: { [key in NetworkType]: string } = {
+    [NetworkType.MAINNET]: 'https://tezblock.io/account/',
+    [NetworkType.CARTHAGENET]: 'https://carthagenet.tezblock.io/account/',
+    [NetworkType.CUSTOM]: 'http://localhost:8100/account/'
+  }
+  const url: string = urls[accountInfo && accountInfo.network ? accountInfo.network.type : NetworkType.MAINNET]
+
+  return `${url}${address}`
+}
+
+export const getTezblockLinkForTxHash: (
+  accountInfo: AccountInfo | undefined,
+  txHash: string
+) => Promise<string> = async (accountInfo: AccountInfo | undefined, txHash: string): Promise<string> => {
+  const urls: { [key in NetworkType]: string } = {
+    [NetworkType.MAINNET]: 'https://tezblock.io/transaction/',
+    [NetworkType.CARTHAGENET]: 'https://carthagenet.tezblock.io/transaction/',
+    [NetworkType.CUSTOM]: 'http://localhost:8100/transaction/'
+  }
+  const url: string = urls[accountInfo && accountInfo.network ? accountInfo.network.type : NetworkType.MAINNET]
+
+  return `${url}${txHash}`
+}
 
 @Component({
   selector: 'app-home',
@@ -201,8 +229,8 @@ export class HomePage {
           buttons: [
             {
               text: 'Open Blockexplorer',
-              handler: (): void => {
-                window.open(new TezosProtocol().getBlockExplorerLinkForTxId(response.transactionHash), '_blank')
+              handler: async (): Promise<void> => {
+                window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
               }
             },
             'OK'
@@ -240,8 +268,8 @@ export class HomePage {
           buttons: [
             {
               text: 'Open Blockexplorer',
-              handler: (): void => {
-                window.open(new TezosProtocol().getBlockExplorerLinkForTxId(response.transactionHash), '_blank')
+              handler: async (): Promise<void> => {
+                window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
               }
             },
             'OK'
@@ -283,8 +311,8 @@ export class HomePage {
             buttons: [
               {
                 text: 'Open Blockexplorer',
-                handler: (): void => {
-                  window.open(new TezosProtocol().getBlockExplorerLinkForTxId(response.transactionHash), '_blank')
+                handler: async (): Promise<void> => {
+                  window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
                 }
               },
               'OK'
@@ -321,8 +349,8 @@ export class HomePage {
             buttons: [
               {
                 text: 'Open Blockexplorer',
-                handler: (): void => {
-                  window.open(new TezosProtocol().getBlockExplorerLinkForTxId(response.transactionHash), '_blank')
+                handler: async (): Promise<void> => {
+                  window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
                 }
               },
               'OK'
@@ -351,9 +379,7 @@ export class HomePage {
     this.beaconService.client
       .requestSignPayload({
         payload: this.unsignedTransaction,
-        sourceAddress: this.activeAccount.pubkey
-          ? await new getAddressFromPublicKey(this.activeAccount.pubkey)
-          : undefined
+        sourceAddress: this.activeAccount.pubkey ? await getAddressFromPublicKey(this.activeAccount.pubkey) : undefined
       })
       .then(async (response: SignPayloadResponseOutput) => {
         console.log(response)
@@ -388,8 +414,8 @@ export class HomePage {
           buttons: [
             {
               text: 'Open Blockexplorer',
-              handler: (): void => {
-                window.open(new TezosProtocol().getBlockExplorerLinkForTxId(response.transactionHash), '_blank')
+              handler: async (): Promise<void> => {
+                window.open(await getTezblockLinkForTxHash(this.activeAccount, response.transactionHash), '_blank')
               }
             },
             'OK'

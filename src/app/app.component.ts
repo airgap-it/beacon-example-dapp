@@ -4,7 +4,6 @@ import { Component, ViewChild } from '@angular/core'
 import { Storage } from '@ionic/storage'
 import { Observable } from 'rxjs'
 
-import { setSentryRelease } from './classes/sentry-error-handler/sentry-error-handler'
 import { HomePage } from './pages/home/home.page'
 import { BeaconService } from './services/beacon/beacon.service'
 import { ScrollService } from './services/scroll/scroll.service'
@@ -27,7 +26,6 @@ export class AppComponent {
     private readonly scrollService: ScrollService,
     private readonly storage: Storage
   ) {
-    setSentryRelease(SDK_VERSION)
     this.connectionStatus$ = this.beaconService.connectionStatus$
     this.activeAccount$ = this.beaconService.activeAccount$
     this.scrollService.currentSelectedTab$.subscribe((currentTab: string) => {

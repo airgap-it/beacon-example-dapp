@@ -1,3 +1,4 @@
+import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
 import { ErrorHandler, Injectable } from '@angular/core'
 import { captureException, configureScope, Event, init, Scope, withScope } from '@sentry/browser'
 
@@ -10,7 +11,8 @@ export enum ErrorCategory {
   UNKNOWN = 'unknown'
 }
 
-const ERROR_CATEGORY: string = 'error-category'
+const ERROR_CATEGORY_TAG: string = 'error-category'
+const SDK_VERSION_TAG: string = 'sdk-version'
 
 const handleErrorSentry: (category?: ErrorCategory) => (error: any) => void = (
   category: ErrorCategory = ErrorCategory.UNKNOWN
@@ -18,7 +20,8 @@ const handleErrorSentry: (category?: ErrorCategory) => (error: any) => void = (
   return (error: any): void => {
     try {
       withScope((scope: Scope) => {
-        scope.setTag(ERROR_CATEGORY, category)
+        scope.setTag(ERROR_CATEGORY_TAG, category)
+        scope.setTag(SDK_VERSION_TAG, SDK_VERSION)
         const eventId: string = captureException(error.originalError || error)
         // tslint:disable-next-line
         console.debug(`[sentry](${category}) - ${eventId}`)

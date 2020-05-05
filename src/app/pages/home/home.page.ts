@@ -199,11 +199,16 @@ export class HomePage {
   }
 
   public async tip(): Promise<void> {
+    const amount: number = parseFloat(this.transferAmount) * 1000000
+    if (isNaN(amount)) {
+      return this.showAlertWithBlockExplorerLink('Error', 'Amount is invalid')
+    }
+
     return this.requestOperationWithAlert(
       [
         {
           kind: TezosOperationType.TRANSACTION,
-          amount: (parseInt(this.tippingAmount, 10) * 1000000).toString(),
+          amount: amount.toString(),
           destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
         }
       ],
@@ -219,11 +224,16 @@ export class HomePage {
   }
 
   public async transfer(): Promise<void> {
+    const amount: number = parseFloat(this.transferAmount) * 1000000
+    if (isNaN(amount)) {
+      return this.showAlertWithBlockExplorerLink('Error', 'Amount is invalid')
+    }
+
     return this.requestOperationWithAlert(
       [
         {
           kind: TezosOperationType.TRANSACTION,
-          amount: (parseInt(this.transferAmount, 10) * 1000000).toString(),
+          amount: amount.toString(),
           destination: this.transferRecipient
         }
       ],
@@ -288,20 +298,23 @@ export class HomePage {
   private async showAlertWithBlockExplorerLink(
     header: string,
     message: string,
-    transactionHash: string
+    transactionHash?: string
   ): Promise<void> {
+    const buttons: any[] = []
+    if (transactionHash) {
+      buttons.push({
+        text: 'Open Blockexplorer',
+        handler: async (): Promise<void> => {
+          window.open(await getTezblockLinkForTxHash(this.activeAccount, transactionHash), '_blank')
+        }
+      })
+    }
+
+    buttons.push('OK')
     const alert: HTMLIonAlertElement = await this.alertController.create({
       header,
       message,
-      buttons: [
-        {
-          text: 'Open Blockexplorer',
-          handler: async (): Promise<void> => {
-            window.open(await getTezblockLinkForTxHash(this.activeAccount, transactionHash), '_blank')
-          }
-        },
-        'OK'
-      ]
+      buttons
     })
 
     await alert.present()

@@ -9,6 +9,7 @@
     "serve": "ionic serve --external",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "ng deploy",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -16,8 +17,7 @@
     "prettier": "prettier --write 'src/**/*'",
     "prepare-prod-build": "npm run disable-pure-getters && npm run configure-mangle",
     "disable-pure-getters": "replace 'pure_getters: buildOptions.buildOptimizer' 'pure_getters: false' ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/common.js ",
-    "configure-mangle": "replace 'safari10: true' 'safari10: true, keep_fnames: true' ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/common.js ",
-    "deploy": "ng build --prod --base-href '/' && cp CNAME www && npx ngh --dir=www --message='Deploying latest changes'"
+    "configure-mangle": "replace 'safari10: true' 'safari10: true, keep_fnames: true' ./node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/common.js "
   },
   "private": true,
   "dependencies": {
@@ -51,6 +51,7 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.12.21",
+    "angular-cli-ghpages": "^0.6.2",
     "codelyzer": "^5.0.0",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",

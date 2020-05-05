@@ -223,7 +223,7 @@ export class HomePage {
       [
         {
           kind: TezosOperationType.TRANSACTION,
-          amount: this.transferAmount,
+          amount: (parseInt(this.transferAmount, 10) * 1000000).toString(),
           destination: this.transferRecipient
         }
       ],
@@ -324,13 +324,7 @@ export class HomePage {
 
       return this.showAlertWithBlockExplorerLink('Operation Successful', successMessage, response.transactionHash)
     } catch (e) {
-      const alert: HTMLIonAlertElement = await this.alertController.create({
-        header: 'Broadcast failed',
-        message: 'The message could not be broadcasted. Please check the account balance.',
-        buttons: ['OK']
-      })
-
-      await alert.present()
+      console.log('operation-request error', e)
     }
   }
 }

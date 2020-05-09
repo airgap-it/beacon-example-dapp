@@ -21,7 +21,7 @@
   },
   "private": true,
   "dependencies": {
-    "@airgap/beacon-sdk": "0.3.0-beta.0",
+    "@airgap/beacon-sdk": "0.3.0",
     "@angular/common": "^9.1.2",
     "@angular/core": "^9.1.2",
     "@angular/forms": "^9.1.2",
@@ -31,7 +31,7 @@
     "@ionic/angular": "5.0.7",
     "@ionic/storage": "^2.2.0",
     "@sentry/browser": "^5.15.5",
-    "airgap-coin-lib": "0.6.4-beta.3",
+    "airgap-coin-lib": "0.8.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.3",
     "tslib": "^1.10.0",

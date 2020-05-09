@@ -4,14 +4,13 @@ import {
   NetworkType,
   OperationResponseOutput,
   PermissionResponseOutput,
-  SignPayloadResponseOutput,
   TezosOperations,
   TezosOperationType
 } from '@airgap/beacon-sdk'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
-import { TezosFAProtocol } from 'airgap-coin-lib/dist/protocols/tezos/fa/TezosFAProtocol'
+import { TezosBTC } from 'airgap-coin-lib'
 import { asyncScheduler, Observable } from 'rxjs'
 import { switchMap, throttleTime } from 'rxjs/operators'
 
@@ -85,17 +84,7 @@ export class HomePage {
 
   public connectedAccounts: AccountInfo[] = []
 
-  public protocol: TezosFAProtocol = new TezosFAProtocol({
-    symbol: 'TZBTC',
-    name: 'Tezos BTC',
-    marketSymbol: 'btc',
-    identifier: 'xtz-btc',
-    contractAddress: this.contractAddress,
-    jsonRPCAPI: 'https://tezos-node.prod.gke.papers.tech',
-    baseApiUrl: 'https://tezos-mainnet-conseil-1.kubernetes.papers.tech',
-    baseApiKey: 'airgap00391',
-    baseApiNetwork: 'mainnet'
-  })
+  public protocol: TezosBTC = new TezosBTC()
 
   constructor(
     private readonly alertController: AlertController,
@@ -127,7 +116,6 @@ export class HomePage {
         rpcUrl: this.networkRpcUrl
       }
     })
-    console.log('response')
 
     return this.permissionGrantedAlert(response)
   }
@@ -177,14 +165,13 @@ export class HomePage {
       })
   }
 
-  public async permissionGrantedAlert(response: PermissionResponseOutput): Promise<void> {
-    const alert: HTMLIonAlertElement = await this.alertController.create({
-      header: 'Permissions granted',
-      message: `The wallet has granted you permissions to use the address ${response.address}`,
-      buttons: ['OK']
-    })
-
-    await alert.present()
+  public async permissionGrantedAlert(_response: PermissionResponseOutput): Promise<void> {
+    // const alert: HTMLIonAlertElement = await this.alertController.create({
+    //   header: 'Permissions granted',
+    //   message: `The wallet has granted you permissions to use the address ${response.address}`,
+    //   buttons: ['OK']
+    // })
+    // await alert.present()
   }
 
   public async getBalanceOfContract(): Promise<void> {
@@ -199,7 +186,7 @@ export class HomePage {
   }
 
   public async tip(): Promise<void> {
-    const amount: number = parseFloat(this.transferAmount) * 1000000
+    const amount: number = parseFloat(this.tippingAmount) * 1000000
     if (isNaN(amount)) {
       return this.showAlertWithBlockExplorerLink('Error', 'Amount is invalid')
     }
@@ -253,24 +240,24 @@ export class HomePage {
       throw new Error('No active account set')
     }
 
-    const response: SignPayloadResponseOutput = await this.beaconService.client.requestSignPayload({
+    // const response: SignPayloadResponseOutput =
+    await this.beaconService.client.requestSignPayload({
       payload: this.unsignedTransaction,
       sourceAddress: this.activeAccount.address
     })
-    console.log(response)
 
-    const alert = await this.alertController.create({
-      header: 'Signing Successful',
-      message: `The signature for your message is: ${response.signature}`,
-      buttons: ['OK']
-    })
+    // const alert = await this.alertController.create({
+    //   header: 'Signing Successful',
+    //   message: `The signature for your message is: ${response.signature}`,
+    //   buttons: ['OK']
+    // })
 
-    await alert.present()
+    // await alert.present()
   }
 
   public async broadcast(): Promise<void> {
     if (!this.activeAccount) {
-      throw new Error('No active account set!')
+      throw new Error('No active account set')
     }
 
     const response: BroadcastResponseOutput = await this.beaconService.client.requestBroadcast({
@@ -322,7 +309,7 @@ export class HomePage {
 
   private async requestOperationWithAlert(
     operations: Partial<TezosOperations>[],
-    successMessage: string
+    _successMessage: string
   ): Promise<void> {
     if (!this.activeAccount) {
       throw new Error('No active account set!')
@@ -335,7 +322,7 @@ export class HomePage {
       })
       console.log(response)
 
-      return this.showAlertWithBlockExplorerLink('Operation Successful', successMessage, response.transactionHash)
+      // return this.showAlertWithBlockExplorerLink('Operation Successful', successMessage, response.transactionHash)
     } catch (e) {
       console.log('operation-request error', e)
     }

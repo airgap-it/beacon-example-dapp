@@ -1,0 +1,62 @@
+# 0.1.0
+# a simple contract to test beacon integration
+# originated on Carthagenet for beacon development
+#
+# tezos-client originate contract beaconSimple transferring 0 from alice running ./simple.tz --init '(Pair 0 True)' --burn-cap 1
+# KT1RxKJyi48W3bZR8HErRiisXZQw19HwLGWj
+#
+# tezos-client transfer 0 from alice to beaconSimple --entrypoint 'setNumber' --arg '123' --burn-cap 1
+# tezos-client transfer 0 from alice to beaconSimple --entrypoint 'toggleStatus' --arg 'False' --burn-cap 1
+# tezos-client transfer 0 from alice to beaconSimple --entrypoint 'toggleStatus' --arg 'True' --burn-cap 1
+# tezos-client transfer 1.23 from alice to beaconSimple --entrypoint 'default' --arg 'Unit' --burn-cap 1
+# tezos-client get contract storage for beaconSimple
+
+parameter
+  (or
+     (unit %default)
+     (or (int %setNumber)
+         (bool %toggleStatus)));
+storage
+  (pair (int %number) (bool %status));
+code
+  { UNPAIR ; # [%parameter, %storage]
+    IF_LEFT
+      { # 'default' entrypoint
+        # send xtz
+        # [unit %default, storage]
+            
+        DROP ;          # [storage]
+        NIL operation ; # [list operation, storage]
+        PAIR ;          # [pair (list operation) storage]
+      }
+      { IF_LEFT
+          { # 'setNumber' entrypoint
+            # allow the sender to set an arbitrary number
+            # [int %setNumber, storage]
+            SWAP    ; # [storage, int %setNumber]
+            SET_CAR ; # [storage]
+
+            NIL operation ; # [list operation, storage]
+            PAIR ;          # [pair (list operation) storage]
+          }
+          { # 'toggleStatus' entrypoint
+            # allow user to set status to the opposite value of that in storage
+            # otherwise it fails
+            # [bool %toggleStatus, storage]
+            DUP  ; # [bool %toggleStatus, bool %toggleStatus, storage]
+            DUP 3; # [storage, bool %toggleStatus, bool %toggleStatus, storage]
+            CDR  ; # [bool %status, bool %toggleStatus, bool %toggleStatus, storage]
+            IFCMPNEQ
+              { # [bool %toggleStatus, storage]
+                SWAP    ; # [storage, bool %toggleStatus]
+                SET_CDR ; # [storage]
+
+                NIL operation ; # [list operation, storage]
+                PAIR ;          # [pair (list operation) storage]
+              }
+              { PUSH string "%toggleStatus parameter and %status storage must be different" ;
+                FAILWITH ;
+              }
+          }
+      }
+  }

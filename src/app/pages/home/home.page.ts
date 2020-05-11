@@ -24,7 +24,7 @@ export const getTezblockLinkForAddress: (
   const urls: { [key in NetworkType]: string } = {
     [NetworkType.MAINNET]: 'https://tezblock.io/account/',
     [NetworkType.CARTHAGENET]: 'https://carthagenet.tezblock.io/account/',
-    [NetworkType.CUSTOM]: 'http://localhost:8100/account/'
+    [NetworkType.CUSTOM]: 'https://carthagenet.tezblock.io/account/'
   }
   const url: string = urls[accountInfo && accountInfo.network ? accountInfo.network.type : NetworkType.MAINNET]
 
@@ -38,7 +38,7 @@ export const getTezblockLinkForTxHash: (
   const urls: { [key in NetworkType]: string } = {
     [NetworkType.MAINNET]: 'https://tezblock.io/transaction/',
     [NetworkType.CARTHAGENET]: 'https://carthagenet.tezblock.io/transaction/',
-    [NetworkType.CUSTOM]: 'http://localhost:8100/transaction/'
+    [NetworkType.CUSTOM]: 'https://carthagenet.tezblock.io/transaction/'
   }
   const url: string = urls[accountInfo && accountInfo.network ? accountInfo.network.type : NetworkType.MAINNET]
 
@@ -70,7 +70,7 @@ export class HomePage {
     {
       "kind": "transaction",
       "amount": "1234567",
-      "destination": "tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ"
+      "destination": "tz1hrHoK11TBz3HwWD2YZyZVWUyAg44h3eqd"
     }
   ]`
 
@@ -196,7 +196,7 @@ export class HomePage {
         {
           kind: TezosOperationType.TRANSACTION,
           amount: amount.toString(),
-          destination: 'tz1MJx9vhaNRSimcuXPK2rW4fLccQnDAnVKJ'
+          destination: 'tz1hrHoK11TBz3HwWD2YZyZVWUyAg44h3eqd'
         }
       ],
       'Thanks for your tip!'
@@ -266,11 +266,11 @@ export class HomePage {
     })
     console.log(response)
 
-    return this.showAlertWithBlockExplorerLink(
-      'Broadcast Successful',
-      'Your operation has been broadcasted to the network.',
-      response.transactionHash
-    )
+    // return this.showAlertWithBlockExplorerLink(
+    //   'Broadcast Successful',
+    //   'Your operation has been broadcasted to the network.',
+    //   response.transactionHash
+    // )
   }
 
   public async scrollTo(element: string): Promise<void> {

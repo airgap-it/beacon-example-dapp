@@ -1,0 +1,59 @@
+<p>
+  <ion-row class="ion-padding-bottom" id="operationRequest">
+    <ion-col size-md="9">
+      <h3>
+        Beacon Sample Contract
+      </h3>
+      <p class="ion-padding-bottom">
+        This is a contract deployed on
+        <strong>carthagenet</strong>
+        to showcase beacon.
+        <br />
+        <br />
+        The contract allows you to set a number and a true/false flag.
+      </p>
+      <ion-card class="ion-no-margin">
+        <ion-card-content>
+          <ion-card-subtitle>
+            Current State
+          </ion-card-subtitle>
+          <ion-item lines="none" class="ion-no-padding">
+            <pre>
+Number: {{ number }}
+Flag: {{ flag }}</pre
+            >
+          </ion-item>
+          <ion-button (click)="getState()">Update State</ion-button>
+          <a href="https://you.better-call.dev/carthagenet/KT1RxKJyi48W3bZR8HErRiisXZQw19HwLGWj/storage">
+            Check state on BetterCallDev
+          </a>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="ion-no-margin">
+        <ion-card-content>
+          <ion-card-subtitle>
+            Set Number Value
+          </ion-card-subtitle>
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label position="stacked">Number</ion-label>
+            <ion-input [(ngModel)]="newNumber" placeholder="7"></ion-input>
+          </ion-item>
+          <ion-button (click)="setNumber()">Set</ion-button>
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="ion-no-margin">
+        <ion-card-content>
+          <ion-card-subtitle>
+            Set Flag
+          </ion-card-subtitle>
+          The new value needs to be different to the old value.
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-label>Flag</ion-label>
+            <ion-checkbox slot="end" [(ngModel)]="newFlag"></ion-checkbox>
+          </ion-item>
+          <ion-button (click)="setFlag()">Set</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</p>

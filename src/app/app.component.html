@@ -110,18 +110,29 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <!--
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{ p.title }}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-          -->
         </ion-list>
       </ion-content>
+      <ion-footer class="ion-no-border">
+        <ion-toolbar>
+          <ion-row class="ion-padding-horizontal ion-justify-content-evenly">
+            <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">
+              <ion-icon name="logo-github" color="medium"></ion-icon>
+            </a>
+            <a href="https://docs.walletbeacon.io/" target="_blank">
+              <ion-icon name="document-text-outline" color="medium"></ion-icon>
+            </a>
+            <a href="https://twitter.com/AirGap_it" target="_blank">
+              <ion-icon name="logo-twitter" color="medium"></ion-icon>
+            </a>
+            <a href="https://t.me/AirGap" target="_blank">
+              <ion-icon src="/assets/img/telegram-plane-brands.svg" color="medium"></ion-icon>
+            </a>
+            <a href="https://medium.com/airgap-it" target="_blank">
+              <ion-icon src="/assets/img/medium-brands.svg" color="medium"></ion-icon>
+            </a>
+          </ion-row>
+        </ion-toolbar>
+      </ion-footer>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>
   </ion-split-pane>

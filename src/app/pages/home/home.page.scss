@@ -7,7 +7,8 @@
 .hero--container {
   min-height: 50vh;
 }
-.selection--container {
+.selection--container,
+.integration--container {
   ion-card {
     height: 100%;
     justify-content: space-between;
@@ -28,11 +29,11 @@
   }
 }
 .integration--container {
-  img {
-    width: 200px;
-    height: auto;
+  ion-card {
+    min-height: 260px;
   }
 }
+
 .footer--container {
   background: var(--ion-color-light);
   ul {

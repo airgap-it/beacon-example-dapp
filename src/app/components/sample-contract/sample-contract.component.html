@@ -1,53 +1,52 @@
-<h4>
-  Beacon Sample Contract (Carthagenet)
-</h4>
-<p class="ion-padding-bottom">
-  This is a contract deployed on
-  <strong>carthagenet</strong>
-  to showcase beacon.
-  <br />
-  <br />
-  The contract allows you to set a number and a true/false flag.
+<p class="ion-padding-top">
+  <strong>Beacon Sample Contract</strong>
+</p>
+<p>
+  This is allows you to set a number and a true or false flag and is deployed on
+  <strong>Carthagenet</strong>
+  .
 </p>
 <ion-card class="ion-no-margin">
   <ion-card-content>
     <ion-card-subtitle>
-      Current State
+      Current Smart Contract State
     </ion-card-subtitle>
-    <ion-item lines="none" class="ion-no-padding">
+    <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
       <pre>
 Number: {{ number }}
 Flag: {{ flag }}</pre
       >
     </ion-item>
     <ion-button (click)="getState()">Update State</ion-button>
-    <a href="https://you.better-call.dev/carthagenet/KT1RxKJyi48W3bZR8HErRiisXZQw19HwLGWj/storage">
-      Check state on BetterCallDev
+    <a href="https://you.better-call.dev/carthagenet/KT1RxKJyi48W3bZR8HErRiisXZQw19HwLGWj/storage" target="_blank">
+      <ion-button fill="outline">
+        State on BetterCallDev
+      </ion-button>
     </a>
   </ion-card-content>
 </ion-card>
 <ion-card class="ion-no-margin">
   <ion-card-content>
     <ion-card-subtitle>
-      Set Number Value
+      Change Number
     </ion-card-subtitle>
-    <ion-item lines="none" class="ion-no-padding">
+    <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
       <ion-label position="stacked">Number</ion-label>
       <ion-input [(ngModel)]="newNumber" placeholder="7"></ion-input>
     </ion-item>
-    <ion-button (click)="setNumber()">Set</ion-button>
+    <ion-button (click)="setNumber()">Update Number</ion-button>
   </ion-card-content>
 </ion-card>
 <ion-card class="ion-no-margin">
   <ion-card-content>
     <ion-card-subtitle>
-      Set Flag
+      Change Flag
     </ion-card-subtitle>
     The new value needs to be different to the old value.
-    <ion-item lines="none" class="ion-no-padding">
+    <ion-item lines="none" class="ion-no-padding ion-padding-bottom">
       <ion-label>Flag</ion-label>
       <ion-checkbox slot="end" [(ngModel)]="newFlag"></ion-checkbox>
     </ion-item>
-    <ion-button (click)="setFlag()">Set</ion-button>
+    <ion-button (click)="setFlag()">Update Flag</ion-button>
   </ion-card-content>
 </ion-card>

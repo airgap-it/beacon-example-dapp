@@ -8,6 +8,11 @@
 .show-menu {
   box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.24);
 }
+ion-footer {
+  ion-icon {
+    font-size: 24px;
+  }
+}
 @media only screen and (max-width: 767px) {
   ion-title {
     padding: 0;

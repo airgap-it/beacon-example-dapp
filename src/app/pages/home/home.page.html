@@ -41,7 +41,7 @@
     <ion-row class="ion-padding-top">
       <ion-col>
         <ion-row class="ion-align-items-center">
-          <ion-col size="12" size-md="7">
+          <ion-col size="12" size-md="6" class="ion-no-padding">
             <p class="intro__container">
               <strong>Beacon</strong>
               is the implementation of
@@ -56,7 +56,7 @@
               requests of the dApp are sent to the wallet, signed and returned to the application.
             </p>
           </ion-col>
-          <ion-col size="12" offset-md="1" size-md="4">
+          <ion-col size="12" offset-md="1" size-md="5" class="ion-no-padding">
             <a href="https://youtu.be/-BrRTlgza10" target="_blank">
               <img src="assets/img/beacon_video_preview.png" />
               <ion-button expand="block">Play Video</ion-button>
@@ -66,12 +66,17 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding-bottom" id="approach">
-      <ion-col>
+      <ion-col size="12" size-md="6" class="ion-no-padding ion-padding-vertical">
         <h2>Approach</h2>
-        <p class="ion-padding-bottom" site-md="6">
-          For the user there are two option to interact with dApps. Either a browser extension is installed that
-          communicates with the dApp and wallet and is paired once or each dApp is paired directly with the wallet.
+        <p>
+          For the user there are two option to interact with dApps.
         </p>
+        <p>
+          Either a browser extension is installed that communicates with the dApp and wallet by only pairing them once
+          or each dApp is paired directly with the wallet.
+        </p>
+      </ion-col>
+      <ion-col size="12" class="ion-no-padding">
         <ion-row class="selection--container">
           <ion-col size="12" size-md="6">
             <ion-card class="ion-no-margin">
@@ -124,49 +129,116 @@
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding-bottom integration--container" id="wallets_dapps">
-      <ion-col>
+      <ion-col size="12" size-md="6" class="ion-no-padding ion-padding-vertical">
         <h2>Wallets & dApps</h2>
-        <p class="ion-padding-bottom">
-          The wallets and dApps that are making use of the
+        <p>
+          These wallets and dApps that are using the
           <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
-          to support a simple interaction for their users. More Wallets and dApps will follow in the near future, please
+          to support a simple interaction for their users.
+        </p>
+        <p>
+          More Wallets and dApps will follow in the near future. If you're supporting Beacon in your project, please
           reach out to us to be listed.
         </p>
+      </ion-col>
+      <ion-col size="12" class="ion-no-padding">
         <ion-row class="ion-padding-top">
-          <ion-col size="12" size-md="6" class="ion-no-padding">
+          <ion-col size="12" class="ion-no-padding ion-padding-bottom">
             <strong>Wallets</strong>
-            <ion-row class="ion-padding-top">
-              <a href="https://github.com/airgap-it/airgap-wallet/releases/tag/v3.0.3" target="_blank">
-                <img src="assets/img/Airgap_Logo_sideways_color.svg" />
-              </a>
-            </ion-row>
           </ion-col>
-          <ion-col size="12" size-md="6" class="ion-no-padding">
-            <strong class="ion-padding-bottom">dApps</strong>
-            <ion-row class="ion-padding-top">
-              <a href="#message-types"><img src="assets/img/beacon_logoy_type_hor_padding.svg" /></a>
-            </ion-row>
+          <ion-col size="12" size-md="4">
+            <ion-card class="ion-no-margin">
+              <ion-card-header>
+                <img src="assets/img/airgap_logo.svg" />
+              </ion-card-header>
+              <ion-card-content>
+                <p>
+                  <strong>AirGap</strong>
+                  is a crypto asset wallet where your old smartphone is your new ‘hardware wallet’. Store your assets
+                  entirely secure on an offline device.
+                </p>
+              </ion-card-content>
+              <div class="ion-margin">
+                <a href="https://github.com/airgap-it/airgap-wallet/releases" target="_blank">
+                  <ion-button fill="outline">
+                    Download
+                  </ion-button>
+                </a>
+              </div>
+            </ion-card>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <ion-card class="ion-no-margin">
+              <ion-card-header>
+                <img src="assets/img/ledger_logo.svg" />
+              </ion-card-header>
+              <ion-card-content>
+                <p>
+                  Communication with
+                  <strong>Ledger</strong>
+                  hardware wallets is natively supported in the
+                  <strong>Beacon Extension</strong>
+                  , allowing any operation to be signed with a Ledger hardware wallet.
+                </p>
+              </ion-card-content>
+              <div class="ion-margin">
+                <a href="https://github.com/airgap-it/beacon-extension/releases" target="_blank">
+                  <ion-button fill="outline">
+                    Download
+                  </ion-button>
+                </a>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="12" class="ion-no-padding ion-padding-vertical">
+            <strong>dApps</strong>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <ion-card class="ion-no-margin">
+              <ion-card-header>
+                <img src="assets/img/beacon_logoy_type_hor_padding.svg" />
+              </ion-card-header>
+              <ion-card-content>
+                <p>
+                  This website is the
+                  <strong>Beacon Example dApp</strong>
+                  that showcases various interactions with the beacon-sdk. The code is open source and available on
+                  GitHub.
+                </p>
+              </ion-card-content>
+              <div class="ion-margin">
+                <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank">
+                  <ion-button fill="outline">
+                    Open
+                  </ion-button>
+                </a>
+              </div>
+            </ion-card>
           </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding-bottom" id="transport_layer">
-      <ion-col>
+      <ion-col size="12" size-md="6" class="ion-no-padding ion-padding-vertical">
         <h2>Transport Layer</h2>
-        <p class="ion-padding-bottom">
+        <p>
           As specified in
           <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank">tzip-10</a>
           Beacon utilizes a peer to peer network built with the
           <a href="https://matrix.org/" target="_blank">matrix protocol</a>
           to transport messages from the dApps to the Wallets thus leveraging a decentralized approach.
         </p>
+      </ion-col>
+      <ion-col size="12" class="ion-no-padding">
         <ion-row class="ion-padding-top">
           <ion-col class="ion-no-padding"><img src="assets/img/beacon_transport.png" /></ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
     <ion-row id="message_types">
-      <ion-col>
+      <ion-col size="12" size-md="6" class="ion-no-padding">
         <h2>Message Types</h2>
         <p>
           The following message types have been implemented from the
@@ -175,10 +247,21 @@
           <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
           . Examples for each messaging type have been implemented below.
         </p>
+        <ion-row class="ion-padding-vertical">
+          <ion-col class="ion-no-padding ion-padding-bottom">
+            <ion-card color="secondary" class="ion-no-margin">
+              <ion-card-content>
+                <strong>Detailed Documentation</strong>
+                can also be found in the
+                <a href="http://docs.walletbeacon.io/" target="_blank">Beacon SDK Documentation.</a>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
       </ion-col>
     </ion-row>
     <ion-row class="ion-padding-bottom" id="permissionRequest">
-      <ion-col size-md="9">
+      <ion-col size-md="6">
         <h3>
           permissionRequest
           <a href="https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md#1-permission" target="_blank">
@@ -186,6 +269,8 @@
           </a>
         </h3>
         <p class="ion-padding-bottom">App requests permission to access account details from wallet.</p>
+      </ion-col>
+      <ion-col size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-card-subtitle>
@@ -286,7 +371,7 @@
     </ion-row>
 
     <ion-row class="ion-padding-bottom" id="operationRequest">
-      <ion-col size-md="9">
+      <ion-col size="12" size-md="6" class="ion-no-padding">
         <h3>
           operationRequest
           <a
@@ -300,6 +385,8 @@
           App sends parameters like recipient and amount to the wallet and the wallet will prepare the transaction and
           broadcast it.
         </p>
+      </ion-col>
+      <ion-col size="12" size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-card-subtitle>
@@ -353,7 +440,8 @@
             <ion-button (click)="operationRequest()">Custom Tezos Operation</ion-button>
           </ion-card-content>
         </ion-card>
-
+      </ion-col>
+      <ion-col size="12" size-md="6" class="ion-no-padding">
         <h3 class="ion-padding-top">operationRequest Examples</h3>
         <p class="ion-padding-bottom">
           Additional reference implementations for the operationRequest message.
@@ -365,6 +453,8 @@
           Prompts the wallet with a delegation operation for a specific baker. Bakers can use this on their websites as
           an simple way to create a delegation operation for potential users.
         </p>
+      </ion-col>
+      <ion-col size="12" size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin ion-padding-bottom">
           <ion-card-content>
             <ion-card-subtitle>
@@ -378,12 +468,16 @@
             <ion-button (click)="delegate()">One Click Delegation</ion-button>
           </ion-card-content>
         </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="6" class="ion-no-padding">
         <p class="ion-padding-top">
           <strong>Tipping</strong>
         </p>
         <p>
           Prompts the wallet with a spend operation to a pre-defined addres, in this case an address owned by AirGap.
         </p>
+      </ion-col>
+      <ion-col size="12" size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-card-subtitle>
@@ -401,7 +495,7 @@
     </ion-row>
 
     <ion-row class="ion-padding-bottom" id="signPayloadRequest">
-      <ion-col size-md="9">
+      <ion-col size="12" size-md="6" class="ion-no-padding">
         <h3>
           signPayloadRequest
           <a
@@ -412,6 +506,8 @@
           </a>
         </h3>
         <p class="ion-padding-bottom">dApp requests that a payload is signed.</p>
+      </ion-col>
+      <ion-col size="12" size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-card-subtitle>
@@ -428,7 +524,7 @@
     </ion-row>
 
     <ion-row class="ion-padding-bottom" id="broadcastRequest">
-      <ion-col size-md="9">
+      <ion-col size="12" size-md="6" class="ion-no-padding">
         <h3>
           broadcastRequest
           <a
@@ -439,6 +535,8 @@
           </a>
         </h3>
         <p class="ion-padding-bottom">dApp requests a signed transaction to be broadcasted.</p>
+      </ion-col>
+      <ion-col size="12" size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-card-subtitle>

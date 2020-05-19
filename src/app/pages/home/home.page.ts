@@ -7,6 +7,7 @@ import {
   TezosOperations,
   TezosOperationType
 } from '@airgap/beacon-sdk'
+import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
@@ -86,6 +87,9 @@ export class HomePage {
 
   public protocol: TezosBTC = new TezosBTC()
 
+  public beaconSdkVersion: string = SDK_VERSION
+  public beaconSdkBeaconId: string | undefined
+
   constructor(
     private readonly alertController: AlertController,
     private readonly beaconService: BeaconService,
@@ -106,6 +110,12 @@ export class HomePage {
     this.scrollService.scroll$.subscribe((element: string) => {
       this.scrollTo(element).catch(console.error)
     })
+
+    this.beaconService.client.beaconId
+      .then((beaconId: string) => {
+        this.beaconSdkBeaconId = beaconId
+      })
+      .catch(console.error)
   }
 
   public async askForPermissions(): Promise<void> {

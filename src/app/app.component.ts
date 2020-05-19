@@ -19,7 +19,7 @@ export class AppComponent {
   public selectedTab: string = 'approach'
   public connectionStatus$: Observable<string>
   public activeAccount$: Observable<AccountInfo>
-  public version: string = SDK_VERSION
+  public beaconSdkVersion: string = SDK_VERSION
 
   constructor(
     private readonly beaconService: BeaconService,

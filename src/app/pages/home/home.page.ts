@@ -3,7 +3,6 @@ import {
   BroadcastResponseOutput,
   NetworkType,
   OperationResponseOutput,
-  PermissionResponseOutput,
   TezosOperations,
   TezosOperationType
 } from '@airgap/beacon-sdk'
@@ -119,15 +118,13 @@ export class HomePage {
   }
 
   public async askForPermissions(): Promise<void> {
-    const response: PermissionResponseOutput = await this.beaconService.client.requestPermissions({
+    await this.beaconService.client.requestPermissions({
       network: {
         type: this.selectedNetwork as any,
         name: this.networkName,
         rpcUrl: this.networkRpcUrl
       }
     })
-
-    return this.permissionGrantedAlert(response)
   }
 
   public async showConnectedAccounts(): Promise<void> {
@@ -173,15 +170,6 @@ export class HomePage {
           }
         }
       })
-  }
-
-  public async permissionGrantedAlert(_response: PermissionResponseOutput): Promise<void> {
-    // const alert: HTMLIonAlertElement = await this.alertController.create({
-    //   header: 'Permissions granted',
-    //   message: `The wallet has granted you permissions to use the address ${response.address}`,
-    //   buttons: ['OK']
-    // })
-    // await alert.present()
   }
 
   public async getBalanceOfContract(): Promise<void> {
@@ -250,19 +238,10 @@ export class HomePage {
       throw new Error('No active account set')
     }
 
-    // const response: SignPayloadResponseOutput =
     await this.beaconService.client.requestSignPayload({
       payload: this.unsignedTransaction,
       sourceAddress: this.activeAccount.address
     })
-
-    // const alert = await this.alertController.create({
-    //   header: 'Signing Successful',
-    //   message: `The signature for your message is: ${response.signature}`,
-    //   buttons: ['OK']
-    // })
-
-    // await alert.present()
   }
 
   public async broadcast(): Promise<void> {
@@ -270,17 +249,10 @@ export class HomePage {
       throw new Error('No active account set')
     }
 
-    const response: BroadcastResponseOutput = await this.beaconService.client.requestBroadcast({
+    await this.beaconService.client.requestBroadcast({
       network: this.activeAccount.network,
       signedTransaction: this.broadcastTransaction
     })
-    console.log(response)
-
-    // return this.showAlertWithBlockExplorerLink(
-    //   'Broadcast Successful',
-    //   'Your operation has been broadcasted to the network.',
-    //   response.transactionHash
-    // )
   }
 
   public async scrollTo(element: string): Promise<void> {
@@ -326,13 +298,10 @@ export class HomePage {
     }
 
     try {
-      const response: OperationResponseOutput = await this.beaconService.client.requestOperation({
+      await this.beaconService.client.requestOperation({
         network: this.activeAccount.network,
         operationDetails: operations
       })
-      console.log(response)
-
-      // return this.showAlertWithBlockExplorerLink('Operation Successful', successMessage, response.transactionHash)
     } catch (e) {
       console.log('operation-request error', e)
     }

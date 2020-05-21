@@ -1,11 +1,4 @@
-import {
-  AccountInfo,
-  BroadcastResponseOutput,
-  NetworkType,
-  OperationResponseOutput,
-  TezosOperations,
-  TezosOperationType
-} from '@airgap/beacon-sdk'
+import { AccountInfo, NetworkType, TezosOperations, TezosOperationType } from '@airgap/beacon-sdk'
 import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'

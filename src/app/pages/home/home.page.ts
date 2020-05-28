@@ -1,5 +1,4 @@
-import { AccountInfo, NetworkType, TezosOperations, TezosOperationType } from '@airgap/beacon-sdk'
-import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
+import { AccountInfo, NetworkType, SDK_VERSION, TezosOperation, TezosOperationType } from '@airgap/beacon-sdk'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AlertController, IonContent } from '@ionic/angular'
@@ -283,7 +282,7 @@ export class HomePage {
   }
 
   private async requestOperationWithAlert(
-    operations: Partial<TezosOperations>[],
+    operations: Partial<TezosOperation>[],
     _successMessage: string
   ): Promise<void> {
     if (!this.activeAccount) {

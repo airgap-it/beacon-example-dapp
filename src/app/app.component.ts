@@ -1,5 +1,4 @@
-import { AccountInfo } from '@airgap/beacon-sdk'
-import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
+import { AccountInfo, SDK_VERSION } from '@airgap/beacon-sdk'
 import { Component, ViewChild } from '@angular/core'
 import { Storage } from '@ionic/storage'
 import { Observable } from 'rxjs'

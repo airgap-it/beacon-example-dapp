@@ -1,4 +1,4 @@
-import { SDK_VERSION } from '@airgap/beacon-sdk/dist/constants'
+import { SDK_VERSION } from '@airgap/beacon-sdk'
 import { ErrorHandler, Injectable } from '@angular/core'
 import { captureException, configureScope, Event, init, Scope, withScope } from '@sentry/browser'
 

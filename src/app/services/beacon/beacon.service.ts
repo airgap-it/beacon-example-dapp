@@ -1,5 +1,4 @@
-import { AccountInfo, DAppClient, Transport, TransportType } from '@airgap/beacon-sdk'
-import { BeaconEvent } from '@airgap/beacon-sdk/dist/events'
+import { AccountInfo, BeaconEvent, DAppClient, Transport, TransportType } from '@airgap/beacon-sdk'
 import { Injectable } from '@angular/core'
 import { Observable, ReplaySubject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'

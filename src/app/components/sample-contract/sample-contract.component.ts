@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
 import { BeaconService } from 'src/app/services/beacon/beacon.service'
+import { ToastController } from '@ionic/angular'
 
 @Component({
   selector: 'beacon-sample-contract',
@@ -21,7 +22,11 @@ export class SampleContractComponent {
 
   private readonly contractDestination: string = 'KT1RxKJyi48W3bZR8HErRiisXZQw19HwLGWj'
 
-  constructor(private readonly http: HttpClient, private readonly beaconService: BeaconService) {
+  constructor(
+    private readonly http: HttpClient,
+    private readonly beaconService: BeaconService,
+    private readonly toastController: ToastController
+  ) {
     this.activeAccount$ = this.beaconService.activeAccount$
     this.activeAccount$.subscribe((activeAccount: AccountInfo) => {
       this.activeAccount = activeAccount
@@ -39,6 +44,19 @@ export class SampleContractComponent {
 
     this.number = result.args[0].int
     this.flag = result.args[1].prim
+
+    const toast: HTMLIonToastElement = await this.toastController.create({
+      message: 'State updated',
+      position: 'bottom',
+      duration: 1000,
+      buttons: [
+        {
+          text: 'Done',
+          role: 'cancel'
+        }
+      ]
+    })
+    toast.present()
   }
 
   public async setNumber(): Promise<void> {

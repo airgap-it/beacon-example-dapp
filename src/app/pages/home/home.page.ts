@@ -1,7 +1,7 @@
 import { AccountInfo, NetworkType, SDK_VERSION, TezosOperation, TezosOperationType } from '@airgap/beacon-sdk'
 import { Component, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { AlertController, IonContent } from '@ionic/angular'
+import { AlertController, IonContent, ToastController } from '@ionic/angular'
 import { TezosBTC } from 'airgap-coin-lib'
 import { asyncScheduler, Observable } from 'rxjs'
 import { switchMap, throttleTime } from 'rxjs/operators'
@@ -85,7 +85,8 @@ export class HomePage {
     private readonly alertController: AlertController,
     private readonly beaconService: BeaconService,
     private readonly route: ActivatedRoute,
-    private readonly scrollService: ScrollService
+    private readonly scrollService: ScrollService,
+    private readonly toastController: ToastController
   ) {
     this.activeAccount$ = this.beaconService.activeAccount$
     this.activeAccount$.subscribe((activeAccount: AccountInfo) => {
@@ -173,6 +174,18 @@ export class HomePage {
     } else {
       this.contractBalance = '0'
     }
+    const toast: HTMLIonToastElement = await this.toastController.create({
+      message: 'Balance updated',
+      position: 'bottom',
+      duration: 1000,
+      buttons: [
+        {
+          text: 'Done',
+          role: 'cancel'
+        }
+      ]
+    })
+    toast.present()
   }
 
   public async tip(): Promise<void> {

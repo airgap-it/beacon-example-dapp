@@ -21,6 +21,14 @@
       width: 124px;
       height: auto;
     }
+    img,
+    h3 {
+      min-height: 48px;
+    }
+    h3 {
+      display: flex;
+      align-items: center;
+    }
     @media only screen and (min-width: 768px) {
       ion-button {
         width: fit-content;

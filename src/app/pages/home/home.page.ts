@@ -304,7 +304,6 @@ export class HomePage {
 
     try {
       await this.beaconService.client.requestOperation({
-        network: this.activeAccount.network,
         operationDetails: operations
       })
     } catch (e) {

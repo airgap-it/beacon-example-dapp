@@ -65,7 +65,6 @@ export class SampleContractComponent {
     }
 
     const response: OperationResponseOutput = await this.beaconService.client.requestOperation({
-      network: this.activeAccount.network,
       operationDetails: [
         {
           kind: TezosOperationType.TRANSACTION,
@@ -89,7 +88,6 @@ export class SampleContractComponent {
     }
 
     const response: OperationResponseOutput = await this.beaconService.client.requestOperation({
-      network: this.activeAccount.network,
       operationDetails: [
         {
           kind: TezosOperationType.TRANSACTION,

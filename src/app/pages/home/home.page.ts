@@ -304,7 +304,7 @@ export class HomePage {
 
     try {
       await this.beaconService.client.requestOperation({
-        operationDetails: operations
+        operationDetails: operations as any
       })
     } catch (e) {
       console.log('operation-request error', e)

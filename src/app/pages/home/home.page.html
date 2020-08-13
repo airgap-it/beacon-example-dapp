@@ -157,53 +157,28 @@
             <strong>Wallets</strong>
           </ion-col>
           <ion-col size="12" size-md="4">
-            <ion-card class="ion-no-margin">
-              <ion-card-header>
-                <img src="assets/img/airgap_logo.svg" />
-              </ion-card-header>
-              <ion-card-content>
-                <p>
-                  <strong>AirGap</strong>
-                  is a crypto asset wallet where your old smartphone is your new ‘hardware wallet’. Store your assets
-                  entirely secure on an offline device.
-                </p>
-              </ion-card-content>
-              <div class="ion-margin">
-                <a href="https://play.google.com/store/apps/details?id=it.airgap.wallet" target="_blank">
-                  <ion-button fill="outline">
-                    Android
-                  </ion-button>
-                </a>
-                <a href="https://apps.apple.com/us/app/airgap-wallet/id1420996542" target="_blank">
-                  <ion-button fill="outline">
-                    iOS
-                  </ion-button>
-                </a>
-              </div>
-            </ion-card>
+            <beacon-supporting-project-item
+              [logo]="'airgap_logo.svg'"
+              [description]="'<strong>AirGap</strong> makes self custody  simple and secure. Protect your crypto and store your private keys offline. It’s time to set up your safe place for your coins and get rewards.'"
+              [btnLink]="'https://airgap.it/'"
+              [btnDescription]="'Download'"
+            ></beacon-supporting-project-item>
           </ion-col>
           <ion-col size="12" size-md="4">
-            <ion-card class="ion-no-margin">
-              <ion-card-header>
-                <img src="assets/img/ledger_logo.svg" />
-              </ion-card-header>
-              <ion-card-content>
-                <p>
-                  Communication with
-                  <strong>Ledger</strong>
-                  hardware wallets is natively supported in the
-                  <strong>Beacon Extension</strong>
-                  , allowing any operation to be signed with a Ledger hardware wallet.
-                </p>
-              </ion-card-content>
-              <div class="ion-margin">
-                <a href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn" target="_blank">
-                  <ion-button fill="outline">
-                    Download
-                  </ion-button>
-                </a>
-              </div>
-            </ion-card>
+            <beacon-supporting-project-item
+              [logo]="'thanos.svg'"
+              [description]="'<strong>Thanos</strong> is a cryptocurrency wallet for Tezos blockchain as Web Extension for your Browser. An easy-to-use browser extension wallet for interacting with Tezos ecosystem.'"
+              [btnLink]="'https://thanoswallet.com/'"
+              [btnDescription]="'Download'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'ledger_logo.svg'"
+              [description]="'Communication with <strong>Ledger</strong> hardware wallets is natively supported in the <strong>Beacon Extension</strong>, allowing any operation to be signed with a Ledger hardware wallet.'"
+              [btnLink]="'https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn'"
+              [btnDescription]="'Download'"
+            ></beacon-supporting-project-item>
           </ion-col>
         </ion-row>
         <ion-row class="ion-padding-top">
@@ -211,52 +186,57 @@
             <strong>dApps</strong>
           </ion-col>
           <ion-col size="12" size-md="4">
-            <ion-card class="ion-no-margin">
-              <ion-card-header>
-                <h3 class="ion-no-padding ion-no-margin">Dexter</h3>
-              </ion-card-header>
-              <ion-card-content>
-                <p>
-                  <strong>Dexter</strong>
-                  is a decentralized exchange developed by
-                  <a href="https://camlcase.io/" target="_blank">camlCase</a>
-                  and currently in beta stage. Beacon is being used as a user-friendly approach to facilitate the
-                  exchange interaction.
-                </p>
-              </ion-card-content>
-              <div class="ion-margin">
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSf1WH4Ov-Pi7wAJAtnoe6KjD_yMeX9EsIqrY2v26tvTHciEPw/viewform"
-                  target="_blank"
-                >
-                  <ion-button fill="outline">
-                    Beta Signup
-                  </ion-button>
-                </a>
-              </div>
-            </ion-card>
+            <beacon-supporting-project-item
+              [logo]="'beacon_logoy_type_hor_padding.svg'"
+              [description]="'This website is the <strong>Beacon Example dApp</strong> that showcases various interactions with the beacon-sdk. The code is open source and available on GitHub.'"
+              [btnLink]="'https://github.com/airgap-it/beacon-example-dapp'"
+              [btnDescription]="'Open'"
+            ></beacon-supporting-project-item>
           </ion-col>
           <ion-col size="12" size-md="4">
-            <ion-card class="ion-no-margin">
-              <ion-card-header>
-                <img src="assets/img/beacon_logoy_type_hor_padding.svg" />
-              </ion-card-header>
-              <ion-card-content>
-                <p>
-                  This website is the
-                  <strong>Beacon Example dApp</strong>
-                  that showcases various interactions with the beacon-sdk. The code is open source and available on
-                  GitHub.
-                </p>
-              </ion-card-content>
-              <div class="ion-margin">
-                <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank">
-                  <ion-button fill="outline">
-                    Open
-                  </ion-button>
-                </a>
-              </div>
-            </ion-card>
+            <beacon-supporting-project-item
+              [title]="'Better Call Dev'"
+              [description]="'<strong>Better Call Dev</strong> is a detailed Tezos smart contract explorer to inspect each contract call and allows you to run contract interactions directly from the Better Call Dev website.'"
+              [btnLink]="'https://better-call.dev/'"
+              [btnDescription]="'Open'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [title]="'Dexter'"
+              [description]="'<strong>Dexter</strong> is a decentralized exchange developed by camlCase and currently in beta stage. Beacon is being used as a user-friendly approach to facilitate the exchange interaction.'"
+              [btnLink]="'https://docs.google.com/forms/d/e/1FAIpQLSf1WH4Ov-Pi7wAJAtnoe6KjD_yMeX9EsIqrY2v26tvTHciEPw/viewform'"
+              [btnDescription]="'Beta Signup'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'minitez.png'"
+              [description]="'<strong>MiniTez Store</strong> is a minimalistic token on Tezos to learn Michelson smart contract developemt and token contract best practice by building your own token by Claude Barde.'"
+              [btnLink]="'https://minitez.netlify.app/'"
+              [btnDescription]="'Open'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'tezblock_logo.svg'"
+              [description]="'<strong>tezblock</strong> is a Tezos block explorer focused on the end user and accessibility of the Tezos blockchain data. Users can directly delegate on tezblock to any baker.'"
+              [btnLink]="'https://tezblock.io'"
+              [btnDescription]="'Open'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-top">
+          <ion-col size="12" class="ion-no-padding ion-padding-vertical">
+            <strong>Libraries</strong>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'taquito.png'"
+              [description]="'<strong>Taquito</strong> is a TypeScript library suite for development on the Tezos blockchain, for smart contract interactions. Supports Beacon in the Taquito Wallet API.'"
+              [btnLink]="'https://tezostaquito.io/'"
+              [btnDescription]="'Open'"
+            ></beacon-supporting-project-item>
           </ion-col>
         </ion-row>
       </ion-col>

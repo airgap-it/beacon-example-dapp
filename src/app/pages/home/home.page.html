@@ -30,17 +30,18 @@
       <ion-col class="ion-no-padding ion-padding-bottom">
         <ion-card color="secondary" class="ion-no-margin">
           <ion-card-content>
+            <small>Latest News</small>
             <p>
-              <strong>Beacon v1.0</strong>
-              - Beacon Extesion and Beacon SDK v1.0 released.
-              <a href="https://medium.com/airgap-it/beacon-extension-sdk-release-de152dd94ad6" target="_blank">
+              <strong>Beacon Android SDK Alpha</strong>
+              - Released for native Android development in Kotlin.
+              <a href="https://medium.com/airgap-it/beacon-android-sdk-alpha-released-69f896834189" target="_blank">
                 Read More
               </a>
             </p>
             <p>
-              <strong>AirGap Beacon Integration</strong>
-              - The first compatible mobile wallet, AirGap Wallet with Beacon support has been released.
-              <a href="https://medium.com/airgap-it/" target="_blank">
+              <strong>Least Authority Audit</strong>
+              - Beacon SDK has been successfully audited by Least Authority.
+              <a href="https://medium.com/airgap-it/beacon-sdk-audited-by-least-authority-fa12f83e91e0" target="_blank">
                 Read More
               </a>
             </p>
@@ -142,7 +143,7 @@
       <ion-col size="12" size-md="6" class="ion-no-padding ion-padding-vertical">
         <h2>Wallets & dApps</h2>
         <p>
-          These wallets and dApps that are using the
+          These wallets and dApps are using the
           <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
           to support a simple interaction for their users.
         </p>
@@ -203,9 +204,9 @@
           </ion-col>
           <ion-col size="12" size-md="4">
             <beacon-supporting-project-item
-              [title]="'Dexter'"
-              [description]="'<strong>Dexter</strong> is a decentralized exchange developed by camlCase and currently in beta stage. Beacon is being used as a user-friendly approach to facilitate the exchange interaction.'"
-              [btnLink]="'https://docs.google.com/forms/d/e/1FAIpQLSf1WH4Ov-Pi7wAJAtnoe6KjD_yMeX9EsIqrY2v26tvTHciEPw/viewform'"
+              [logo]="'dexter_logo.svg'"
+              [description]="'<strong>Dexter</strong> is a decentralized, non-custodial exchange on the Tezos blockchain that enables users to exchange their XTZ with other tokens built on the Tezos FA1.2 token standard.'"
+              [btnLink]="'https://app.dexter.exchange/'"
               [btnDescription]="'Beta Signup'"
             ></beacon-supporting-project-item>
           </ion-col>
@@ -222,6 +223,14 @@
               [logo]="'tezblock_logo.svg'"
               [description]="'<strong>tezblock</strong> is a Tezos block explorer focused on the end user and accessibility of the Tezos blockchain data. Users can directly delegate on tezblock to any baker.'"
               [btnLink]="'https://tezblock.io'"
+              [btnDescription]="'Open'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'tezos-domains_logo.svg'"
+              [description]="'<strong>Tezos Domains</strong> is a distributed, open and extensible naming system using Tezos blockchain. The main function is to translate a meaningful and user-friendly alias to a Tezos address and vice versa.'"
+              [btnLink]="'https://docs.tezos.domains/'"
               [btnDescription]="'Open'"
             ></beacon-supporting-project-item>
           </ion-col>
@@ -630,6 +639,17 @@
               examples of the different message types.
             </p>
           </ion-col>
+          <ion-col size-md="4" size="12">
+            <h5>
+              Android SDK
+              <a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank">
+                <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+              </a>
+            </h5>
+            <p>
+              The beacon-android-sdk simplifies and abstracts the communication between dApps and wallets for Android.
+            </p>
+          </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
@@ -650,6 +670,7 @@
             <h6>Developers</h6>
             <ul class="ion-no-padding">
               <li><a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a></li>
+              <li><a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank">beacon-android-sdk</a></li>
               <li><a href="https://github.com/airgap-it/beacon-extension" target="_blank">beacon-extension</a></li>
               <li>
                 <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank">beacon-example-dapp</a>

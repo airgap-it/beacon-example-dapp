@@ -8,7 +8,7 @@
           </a>
           <span><a href="https://airgap.it" target="_blank">by AirGap</a></span>
         </div>
-        <ion-chip color="primary" outline="true" class="ion-margin-start">
+        <ion-chip (click)="reset()" color="primary" outline="true" class="ion-margin-start">
           <ion-label>v{{ beaconSdkVersion }}</ion-label>
         </ion-chip>
       </div>

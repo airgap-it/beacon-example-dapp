@@ -41,11 +41,5 @@ export class BeaconService {
         }
       })
       .catch(console.error)
-
-    this.initConnection().catch(console.error)
-  }
-
-  public async initConnection(): Promise<void> {
-    await this.client.init()
   }
 }

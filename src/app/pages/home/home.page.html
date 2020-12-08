@@ -167,10 +167,10 @@
           </ion-col>
           <ion-col size="12" size-md="4">
             <beacon-supporting-project-item
-              [logo]="'thanos.svg'"
-              [description]="'<strong>Thanos</strong> is a cryptocurrency wallet for Tezos blockchain as Web Extension for your Browser. An easy-to-use browser extension wallet for interacting with Tezos ecosystem.'"
-              [btnLink]="'https://thanoswallet.com/'"
-              [btnDescription]="'Download'"
+              [logo]="'kukai.svg'"
+              [description]="'<strong>Kukai</strong> is a Tezos web wallet based on three principles: Security, Community and Reliability. Kukai supports DirectAuth, Ledger hardware wallets and local secret option.'"
+              [btnLink]="'https://kukai.app/'"
+              [btnDescription]="'Open'"
             ></beacon-supporting-project-item>
           </ion-col>
           <ion-col size="12" size-md="4">
@@ -178,6 +178,14 @@
               [logo]="'ledger_logo.svg'"
               [description]="'Communication with <strong>Ledger</strong> hardware wallets is natively supported in the <strong>Beacon Extension</strong>, allowing any operation to be signed with a Ledger hardware wallet.'"
               [btnLink]="'https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn'"
+              [btnDescription]="'Download'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'thanos.svg'"
+              [description]="'<strong>Thanos</strong> is a cryptocurrency wallet for Tezos blockchain as Web Extension for your Browser. An easy-to-use browser extension wallet for interacting with Tezos ecosystem.'"
+              [btnLink]="'https://thanoswallet.com/'"
               [btnDescription]="'Download'"
             ></beacon-supporting-project-item>
           </ion-col>
@@ -347,6 +355,7 @@
                 <ion-select [(ngModel)]="selectedNetwork" placeholder="Select one">
                   <ion-select-option value="mainnet">Mainnet</ion-select-option>
                   <ion-select-option value="carthagenet">Carthagenet</ion-select-option>
+                  <ion-select-option value="delphinet">Delphinet</ion-select-option>
                   <ion-select-option value="custom">Custom</ion-select-option>
                 </ion-select>
               </ion-item>
@@ -615,6 +624,29 @@
               transport layers.
             </p>
           </ion-col>
+
+          <ion-col size-md="4" size="12">
+            <h5>
+              Android SDK
+              <a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank">
+                <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+              </a>
+            </h5>
+            <p>
+              The beacon-android-sdk simplifies and abstracts the communication between dApps and wallets for Android.
+            </p>
+          </ion-col>
+          <ion-col size-md="4" size="12">
+            <h5>
+              iOS SDK
+              <a href="https://github.com/airgap-it/beacon-ios-sdk" target="_blank">
+                <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+              </a>
+            </h5>
+            <p>
+              The beacon-android-ios simplifies and abstracts the communication between dApps and wallets for iOS.
+            </p>
+          </ion-col>
           <ion-col size-md="4" size="12">
             <h5>
               Extension
@@ -637,17 +669,6 @@
             <p>
               The Beacon Example dApp is the reference implementation of a dApp that uses the beacon-sdk with various
               examples of the different message types.
-            </p>
-          </ion-col>
-          <ion-col size-md="4" size="12">
-            <h5>
-              Android SDK
-              <a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank">
-                <ion-icon name="open" color="medium" mode="ios"></ion-icon>
-              </a>
-            </h5>
-            <p>
-              The beacon-android-sdk simplifies and abstracts the communication between dApps and wallets for Android.
             </p>
           </ion-col>
         </ion-row>

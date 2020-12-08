@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import { async, TestBed } from '@angular/core/testing'
+import { TestBed, waitForAsync } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { Platform } from '@ionic/angular'
 
@@ -8,17 +8,19 @@ import { AppComponent } from './app.component'
 describe('AppComponent', () => {
   let platformReadySpy, platformSpy
 
-  beforeEach(async(() => {
-    platformReadySpy = Promise.resolve()
-    platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy })
+  beforeEach(
+    waitForAsync(() => {
+      platformReadySpy = Promise.resolve()
+      platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy })
 
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [{ provide: Platform, useValue: platformSpy }],
-      imports: [RouterTestingModule.withRoutes([])]
-    }).compileComponents()
-  }))
+      TestBed.configureTestingModule({
+        declarations: [AppComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [{ provide: Platform, useValue: platformSpy }],
+        imports: [RouterTestingModule.withRoutes([])]
+      }).compileComponents()
+    })
+  )
 
   it('should create the app', async () => {
     const fixture = TestBed.createComponent(AppComponent)

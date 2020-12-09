@@ -16,7 +16,11 @@
           Connect dApps with Wallets
         </h1>
         <ion-button (click)="askForPermissions()">Connect Beacon</ion-button>
-        <a href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn" target="_blank">
+        <a
+          href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn"
+          target="_blank"
+          rel="noopener"
+        >
           <ion-button fill="outline">
             Download Extension
           </ion-button>
@@ -31,17 +35,37 @@
         <ion-card color="secondary" class="ion-no-margin">
           <ion-card-content>
             <small>Latest News</small>
+
+            <p>
+              <strong>Beacon v2 Release</strong>
+              - Bringing many improvements like deeplinking support and an improved user onboarding flow.
+              <a
+                href="https://medium.com/airgap-it/beacon-sdk-v2-deeplinking-improved-user-onboarding-5ffd370afcb4"
+                target="_blank"
+                rel="noopener"
+              >
+                Read More
+              </a>
+            </p>
             <p>
               <strong>Beacon Android SDK Alpha</strong>
               - Released for native Android development in Kotlin.
-              <a href="https://medium.com/airgap-it/beacon-android-sdk-alpha-released-69f896834189" target="_blank">
+              <a
+                href="https://medium.com/airgap-it/beacon-android-sdk-alpha-released-69f896834189"
+                target="_blank"
+                rel="noopener"
+              >
                 Read More
               </a>
             </p>
             <p>
               <strong>Least Authority Audit</strong>
               - Beacon SDK has been successfully audited by Least Authority.
-              <a href="https://medium.com/airgap-it/beacon-sdk-audited-by-least-authority-fa12f83e91e0" target="_blank">
+              <a
+                href="https://medium.com/airgap-it/beacon-sdk-audited-by-least-authority-fa12f83e91e0"
+                target="_blank"
+                rel="noopener"
+              >
                 Read More
               </a>
             </p>
@@ -56,19 +80,21 @@
             <p class="intro__container">
               <strong>Beacon</strong>
               is the implementation of
-              <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank">tzip-10</a>
+              <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank" rel="noopener">
+                tzip-10
+              </a>
               which describes an interaction standard between a wallet and a dApp.
             </p>
             <p class="intro__container">
               Where a dApp impelementing the
-              <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
+              <a href="https://github.com/airgap-it/beacon-sdk" target="_blank" rel="noopener">beacon-sdk</a>
               can build up a channel and send messages over a peer to peer communication layer to a wallet using the
               sdk. This allows for a communication for example of a mobile wallet with a desktop application. The
               requests of the dApp are sent to the wallet, signed and returned to the application.
             </p>
           </ion-col>
           <ion-col size="12" offset-md="1" size-md="5" class="ion-no-padding">
-            <a href="https://youtu.be/-BrRTlgza10" target="_blank">
+            <a href="https://youtu.be/-BrRTlgza10" target="_blank" rel="noopener">
               <img src="assets/img/beacon_video_preview.png" />
               <ion-button expand="block">Play Video</ion-button>
             </a>
@@ -99,12 +125,12 @@
                 <p>The Beacon browser extension is responsible for the communication with the dApp and the wallet.</p>
               </ion-card-content>
               <div class="ion-margin">
-                <a href="https://github.com/airgap-it/beacon-extension/releases" target="_blank">
+                <a href="https://github.com/airgap-it/beacon-extension/releases" target="_blank" rel="noopener">
                   <ion-button>
                     Download Extension
                   </ion-button>
                 </a>
-                <a href="https://youtu.be/Ws_1U6ioG8s" target="_blank">
+                <a href="https://youtu.be/Ws_1U6ioG8s" target="_blank" rel="noopener">
                   <ion-button fill="outline">
                     Video
                   </ion-button>
@@ -128,7 +154,7 @@
               </ion-card-content>
               <div class="ion-margin">
                 <ion-button (click)="askForPermissions()">Connect Beacon</ion-button>
-                <a href="https://youtu.be/-BrRTlgza10" target="_blank">
+                <a href="https://youtu.be/-BrRTlgza10" target="_blank" rel="noopener">
                   <ion-button fill="outline">
                     Video
                   </ion-button>
@@ -144,7 +170,7 @@
         <h2>Wallets & dApps</h2>
         <p>
           These wallets and dApps are using the
-          <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
+          <a href="https://github.com/airgap-it/beacon-sdk" target="_blank" rel="noopener">beacon-sdk</a>
           to support a simple interaction for their users.
         </p>
         <p>
@@ -263,9 +289,11 @@
         <h2>Transport Layer</h2>
         <p>
           As specified in
-          <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank">tzip-10</a>
+          <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank" rel="noopener">
+            tzip-10
+          </a>
           Beacon utilizes a peer to peer network built with the
-          <a href="https://matrix.org/" target="_blank">matrix protocol</a>
+          <a href="https://matrix.org/" target="_blank" rel="noopener">matrix protocol</a>
           to transport messages from the dApps to the Wallets thus leveraging a decentralized approach.
         </p>
       </ion-col>
@@ -280,9 +308,11 @@
         <h2>Message Types</h2>
         <p>
           The following message types have been implemented from the
-          <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank">tzip-10</a>
+          <a href="https://gitlab.com/tzip/tzip/tree/master/proposals/tzip-10" target="_blank" rel="noopener">
+            tzip-10
+          </a>
           standard in the
-          <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a>
+          <a href="https://github.com/airgap-it/beacon-sdk" target="_blank" rel="noopener">beacon-sdk</a>
           . Examples for each messaging type have been implemented below.
         </p>
         <ion-row class="ion-padding-vertical">
@@ -291,7 +321,7 @@
               <ion-card-content>
                 <strong>Detailed Documentation</strong>
                 can also be found in the
-                <a href="http://docs.walletbeacon.io/" target="_blank">Beacon SDK Documentation.</a>
+                <a href="http://docs.walletbeacon.io/" target="_blank" rel="noopener">Beacon SDK Documentation.</a>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -302,7 +332,11 @@
       <ion-col size-md="6">
         <h3>
           permissionRequest
-          <a href="https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md#1-permission" target="_blank">
+          <a
+            href="https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md#1-permission"
+            target="_blank"
+            rel="noopener"
+          >
             <ion-icon name="open" color="medium" mode="ios"></ion-icon>
           </a>
         </h3>
@@ -416,6 +450,7 @@
           <a
             href="https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md#3-payment-request"
             target="_blank"
+            rel="noopener"
           >
             <ion-icon name="open" color="medium" mode="ios"></ion-icon>
           </a>
@@ -540,6 +575,7 @@
           <a
             href="https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md#2-sign-payload"
             target="_blank"
+            rel="noopener"
           >
             <ion-icon name="open" color="medium" mode="ios"></ion-icon>
           </a>
@@ -569,6 +605,7 @@
           <a
             href="https://gitlab.com/tzip/tzip/blob/master/proposals/tzip-10/tzip-10.md#4-broadcast-transactions"
             target="_blank"
+            rel="noopener"
           >
             <ion-icon name="open" color="medium" mode="ios"></ion-icon>
           </a>
@@ -615,7 +652,7 @@
           <ion-col size-md="4" size="12">
             <h5>
               SDK
-              <a href="https://github.com/airgap-it/beacon-sdk" target="_blank">
+              <a href="https://github.com/airgap-it/beacon-sdk" target="_blank" rel="noopener">
                 <ion-icon name="open" color="medium" mode="ios"></ion-icon>
               </a>
             </h5>
@@ -628,7 +665,7 @@
           <ion-col size-md="4" size="12">
             <h5>
               Android SDK
-              <a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank">
+              <a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank" rel="noopener">
                 <ion-icon name="open" color="medium" mode="ios"></ion-icon>
               </a>
             </h5>
@@ -639,7 +676,7 @@
           <ion-col size-md="4" size="12">
             <h5>
               iOS SDK
-              <a href="https://github.com/airgap-it/beacon-ios-sdk" target="_blank">
+              <a href="https://github.com/airgap-it/beacon-ios-sdk" target="_blank" rel="noopener">
                 <ion-icon name="open" color="medium" mode="ios"></ion-icon>
               </a>
             </h5>
@@ -650,7 +687,11 @@
           <ion-col size-md="4" size="12">
             <h5>
               Extension
-              <a href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn" target="_blank">
+              <a
+                href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn"
+                target="_blank"
+                rel="noopener"
+              >
                 <ion-icon name="open" color="medium" mode="ios"></ion-icon>
               </a>
             </h5>
@@ -662,7 +703,7 @@
           <ion-col size-md="4" size="12">
             <h5>
               dApp
-              <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank">
+              <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank" rel="noopener">
                 <ion-icon name="open" color="medium" mode="ios"></ion-icon>
               </a>
             </h5>
@@ -683,27 +724,37 @@
             <img src="assets/img/beacon_logoy_type_hor_padding.svg" class="ion-padding-top" />
             <p>
               Beacon is developed and maintained by
-              <a href="https://airgap.it" target="_blank">AirGap</a>
+              <a href="https://airgap.it" target="_blank" rel="noopener">AirGap</a>
               .
             </p>
           </ion-col>
           <ion-col size="12" size-md="3">
             <h6>Developers</h6>
             <ul class="ion-no-padding">
-              <li><a href="https://github.com/airgap-it/beacon-sdk" target="_blank">beacon-sdk</a></li>
-              <li><a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank">beacon-android-sdk</a></li>
-              <li><a href="https://github.com/airgap-it/beacon-extension" target="_blank">beacon-extension</a></li>
+              <li><a href="https://github.com/airgap-it/beacon-sdk" target="_blank" rel="noopener">beacon-sdk</a></li>
               <li>
-                <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank">beacon-example-dapp</a>
+                <a href="https://github.com/airgap-it/beacon-android-sdk" target="_blank" rel="noopener">
+                  beacon-android-sdk
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/airgap-it/beacon-extension" target="_blank" rel="noopener">
+                  beacon-extension
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank" rel="noopener">
+                  beacon-example-dapp
+                </a>
               </li>
             </ul>
           </ion-col>
           <ion-col size="12" size-md="3">
             <h6>Social Media</h6>
             <ul class="ion-no-padding">
-              <li><a href="https://twitter.com/AirGap_it" target="_blank">Twitter</a></li>
-              <li><a href="https://medium.com/airgap-it" target="_blank">Medium</a></li>
-              <li><a href="https://t.me/AirGap" target="_blank">Telegram</a></li>
+              <li><a href="https://twitter.com/AirGap_it" target="_blank" rel="noopener">Twitter</a></li>
+              <li><a href="https://medium.com/airgap-it" target="_blank" rel="noopener">Medium</a></li>
+              <li><a href="https://t.me/AirGap" target="_blank" rel="noopener">Telegram</a></li>
             </ul>
           </ion-col>
         </ion-row>

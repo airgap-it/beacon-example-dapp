@@ -23,7 +23,7 @@
   },
   "private": true,
   "dependencies": {
-    "@airgap/beacon-sdk": "2.0.1",
+    "@airgap/beacon-sdk": "^2.0.2-beta.1",
     "@angular/common": "^11.0.3",
     "@angular/core": "^11.0.3",
     "@angular/forms": "^11.0.3",

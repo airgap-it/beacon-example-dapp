@@ -68,8 +68,8 @@ export class HomePage {
     }
   ]`
 
-  public unsignedTransaction: string =
-    'f8f9b125f7ef6bbae5ee27f4612220ac93aa7c392ac5f548d15e18c2bd9a7d926c00075da6a7c0ec09c550623fefd8a9cdf40d3d9910ad8100e1dc5fbc500001000012548f71994cb2ce18072d0dcb568fe35fb7493000'
+  public unsignedPayload: string =
+    'test'
   public broadcastTransaction: string =
     '1ef017b560494ae7b102be63f4d64e64d70114ff4652df23f34ae4460645b3266b00641b67c32672f0b11263b89b05b51e42faa64a3f940ad8d79101904e0000c64ac48e550c2c289af4c5ce5fe52ca7ba7a91d1a411745313e154eff8d118f16c00641b67c32672f0b11263b89b05b51e42faa64a3fdc0bd9d79101bc5000000000641b67c32672f0b11263b89b05b51e42faa64a3f0085dcfbba4a00c5b4f89914c1819ccd8466f6328b74073d50406394e59fe32d89e62112fec2d5a9bc1e6787206fe50e26f90999ae3061ca76247b57e08b6e490a'
 
@@ -246,7 +246,7 @@ export class HomePage {
     }
 
     await this.beaconService.client.requestSignPayload({
-      payload: this.unsignedTransaction,
+      payload: this.unsignedPayload,
       sourceAddress: this.activeAccount.address
     })
   }

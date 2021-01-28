@@ -580,20 +580,20 @@
             <ion-icon name="open" color="medium" mode="ios"></ion-icon>
           </a>
         </h3>
-        <p class="ion-padding-bottom">dApp requests that a payload is signed.</p>
+        <p class="ion-padding-bottom">dApp requests that a payload (arbitrary string) is signed.</p>
       </ion-col>
       <ion-col size="12" size-md="9" class="ion-no-padding">
         <ion-card class="ion-no-margin">
           <ion-card-content>
             <ion-card-subtitle>
-              Sign Transaction
+              Sign Payload
             </ion-card-subtitle>
             <ion-item lines="none" class="ion-no-padding">
-              <ion-label position="stacked">Unsigned Transaction</ion-label>
-              <ion-textarea [(ngModel)]="unsignedTransaction"></ion-textarea>
+              <ion-label position="stacked">Payload</ion-label>
+              <ion-textarea [(ngModel)]="unsignedPayload"></ion-textarea>
             </ion-item>
           </ion-card-content>
-          <ion-button (click)="sign()" class="ion-margin">Sign Transaction</ion-button>
+          <ion-button (click)="sign()" class="ion-margin">Sign Payload</ion-button>
         </ion-card>
       </ion-col>
     </ion-row>

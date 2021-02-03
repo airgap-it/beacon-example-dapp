@@ -15,16 +15,7 @@
           <br />
           Connect dApps with Wallets
         </h1>
-        <ion-button (click)="askForPermissions()">Connect Beacon</ion-button>
-        <a
-          href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn"
-          target="_blank"
-          rel="noopener"
-        >
-          <ion-button fill="outline">
-            Download Extension
-          </ion-button>
-        </a>
+        <ion-button (click)="askForPermissions()">Connect Wallet</ion-button>
       </ion-col>
       <ion-col>
         <img src="assets/img/beacon_illu_hero.svg" />
@@ -102,15 +93,12 @@
         </ion-row>
       </ion-col>
     </ion-row>
+    <!--
     <ion-row class="ion-padding-bottom" id="approach">
       <ion-col size="12" size-md="6" class="ion-no-padding ion-padding-vertical">
         <h2>Approach</h2>
         <p>
-          For the user there are two option to interact with dApps.
-        </p>
-        <p>
-          Either a browser extension is installed that communicates with the dApp and wallet by only pairing them once
-          or each dApp is paired directly with the wallet.
+          Beacon supports various wallets ranging from Browser Extensions to mobile, desktop, web and hardware wallets.
         </p>
       </ion-col>
       <ion-col size="12" class="ion-no-padding">
@@ -165,6 +153,7 @@
         </ion-row>
       </ion-col>
     </ion-row>
+    -->
     <ion-row class="ion-padding-bottom integration--container" id="wallets_dapps">
       <ion-col size="12" size-md="6" class="ion-no-padding ion-padding-vertical">
         <h2>Wallets & dApps</h2>
@@ -174,8 +163,7 @@
           to support a simple interaction for their users.
         </p>
         <p>
-          More Wallets and dApps will follow in the near future. If you're supporting Beacon in your project, please
-          reach out to us to be listed.
+          If you're supporting Beacon in your project, please reach out to us to be listed.
         </p>
       </ion-col>
       <ion-col size="12" class="ion-no-padding">
@@ -193,6 +181,14 @@
           </ion-col>
           <ion-col size="12" size-md="4">
             <beacon-supporting-project-item
+              [logo]="'galleon_logo.png'"
+              [description]="'<strong>Galleon</strong> is a deployment of Tezori, an open source wallet framework for Teups wallets, supporting both software and hardware wallets in eight languages on Mac, Windows, and Linux.'"
+              [btnLink]="'https://github.com/Cryptonomic/Deployments/wiki/Galleon:-Releases'"
+              [btnDescription]="'Download'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
               [logo]="'kukai.jpg'"
               [description]="'<strong>Kukai</strong> is a Tezos web wallet based on three principles: Security, Community and Reliability. Kukai supports DirectAuth, Ledger hardware wallets and local secret option.'"
               [btnLink]="'https://kukai.app/'"
@@ -202,7 +198,15 @@
           <ion-col size="12" size-md="4">
             <beacon-supporting-project-item
               [logo]="'ledger_logo.svg'"
-              [description]="'Communication with <strong>Ledger</strong> hardware wallets is natively supported in the <strong>Beacon Extension</strong>, allowing any operation to be signed with a Ledger hardware wallet.'"
+              [description]="'Communication with <strong>Ledger</strong> hardware wallets is natively supported in <strong>Kukai, Spire or Thanos</strong>, allowing any operation to be signed with a Ledger hardware wallet.'"
+              [btnLink]="'https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn'"
+              [btnDescription]="'Download'"
+            ></beacon-supporting-project-item>
+          </ion-col>
+          <ion-col size="12" size-md="4">
+            <beacon-supporting-project-item
+              [logo]="'spire_logo.svg'"
+              [description]="'<strong>Spire</strong> is a Browser Extension wallet that supports signing with a local private key, Ledger hardware wallets and the connection to other wallets like AirGap or Kukai.'"
               [btnLink]="'https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn'"
               [btnDescription]="'Download'"
             ></beacon-supporting-project-item>
@@ -686,7 +690,19 @@
           </ion-col>
           <ion-col size-md="4" size="12">
             <h5>
-              Extension
+              Example dApp
+              <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank" rel="noopener">
+                <ion-icon name="open" color="medium" mode="ios"></ion-icon>
+              </a>
+            </h5>
+            <p>
+              The Beacon Example dApp is a reference implementation of a dApp that uses the beacon-sdk with various
+              examples of the different message types.
+            </p>
+          </ion-col>
+          <ion-col size-md="4" size="12">
+            <h5>
+              Spire
               <a
                 href="https://chrome.google.com/webstore/detail/gpfndedineagiepkpinficbcbbgjoenn"
                 target="_blank"
@@ -696,20 +712,8 @@
               </a>
             </h5>
             <p class="ion-padding-end">
-              The Beacon Extension implements the beacon-sdk to interact with dApps that have implemented the beacon-sdk
-              and use the various signing methods.
-            </p>
-          </ion-col>
-          <ion-col size-md="4" size="12">
-            <h5>
-              dApp
-              <a href="https://github.com/airgap-it/beacon-example-dapp" target="_blank" rel="noopener">
-                <ion-icon name="open" color="medium" mode="ios"></ion-icon>
-              </a>
-            </h5>
-            <p>
-              The Beacon Example dApp is the reference implementation of a dApp that uses the beacon-sdk with various
-              examples of the different message types.
+              Spire implements the beacon-sdk to interact with dApps that have implemented the beacon-sdk and use the
+              various signing methods.
             </p>
           </ion-col>
         </ion-row>

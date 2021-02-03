@@ -15,7 +15,7 @@ import { ScrollService } from './services/scroll/scroll.service'
 export class AppComponent {
   @ViewChild(HomePage, { read: HomePage }) public myContent!: HomePage
 
-  public selectedTab: string = 'approach'
+  public selectedTab: string = 'wallets_dapps'
   public connectionStatus$: Observable<string>
   public activeAccount$: Observable<AccountInfo>
   public beaconSdkVersion: string = SDK_VERSION

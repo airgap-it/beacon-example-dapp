@@ -7,12 +7,12 @@ import { BehaviorSubject, Subject } from 'rxjs'
 export class ScrollService {
   constructor() {}
 
-  private currentTab: string = 'approach'
+  private currentTab: string = 'wallets_dapps'
   private readonly scrollSource = new Subject<any>()
-  private readonly selectedTabSource = new BehaviorSubject<string>('approach')
+  private readonly selectedTabSource = new BehaviorSubject<string>('wallets_dapps')
 
   private readonly tabsInOrder = [
-    'approach',
+    /* 'approach', */
     'wallets_dapps',
     'transport_layer',
     'message_types',
